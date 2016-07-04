@@ -1,0 +1,14 @@
+<resources>
+
+    <declare-styleable name="InfoView">
+        <attr name="_title" format="string" />
+        <attr name="_title_color" format="reference" />
+        <attr name="_content" format="string" />
+        <attr name="_hint" format="string" />
+        <attr name="_right_text" format="string" />
+        <attr name="_is_request" format="boolean" />
+        <attr name="_show_arrow" format="boolean" />
+        <attr name="_date_type" format="integer" />
+        <attr name="_show_now" format="boolean" />
+    </declare-styleable>
+</resources>

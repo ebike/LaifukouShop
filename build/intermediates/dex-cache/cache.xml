@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/huguangwen/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.0.0/5c06d197fb7fa875ad452f562e3310dd9949d066/retrofit-2.0.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="5c06d197fb7fa875ad452f562e3310dd9949d066">
+        <dex dex="/Users/huguangwen/Documents/Code/git/LaifukouShop/app/build/intermediates/pre-dexed/debug/retrofit-2.0.0-b730d9b8e50489ed6f9fb78a4f7515e77feb2a20.jar" />
+    </item>
+    <item
+        jar="/Users/huguangwen/Documents/Code/git/LaifukouShop/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="debf30ce0a7560396b6235edef77e447006454c2">
+        <dex dex="/Users/huguangwen/Documents/Code/git/LaifukouShop/app/build/intermediates/pre-dexed/debug/classes-b37a476cc914adb3fcb1c8e96a3db0b29c1d09fc.jar" />
+    </item>
+    <item
+        jar="/Users/huguangwen/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/converter-gson/2.0.0/49eb3ad545e7701234e4dd83db8dc1344b577f23/converter-gson-2.0.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="49eb3ad545e7701234e4dd83db8dc1344b577f23">
+        <dex dex="/Users/huguangwen/Documents/Code/git/LaifukouShop/app/build/intermediates/pre-dexed/debug/converter-gson-2.0.0-d183cf421eae0b6e1e6c17b0edd30b5bf213fe70.jar" />
+    </item>
+    <item
+        jar="/Users/huguangwen/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife/7.0.1/d5d13ea991eab0252e3710e5df3d6a9d4b21d461/butterknife-7.0.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="d5d13ea991eab0252e3710e5df3d6a9d4b21d461">
+        <dex dex="/Users/huguangwen/Documents/Code/git/LaifukouShop/app/build/intermediates/pre-dexed/debug/butterknife-7.0.1-473e6da98a03026c10d6cbd884bdaffcc62e71bd.jar" />
+    </item>
+    <item
+        jar="/Users/huguangwen/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.6.0/98476622f10715998eacf9240d6b479f12c66143/okio-1.6.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="98476622f10715998eacf9240d6b479f12c66143">
+        <dex dex="/Users/huguangwen/Documents/Code/git/LaifukouShop/app/build/intermediates/pre-dexed/debug/okio-1.6.0-389d4e798dc6c8688ea245deb2d6b378c10db868.jar" />
+    </item>
+    <item
+        jar="/Users/huguangwen/Documents/Code/git/LaifukouShop/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.3.0/jars/libs/internal_impl-23.3.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="4da5a4d697d32497c6f85567a5112e62fdfd0676">
+        <dex dex="/Users/huguangwen/Documents/Code/git/LaifukouShop/app/build/intermediates/pre-dexed/debug/internal_impl-23.3.0-e5a68dae23c854cd461408ce373e6716b2f9a512.jar" />
+    </item>
+    <item
+        jar="/Users/huguangwen/Documents/Code/git/LaifukouShop/app/build/intermediates/exploded-aar/com.zhy/percent-support-extends/1.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="29ff8e178d6ef33c8673f430651500068642f833">
+        <dex dex="/Users/huguangwen/Documents/Code/git/LaifukouShop/app/build/intermediates/pre-dexed/debug/classes-d39b8e6c48a08d9efe5060c6b7ff5003023f3438.jar" />
+    </item>
+    <item
+        jar="/Users/huguangwen/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/3.7.0/9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4/glide-3.7.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4">
+        <dex dex="/Users/huguangwen/Documents/Code/git/LaifukouShop/app/build/intermediates/pre-dexed/debug/glide-3.7.0-81d25c750f5f24b66c01725f647f3aa88c6044a8.jar" />
+    </item>
+    <item
+        jar="/Users/huguangwen/Documents/Code/git/LaifukouShop/app/build/intermediates/exploded-aar/com.bigkoo/convenientbanner/2.0.5/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="b99798f653c15a17af6779bb9f01a66f2ee6e6ef">
+        <dex dex="/Users/huguangwen/Documents/Code/git/LaifukouShop/app/build/intermediates/pre-dexed/debug/classes-066c683ec119ff504b201695cce4f6c29db784fb.jar" />
+    </item>
+    <item
+        jar="/Users/huguangwen/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.3.0/support-annotations-23.3.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="db7791d75a07fef9844d06236c1c59ba7bf6997c">
+        <dex dex="/Users/huguangwen/Documents/Code/git/LaifukouShop/app/build/intermediates/pre-dexed/debug/support-annotations-23.3.0-c9c2eac2997e34a842d5839513810f5983c2ea8d.jar" />
+    </item>
+    <item
+        jar="/Users/huguangwen/Documents/Code/git/LaifukouShop/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="8a034dd16c0dfd75fe86c52c2cd581592acc684a">
+        <dex dex="/Users/huguangwen/Documents/Code/git/LaifukouShop/app/build/intermediates/pre-dexed/debug/classes-0323656d180d7fc01cb297cd72affc2945517a49.jar" />
+    </item>
+    <item
+        jar="/Users/huguangwen/Documents/Code/git/LaifukouShop/app/build/intermediates/exploded-aar/io.reactivex/rxandroid/1.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="d4c4b83de2f6412072d2a29b1b7a5b03edaad5ff">
+        <dex dex="/Users/huguangwen/Documents/Code/git/LaifukouShop/app/build/intermediates/pre-dexed/debug/classes-dc3b3afbf9b0773fafae29bfd01fa24fc13a56bd.jar" />
+    </item>
+    <item
+        jar="/Users/huguangwen/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/adapter-rxjava/2.0.0/bf61256d9868ea053e24d77669c55c80db375c15/adapter-rxjava-2.0.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="bf61256d9868ea053e24d77669c55c80db375c15">
+        <dex dex="/Users/huguangwen/Documents/Code/git/LaifukouShop/app/build/intermediates/pre-dexed/debug/adapter-rxjava-2.0.0-f3e3fc09617577f9351811785f12d3edbe882929.jar" />
+    </item>
+    <item
+        jar="/Users/huguangwen/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.2.0/f7873a2ebde246a45c2a8d6f3247108b4c88a879/okhttp-3.2.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="f7873a2ebde246a45c2a8d6f3247108b4c88a879">
+        <dex dex="/Users/huguangwen/Documents/Code/git/LaifukouShop/app/build/intermediates/pre-dexed/debug/okhttp-3.2.0-1316543eaad6a813003518a3f5d2cd8f85e978f0.jar" />
+    </item>
+    <item
+        jar="/Users/huguangwen/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.6.2/f1bc476cc167b18e66c297df599b2377131a8947/gson-2.6.2.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="f1bc476cc167b18e66c297df599b2377131a8947">
+        <dex dex="/Users/huguangwen/Documents/Code/git/LaifukouShop/app/build/intermediates/pre-dexed/debug/gson-2.6.2-9d67ca5fc611a5fee4e048db49423cf94bd43618.jar" />
+    </item>
+    <item
+        jar="/Users/huguangwen/.gradle/caches/modules-2/files-2.1/io.reactivex/rxjava/1.1.1/b494968f6050d494de55dc3ce005e59c7eb40012/rxjava-1.1.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="b494968f6050d494de55dc3ce005e59c7eb40012">
+        <dex dex="/Users/huguangwen/Documents/Code/git/LaifukouShop/app/build/intermediates/pre-dexed/debug/rxjava-1.1.1-dd83b101f9f2343c7736b97ebe6a8d79b5693b70.jar" />
+    </item>
+    <item
+        jar="/Users/huguangwen/Documents/Code/git/LaifukouShop/app/build/intermediates/exploded-aar/com.githang/iconpagerindicator/1.2/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="0f0fec5319be52121bde392d8cd8fcd936f06395">
+        <dex dex="/Users/huguangwen/Documents/Code/git/LaifukouShop/app/build/intermediates/pre-dexed/debug/classes-5a3583cb4c52b1128049ebb9f63d0918e90bcdcf.jar" />
+    </item>
+    <item
+        jar="/Users/huguangwen/Documents/Code/git/LaifukouShop/app/build/intermediates/exploded-aar/com.github.Aspsine/IRecyclerView/0.0.3/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="64a7e7e3f731948c3d144cddd846da263c9e2c99">
+        <dex dex="/Users/huguangwen/Documents/Code/git/LaifukouShop/app/build/intermediates/pre-dexed/debug/classes-be2c9328abf564965e3ab51033d1dabb018d0b37.jar" />
+    </item>
+    <item
+        jar="/Users/huguangwen/Documents/Code/git/LaifukouShop/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
+        <dex dex="/Users/huguangwen/Documents/Code/git/LaifukouShop/app/build/intermediates/pre-dexed/debug/classes-5b3a2051e9880c32f6461ad6e41b677b7b7e043f.jar" />
+    </item>
+
+</items>

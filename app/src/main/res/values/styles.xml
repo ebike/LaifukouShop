@@ -1,0 +1,79 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorAccent">@color/black</item>
+    </style>
+
+    <!-- 加载框的样式 -->
+    <style name="Custom_Progress" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="style_base_w">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="white_10" parent="@style/style_base_w">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="black_12" parent="@style/style_base_w">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="black_14" parent="@style/style_base_w">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="black_16" parent="@style/style_base_w">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="black_18" parent="@style/style_base_w">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="gray_12" parent="@style/style_base_w">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/text_gray</item>
+    </style>
+
+    <style name="gray_14" parent="@style/style_base_w">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/text_gray</item>
+    </style>
+
+    <style name="gray_16" parent="@style/style_base_w">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/text_gray</item>
+    </style>
+
+    <style name="gray_18" parent="@style/style_base_w">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/text_gray</item>
+    </style>
+
+    <style name="main_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">@color/main_line</item>
+    </style>
+
+</resources>

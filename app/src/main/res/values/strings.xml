@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">聚缘商城</string>
+    <string name="home">首页</string>
+    <string name="sorts">分类</string>
+    <string name="recommend">推荐</string>
+    <string name="cart">购物车</string>
+    <string name="my">我的</string>
+    <string name="message">消息</string>
+</resources>

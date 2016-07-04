@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/red"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp">
+
+        <TextView
+            android:id="@+id/tv_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@mipmap/bg_head_search"
+            android:drawableLeft="@mipmap/icon_head_search"
+            android:drawablePadding="4dp"
+            android:hint="商品名称"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:textColorHint="@color/white"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_message"
+            style="@style/white_10"
+            android:drawablePadding="4dp"
+            android:drawableTop="@mipmap/icon_head_msg"
+            android:paddingLeft="8dp"
+            android:paddingRight="16dp"
+            android:text="@string/message" />
+
+    </LinearLayout>
+
+    <View style="@style/main_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ListView
+            android:id="@+id/lv_first_sorts"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:cacheColorHint="@color/transparent"
+            android:divider="@color/main_line"
+            android:dividerHeight="1dp"
+            android:fadingEdge="none"
+            android:fastScrollEnabled="false"
+            android:footerDividersEnabled="false"
+            android:headerDividersEnabled="false"
+            android:listSelector="@color/transparent"
+            android:scrollbars="none"
+            android:scrollingCache="false"
+            android:smoothScrollbar="true" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:scrollbars="none">
+
+            <com.laifukou.laifukoushop.view.ScrollGridView
+                android:id="@+id/gv_second_sorts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:numColumns="3" />
+        </ScrollView>
+    </LinearLayout>
+</LinearLayout>

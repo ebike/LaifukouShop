@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.laifukou.laifukoushop.view.pullrefresh.PullToRefreshScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_bg"
+        android:overScrollMode="never"
+        android:scrollbars="none" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp">
+
+        <TextView
+            android:id="@+id/tv_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@mipmap/bg_head_search"
+            android:drawableLeft="@mipmap/icon_head_search"
+            android:drawablePadding="4dp"
+            android:hint="商品名称"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:textColorHint="@color/white"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_message"
+            style="@style/white_10"
+            android:drawablePadding="4dp"
+            android:drawableTop="@mipmap/icon_head_msg"
+            android:paddingLeft="8dp"
+            android:paddingRight="16dp"
+            android:text="@string/message" />
+
+    </LinearLayout>
+
+</FrameLayout>

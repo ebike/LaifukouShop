@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="main_bg">#EEEEEE</color>
+    <color name="text_gray">#333333</color>
+    <color name="text_selected">#AA000C</color>
+    <color name="main_line">#ECECEC</color>
+    <color name="text_gray1">#666666</color>
+    <color name="blue">#0DCEF1</color>
+    <color name="orange">#FF7D03</color>
+    <color name="red">#D60E19</color>
+    <color name="purple">#A75AD7</color>
+    <color name="green">#2EB75E</color>
+    <color name="transparent">#00000000</color>
+
+
+</resources>

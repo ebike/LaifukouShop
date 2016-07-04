@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="bottom_tab_icon_hover">
+        <item>@mipmap/icon_menu_home_hover</item>
+        <item>@mipmap/icon_menu_sorts_hover</item>
+        <item>@mipmap/icon_menu_recommend_hover</item>
+        <item>@mipmap/icon_menu_cart_hover</item>
+        <item>@mipmap/icon_menu_my_hover</item>
+    </integer-array>
+
+    <integer-array name="bottom_tab_icon">
+        <item>@mipmap/icon_menu_home</item>
+        <item>@mipmap/icon_menu_sorts</item>
+        <item>@mipmap/icon_menu_recommend</item>
+        <item>@mipmap/icon_menu_cart</item>
+        <item>@mipmap/icon_menu_my</item>
+    </integer-array>
+
+    <integer-array name="home_navigation">
+        <item>@mipmap/icon_nav_shop</item>
+        <item>@mipmap/icon_nav_gold_coin</item>
+        <item>@mipmap/icon_nav_coin</item>
+        <item>@mipmap/icon_nav_recharge</item>
+        <item>@mipmap/icon_nav_help</item>
+        <item>@mipmap/icon_nav_new</item>
+        <item>@mipmap/icon_nav_hot</item>
+        <item>@mipmap/icon_nav_sorts</item>
+    </integer-array>
+
+    <string-array name="home_navigation_name">
+        <item>联盟商家</item>
+        <item>莱芙蔻金币</item>
+        <item>莱芙蔻币</item>
+        <item>充值返现</item>
+        <item>互助产业</item>
+        <item>最新上架</item>
+        <item>热销商品</item>
+        <item>所有分类</item>
+    </string-array>
+</resources>
