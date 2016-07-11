@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.laifukou.laifukoushop">
+    package="com.laifukou.laifukoushop" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 网络状态权限 -->
@@ -12,11 +12,10 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".activity.WelcomeActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,13 +23,20 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:host="splash" android:scheme="laifukoushop" />
+
+                <data
+                    android:host="splash"
+                    android:scheme="laifukoushop" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".activity.MainActivity"/>
+        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.ShopActivity" >
+        </activity>
+        <activity android:name=".activity.GoodsActivity" >
+        </activity>
     </application>
 
 </manifest>

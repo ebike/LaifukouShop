@@ -2,9 +2,11 @@ package com.laifukou.laifukoushop.http;
 
 
 import com.laifukou.laifukoushop.model.CommonDataModel;
+import com.laifukou.laifukoushop.model.CommonListModel;
 import com.laifukou.laifukoushop.model.HomePageDataModel;
 import com.laifukou.laifukoushop.model.HomeScrollImageModel;
 import com.laifukou.laifukoushop.model.HttpResult;
+import com.laifukou.laifukoushop.model.ShopModel;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -107,6 +109,14 @@ public class HttpMethods {
     public void getSecondSorts(Subscriber<List<CommonDataModel>> subscriber, String sortId) {
         Observable observable = apiService.getSecondSorts(sortId)
                 .map(new HttpResultFunc<List<CommonDataModel>>());
+
+        toSubscribe(observable, subscriber);
+    }
+
+    //搜索店铺
+    public void searchShop(Subscriber<CommonListModel<List<ShopModel>>> subscriber, String shopName, int page) {
+        Observable observable = apiService.searchShop(shopName, page)
+                .map(new HttpResultFunc<CommonListModel<List<ShopModel>>>());
 
         toSubscribe(observable, subscriber);
     }

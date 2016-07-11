@@ -65,6 +65,11 @@ public class PullToRefreshGridView extends PullToRefreshBase<GridView> implement
         
         return gridView;
     }
+
+    @Override
+    protected LoadingLayout createHeaderLoadingLayout(Context context, AttributeSet attrs) {
+        return new RotateLoadingLayout(context);
+    }
     
     /**
      * 设置是否有更多数据的标志

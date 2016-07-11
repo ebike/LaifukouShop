@@ -1,11 +1,13 @@
 package com.laifukou.laifukoushop.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 
@@ -14,9 +16,11 @@ import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
 import com.bumptech.glide.Glide;
 import com.laifukou.laifukoushop.R;
+import com.laifukou.laifukoushop.activity.GoodsActivity;
+import com.laifukou.laifukoushop.activity.ShopActivity;
 import com.laifukou.laifukoushop.adapter.GoodsAdapter;
 import com.laifukou.laifukoushop.adapter.NavigationAdapter;
-import com.laifukou.laifukoushop.adapter.ShopAdapter;
+import com.laifukou.laifukoushop.adapter.HighQualityShopAdapter;
 import com.laifukou.laifukoushop.adapter.SortsAdapter1;
 import com.laifukou.laifukoushop.adapter.SortsAdapter2;
 import com.laifukou.laifukoushop.common.fragment.LazyFragment;
@@ -52,7 +56,7 @@ public class HomeFragment extends LazyFragment {
     ScrollGridView sortsView2;
     ScrollGridView goodsView;
     private NavigationAdapter navigationAdapter;
-    private ShopAdapter shopAdapter;
+    private HighQualityShopAdapter highQualityShopAdapter;
     private GoodsAdapter goodsAdapter;
     private SortsAdapter1 sortsAdapter1;
     private SortsAdapter2 sortsAdapter2;
@@ -128,9 +132,18 @@ public class HomeFragment extends LazyFragment {
     }
 
     private void initShops(List<HomePageDataItemModel> modelList) {
-        shopAdapter = new ShopAdapter(getActivity());
-        shopsView.setAdapter(shopAdapter);
-        shopAdapter.setList(modelList);
+        highQualityShopAdapter = new HighQualityShopAdapter(getActivity());
+        shopsView.setAdapter(highQualityShopAdapter);
+        highQualityShopAdapter.setList(modelList);
+        shopsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                HomePageDataItemModel model = (HomePageDataItemModel) parent.getItemAtPosition(position);
+//                Intent intent = new Intent(getActivity(),ShopActivity.class);
+//                intent.putExtra("",model);
+//                startActivity(intent);
+            }
+        });
     }
 
     private void initNavigation() {
@@ -149,6 +162,37 @@ public class HomeFragment extends LazyFragment {
         navigationAdapter = new NavigationAdapter(getActivity());
         navigationView.setAdapter(navigationAdapter);
         navigationAdapter.setList(modelList);
+        navigationView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent;
+                switch (position) {
+                    case 0://联盟商家
+                        startActivity(new Intent(getActivity(), ShopActivity.class));
+                        break;
+                    case 1://金币专区
+                        intent = new Intent(getActivity(), GoodsActivity.class);
+                        intent.putExtra("pageSorts", "2");
+                        startActivity(intent);
+                        break;
+                    case 2://银币专区
+                        intent = new Intent(getActivity(), GoodsActivity.class);
+                        intent.putExtra("pageSorts", "3");
+                        startActivity(intent);
+                        break;
+                    case 5://最新上架
+                        intent = new Intent(getActivity(), GoodsActivity.class);
+                        intent.putExtra("pageSorts", "12");
+                        startActivity(intent);
+                        break;
+                    case 6://热销商品
+                        intent = new Intent(getActivity(), GoodsActivity.class);
+                        intent.putExtra("pageSorts", "11");
+                        startActivity(intent);
+                        break;
+                }
+            }
+        });
     }
 
     private void initBanner() {

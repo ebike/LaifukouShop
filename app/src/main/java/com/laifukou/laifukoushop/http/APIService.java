@@ -1,9 +1,11 @@
 package com.laifukou.laifukoushop.http;
 
 import com.laifukou.laifukoushop.model.CommonDataModel;
+import com.laifukou.laifukoushop.model.CommonListModel;
 import com.laifukou.laifukoushop.model.HomePageDataModel;
 import com.laifukou.laifukoushop.model.HomeScrollImageModel;
 import com.laifukou.laifukoushop.model.HttpResult;
+import com.laifukou.laifukoushop.model.ShopModel;
 
 import java.util.List;
 
@@ -27,5 +29,14 @@ public interface APIService {
 
     //根据商品一级分类，获取分类下信息
     @GET("home/getSecondSorts.do")
-    Observable<HttpResult<List<CommonDataModel>>> getSecondSorts(@Query("sortId") String sortId);
+    Observable<HttpResult<List<CommonDataModel>>> getSecondSorts(
+            @Query("sortId") String sortId
+    );
+
+    //搜索店铺
+    @GET("shop/searchShop.do")
+    Observable<HttpResult<CommonListModel<List<ShopModel>>>> searchShop(
+            @Query("key") String shopName,
+            @Query("page") int page
+    );
 }

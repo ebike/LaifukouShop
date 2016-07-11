@@ -9,14 +9,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.laifukou.laifukoushop.R;
-import com.laifukou.laifukoushop.model.HomePageDataItemModel;
-import com.laifukou.laifukoushop.util.StringUtils;
+import com.laifukou.laifukoushop.model.ShopModel;
 import com.laifukou.laifukoushop.view.ViewHolder;
 
 /**
- * 优质商家
+ * 商家
  */
-public class ShopAdapter extends TAdapter<HomePageDataItemModel> {
+public class ShopAdapter extends TAdapter<ShopModel> {
 
     public ShopAdapter(Context mContext) {
         super(mContext);
@@ -28,22 +27,17 @@ public class ShopAdapter extends TAdapter<HomePageDataItemModel> {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.adapter_shop, parent, false);
         }
 
-        TextView titleView = ViewHolder.get(convertView, R.id.tv_title);
-        TextView contentView = ViewHolder.get(convertView, R.id.tv_content);
+        TextView nameView = ViewHolder.get(convertView, R.id.tv_name);
+        TextView descView = ViewHolder.get(convertView, R.id.tv_desc);
         ImageView pictureView = ViewHolder.get(convertView, R.id.iv_picture);
-        TextView promotionView = ViewHolder.get(convertView, R.id.tv_promotion);
+        ImageView hotView = ViewHolder.get(convertView, R.id.iv_hot);
 
-        HomePageDataItemModel model = mList.get(position);
+        ShopModel model = mList.get(position);
         if (model != null) {
-            titleView.setText(model.title);
-            contentView.setText(model.content);
-            if (!StringUtils.strIsEmpty(model.promotionType) && model.promotionType.equals("1")) {
-                promotionView.setVisibility(View.VISIBLE);
-            } else {
-                promotionView.setVisibility(View.GONE);
-            }
+            nameView.setText(model.shopName);
+            descView.setText(model.title);
             Glide.with(mContext)
-                    .load(model.imageUrl)
+                    .load(model.cover)
                     .placeholder(R.mipmap.icon_no_pic)
                     .error(R.mipmap.icon_no_pic)
                     .centerCrop()
