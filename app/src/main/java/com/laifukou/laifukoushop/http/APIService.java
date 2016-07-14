@@ -2,15 +2,18 @@ package com.laifukou.laifukoushop.http;
 
 import com.laifukou.laifukoushop.model.CommonDataModel;
 import com.laifukou.laifukoushop.model.CommonListModel;
+import com.laifukou.laifukoushop.model.GoodsModel;
 import com.laifukou.laifukoushop.model.HomePageDataModel;
 import com.laifukou.laifukoushop.model.HomeScrollImageModel;
 import com.laifukou.laifukoushop.model.HttpResult;
 import com.laifukou.laifukoushop.model.ShopModel;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 import rx.Observable;
 
 public interface APIService {
@@ -39,4 +42,12 @@ public interface APIService {
             @Query("key") String shopName,
             @Query("page") int page
     );
+
+    //搜索商品
+    @GET("goods/searchGoods.do")
+    Observable<HttpResult<CommonListModel<List<GoodsModel>>>> searchGoods(
+            @QueryMap Map<String, String> params,
+            @Query("page") int page
+    );
+
 }

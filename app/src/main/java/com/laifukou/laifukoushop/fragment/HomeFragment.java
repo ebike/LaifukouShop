@@ -18,7 +18,7 @@ import com.bumptech.glide.Glide;
 import com.laifukou.laifukoushop.R;
 import com.laifukou.laifukoushop.activity.GoodsActivity;
 import com.laifukou.laifukoushop.activity.ShopActivity;
-import com.laifukou.laifukoushop.adapter.GoodsAdapter;
+import com.laifukou.laifukoushop.adapter.HomeGoodsAdapter;
 import com.laifukou.laifukoushop.adapter.NavigationAdapter;
 import com.laifukou.laifukoushop.adapter.HighQualityShopAdapter;
 import com.laifukou.laifukoushop.adapter.SortsAdapter1;
@@ -57,7 +57,7 @@ public class HomeFragment extends LazyFragment {
     ScrollGridView goodsView;
     private NavigationAdapter navigationAdapter;
     private HighQualityShopAdapter highQualityShopAdapter;
-    private GoodsAdapter goodsAdapter;
+    private HomeGoodsAdapter homeGoodsAdapter;
     private SortsAdapter1 sortsAdapter1;
     private SortsAdapter2 sortsAdapter2;
 
@@ -116,9 +116,9 @@ public class HomeFragment extends LazyFragment {
     }
 
     private void initGoods(List<HomePageDataItemModel> modelList) {
-        goodsAdapter = new GoodsAdapter(getActivity());
-        goodsView.setAdapter(goodsAdapter);
-        goodsAdapter.setList(modelList);
+        homeGoodsAdapter = new HomeGoodsAdapter(getActivity());
+        goodsView.setAdapter(homeGoodsAdapter);
+        homeGoodsAdapter.setList(modelList);
     }
 
     private void initSorts(List<HomePageDataItemModel> modelList) {

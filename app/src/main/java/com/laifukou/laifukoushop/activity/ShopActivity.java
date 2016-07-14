@@ -46,6 +46,7 @@ public class ShopActivity extends BaseListActivity {
         shopName = getIntent().getStringExtra("shopName");
 
         handler = new PullListActivityHandler(this, gridView);
+        gridView.setPullRefreshEnabled(false);
         gridView.setPullLoadEnabled(false);
         gridView.setScrollLoadEnabled(true);
         gridView.getRefreshableView().setNumColumns(2);

@@ -3,12 +3,14 @@ package com.laifukou.laifukoushop.http;
 
 import com.laifukou.laifukoushop.model.CommonDataModel;
 import com.laifukou.laifukoushop.model.CommonListModel;
+import com.laifukou.laifukoushop.model.GoodsModel;
 import com.laifukou.laifukoushop.model.HomePageDataModel;
 import com.laifukou.laifukoushop.model.HomeScrollImageModel;
 import com.laifukou.laifukoushop.model.HttpResult;
 import com.laifukou.laifukoushop.model.ShopModel;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -121,4 +123,11 @@ public class HttpMethods {
         toSubscribe(observable, subscriber);
     }
 
+    //搜索商品
+    public void searchGoods(Subscriber<CommonListModel<List<GoodsModel>>> subscriber, Map<String,String> params, int page) {
+        Observable observable = apiService.searchGoods(params, page)
+                .map(new HttpResultFunc<CommonListModel<List<GoodsModel>>>());
+
+        toSubscribe(observable, subscriber);
+    }
 }

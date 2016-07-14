@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_picture"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@mipmap/icon_no_pic"
+        app:layout_heightPercent="100%w"
+        app:layout_widthPercent="100%w" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/black_12"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="8dp"
+            android:lines="2" />
+
+        <TextView
+            android:id="@+id/tv_money"
+            style="@style/black_12"
+            android:layout_below="@id/tv_title"
+            android:textColor="@color/red" />
+
+    </LinearLayout>
+</com.zhy.android.percent.support.PercentLinearLayout>
