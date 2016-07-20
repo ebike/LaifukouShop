@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:background="@color/red">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="8dp">
+
+            <TextView
+                style="@style/black_12"
+                android:text="全部订单" />
+
+            <TextView
+                style="@style/gray_12"
+                android:layout_alignParentRight="true"
+                android:drawablePadding="4dp"
+                android:drawableRight="@mipmap/navigation"
+                android:text="查看全部订单" />
+
+        </RelativeLayout>
+
+        <View
+            style="@style/main_line"
+            android:layout_marginLeft="16dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
+                style="@style/black_12"
+                android:layout_weight="1"
+                android:drawablePadding="8dp"
+                android:drawableTop="@mipmap/icon_payment"
+                android:gravity="center"
+                android:text="代付款"
+                android:textColor="#232326" />
+
+            <TextView
+                style="@style/black_12"
+                android:layout_weight="1"
+                android:drawablePadding="8dp"
+                android:drawableTop="@mipmap/icon_delivery"
+                android:gravity="center"
+                android:text="代发货"
+                android:textColor="#232326" />
+
+            <TextView
+                style="@style/black_12"
+                android:layout_weight="1"
+                android:drawablePadding="8dp"
+                android:drawableTop="@mipmap/icon_take_delivery"
+                android:gravity="center"
+                android:text="代收货"
+                android:textColor="#232326" />
+
+            <TextView
+                style="@style/black_12"
+                android:layout_weight="1"
+                android:drawablePadding="8dp"
+                android:drawableTop="@mipmap/icon_comment"
+                android:gravity="center"
+                android:text="代评论"
+                android:textColor="#232326" />
+
+            <TextView
+                style="@style/black_12"
+                android:layout_weight="1"
+                android:drawablePadding="8dp"
+                android:drawableTop="@mipmap/icon_refund_after_sales"
+                android:gravity="center"
+                android:text="退款/售后"
+                android:textColor="#232326" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View style="@style/main_line" />
+
+    <View
+        style="@style/main_line"
+        android:layout_marginTop="8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="8dp">
+
+            <TextView
+                style="@style/black_12"
+                android:text="我的资产" />
+
+            <TextView
+                style="@style/gray_12"
+                android:layout_alignParentRight="true"
+                android:drawablePadding="4dp"
+                android:drawableRight="@mipmap/navigation"
+                android:text="查看资产流水" />
+
+        </RelativeLayout>
+
+        <View
+            style="@style/main_line"
+            android:layout_marginLeft="16dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    style="@style/black_16"
+                    android:text="￥888.44" />
+
+                <TextView
+                    style="@style/black_12"
+                    android:text="账户余额"
+                    android:layout_marginTop="16dp"
+                    android:textColor="#232326" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    style="@style/black_16"
+                    android:text="888" />
+
+                <TextView
+                    style="@style/black_12"
+                    android:text="金币个数"
+                    android:layout_marginTop="16dp"
+                    android:textColor="#232326" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    style="@style/black_16"
+                    android:text="666" />
+
+                <TextView
+                    style="@style/black_12"
+                    android:text="银币个数"
+                    android:layout_marginTop="16dp"
+                    android:textColor="#232326" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View style="@style/main_line" />
+
+    <View
+        style="@style/main_line"
+        android:layout_marginTop="8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <TextView
+            style="@style/black_12"
+            android:layout_weight="1"
+            android:drawablePadding="8dp"
+            android:drawableTop="@mipmap/icon_goods_focus"
+            android:gravity="center"
+            android:text="商品关注"
+            android:textColor="#232326" />
+
+        <TextView
+            style="@style/black_12"
+            android:layout_weight="1"
+            android:drawablePadding="8dp"
+            android:drawableTop="@mipmap/icon_shop_focus"
+            android:gravity="center"
+            android:text="店铺关注"
+            android:textColor="#232326" />
+
+        <TextView
+            style="@style/black_12"
+            android:layout_weight="1"
+            android:drawablePadding="8dp"
+            android:drawableTop="@mipmap/icon_browsing_history"
+            android:gravity="center"
+            android:text="浏览记录"
+            android:textColor="#232326" />
+
+        <TextView
+            style="@style/black_12"
+            android:layout_weight="1"
+            android:drawablePadding="8dp"
+            android:drawableTop="@mipmap/icon_feedback"
+            android:gravity="center"
+            android:text="问题反馈"
+            android:textColor="#232326" />
+    </LinearLayout>
+
+</LinearLayout>
