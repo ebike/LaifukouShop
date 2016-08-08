@@ -67,7 +67,7 @@
             android:padding="8dp"
             android:scrollbars="none">
 
-            <com.laifukou.laifukoushop.view.ScrollGridView
+            <com.sdjy.sdjymall.view.ScrollGridView
                 android:id="@+id/gv_second_sorts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

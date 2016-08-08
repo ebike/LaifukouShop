@@ -93,7 +93,7 @@
 
             <View style="@style/main_line" />
 
-            <com.laifukou.laifukoushop.view.ScrollListView
+            <com.sdjy.sdjymall.view.ScrollListView
                 android:id="@+id/lv_history"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

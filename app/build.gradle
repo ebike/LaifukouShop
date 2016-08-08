@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.laifukou.laifukoushop"
+        applicationId "com.sdjy.sdjymall"
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 1

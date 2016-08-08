@@ -43,7 +43,7 @@
         style="@style/main_line"
         android:layout_marginBottom="4dp" />
 
-    <com.laifukou.laifukoushop.view.pullrefresh.PullToRefreshListView
+    <com.sdjy.sdjymall.view.pullrefresh.PullToRefreshListView
         android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

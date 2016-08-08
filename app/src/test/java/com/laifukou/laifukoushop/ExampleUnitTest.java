@@ -1,4 +1,4 @@
-package com.laifukou.laifukoushop;
+package com.sdjy.sdjymall;
 
 import org.junit.Test;
 
