@@ -1,5 +1,6 @@
 package com.sdjy.sdjymall.activity;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -100,7 +101,10 @@ public class GoodsActivity extends BaseListActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                GoodsModel goodsModel = (GoodsModel) parent.getItemAtPosition(position);
+                Intent intent = new Intent(GoodsActivity.this, GoodsInfoActivity.class);
+                intent.putExtra("GoodsId", goodsModel.id);
+                startActivity(intent);
             }
         });
     }

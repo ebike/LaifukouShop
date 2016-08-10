@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sdjy.sdjymall" >
+    package="com.sdjy.sdjymall">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 网络状态权限 -->
@@ -12,10 +12,10 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
-            android:name="com.sdjy.sdjymall.activity.WelcomeActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
+            android:name=".activity.WelcomeActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,13 +32,11 @@
                     android:scheme="laifukoushop" />
             </intent-filter>
         </activity>
-        <activity android:name="com.sdjy.sdjymall.activity.MainActivity" />
-        <activity android:name="com.sdjy.sdjymall.activity.ShopActivity" >
-        </activity>
-        <activity android:name="com.sdjy.sdjymall.activity.GoodsActivity" >
-        </activity>
-        <activity android:name="com.sdjy.sdjymall.activity.SearchActivity" >
-        </activity>
+        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.ShopActivity"></activity>
+        <activity android:name=".activity.GoodsActivity"></activity>
+        <activity android:name=".activity.SearchActivity"></activity>
+        <activity android:name=".activity.GoodsInfoActivity"></activity>
     </application>
 
 </manifest>

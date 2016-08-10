@@ -44,7 +44,7 @@ public class MainActivity extends BaseActivity {
     public void init() {
         viewPager.setOffscreenPageLimit(5);
         tabIndicatorList = ViewPagerUtil.getTabIndicator(5);
-        fragmentList = new ArrayList<Fragment>();
+        fragmentList = new ArrayList<>();
         fragmentList.add(new HomeFragment());
         fragmentList.add(new SortFragment());
         fragmentList.add(new RecommendedFragment());

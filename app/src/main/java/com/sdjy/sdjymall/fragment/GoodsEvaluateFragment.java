@@ -1,23 +1,14 @@
 package com.sdjy.sdjymall.fragment;
 
 import android.os.Bundle;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.common.fragment.LazyFragment;
 
-import butterknife.Bind;
-
 /**
- * 购物车
+ * 商品-评价
  */
-public class ShoppingCartFragment extends LazyFragment {
-
-    @Bind(R.id.iv_message)
-    ImageView messageView;
-    @Bind(R.id.tv_edit)
-    TextView editView;
+public class GoodsEvaluateFragment extends LazyFragment {
 
     @Override
     protected void onCreateViewLazy(Bundle savedInstanceState) {
@@ -25,4 +16,5 @@ public class ShoppingCartFragment extends LazyFragment {
         setContentView(R.layout.fragment_shopping_car);
 
     }
+
 }
