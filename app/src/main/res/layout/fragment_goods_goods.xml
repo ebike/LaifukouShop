@@ -1,93 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:scrollbars="none">
 
-    <ScrollView
+    <com.zhy.android.percent.support.PercentLinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none">
+        android:orientation="vertical">
 
-        <com.zhy.android.percent.support.PercentLinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_heightPercent="100%w"
+            app:layout_widthPercent="100%w">
 
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_heightPercent="100%w"
-                app:layout_widthPercent="100%w">
+            <android.support.v4.view.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/view_pager"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </FrameLayout>
-
-            <View style="@style/main_line" />
-
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:layout_gravity="bottom|right"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@mipmap/bg_pic_num"
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tv_name"
-                    style="@style/gray_14" />
-            </LinearLayout>
+                    android:id="@+id/tv_cur_num"
+                    style="@style/white_18"
+                    android:text="1" />
+
+                <TextView
+                    style="@style/white_12"
+                    android:layout_alignBaseline="@+id/tv_cur_num"
+                    android:layout_toRightOf="@+id/tv_cur_num"
+                    android:text="/5" />
+            </RelativeLayout>
+        </FrameLayout>
+
+        <View style="@style/main_line" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/gray_14"
+                android:textColor="#232326" />
+
+            <TextView
+                android:id="@+id/tv_amount"
+                style="@style/red_14"
+                android:text="￥0" />
+        </LinearLayout>
+
+        <View style="@style/main_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/gray9_10"
+                android:layout_marginBottom="12dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="9dp"
+                android:layout_marginTop="12dp"
+                android:text="已选" />
+
+            <TextView
+                style="@style/gray_12"
+                android:layout_weight="1"
+                android:singleLine="true"
+                android:text="规格1"
+                android:textColor="#232326" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:src="@mipmap/icon_edit_sel" />
+
+        </LinearLayout>
+
+        <View style="@style/main_line" />
 
 
-        </com.zhy.android.percent.support.PercentLinearLayout>
-    </ScrollView>
-
-    <LinearLayout
-        android:id="@+id/ll_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:paddingBottom="4dp"
-        android:paddingTop="8dp">
-
-        <TextView
-            style="@style/gray6_12"
-            android:layout_weight="1"
-            android:drawablePadding="8dp"
-            android:drawableTop="@mipmap/icon_goodsinfo_shop"
-            android:gravity="center"
-            android:text="店铺" />
-
-        <TextView
-            style="@style/gray6_12"
-            android:layout_weight="1"
-            android:drawablePadding="8dp"
-            android:drawableTop="@mipmap/icon_goodsinfo_collect"
-            android:gravity="center"
-            android:text="关注" />
-
-        <TextView
-            style="@style/gray6_12"
-            android:layout_weight="1"
-            android:drawablePadding="8dp"
-            android:drawableTop="@mipmap/icon_goodsinfo_cart"
-            android:gravity="center"
-            android:text="购物车" />
-
-        <TextView
-            style="@style/white_14"
-            android:layout_height="match_parent"
-            android:width="150dp"
-            android:background="@color/red"
-            android:gravity="center"
-            android:text="加入购物车" />
-    </LinearLayout>
-
-    <View
-        style="@style/main_line"
-        android:layout_above="@+id/ll_bottom" />
-
-</RelativeLayout>
+    </com.zhy.android.percent.support.PercentLinearLayout>
+</ScrollView>

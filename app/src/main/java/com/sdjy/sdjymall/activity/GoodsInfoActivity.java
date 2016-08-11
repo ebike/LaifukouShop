@@ -19,6 +19,9 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.OnClick;
 
+/**
+ * 商品详情
+ */
 public class GoodsInfoActivity extends BaseActivity {
 
     @Bind(R.id.view_pager)

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -94,5 +95,54 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <View style="@style/main_line" />
+
+    <LinearLayout
+        android:id="@+id/ll_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/gray6_12"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:drawablePadding="8dp"
+            android:drawableTop="@mipmap/icon_goodsinfo_shop"
+            android:gravity="center"
+            android:text="店铺" />
+
+        <TextView
+            style="@style/gray6_12"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:drawablePadding="8dp"
+            android:drawableTop="@mipmap/icon_goodsinfo_collect"
+            android:gravity="center"
+            android:text="关注" />
+
+        <TextView
+            style="@style/gray6_12"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:drawablePadding="8dp"
+            android:drawableTop="@mipmap/icon_goodsinfo_cart"
+            android:gravity="center"
+            android:text="购物车" />
+
+        <TextView
+            style="@style/white_14"
+            android:layout_height="match_parent"
+            android:width="150dp"
+            android:background="@color/red"
+            android:gravity="center"
+            android:text="加入购物车" />
+    </LinearLayout>
 </LinearLayout>

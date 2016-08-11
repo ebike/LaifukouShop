@@ -18,6 +18,8 @@ public class GoodsGoodsFragment extends LazyFragment {
 
     @Bind(R.id.tv_name)
     TextView nameView;
+    @Bind(R.id.tv_amount)
+    TextView amountView;
 
     @Override
     protected void onCreateViewLazy(Bundle savedInstanceState) {
