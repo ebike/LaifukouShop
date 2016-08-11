@@ -21,12 +21,20 @@ public class MyFragment extends LazyFragment {
     TextView nameView;
     @Bind(R.id.tv_manage)
     TextView manageView;
+    @Bind(R.id.tv_account_balance)
+    TextView accountBalanceView;
+    @Bind(R.id.tv_gold_coins)
+    TextView goldCoinsView;
+    @Bind(R.id.tv_silver_coins)
+    TextView silverCoinsView;
 
     @Override
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_my);
-
+//        if(){
+//
+//        }
     }
 
     @OnClick(R.id.iv_setting)
@@ -70,42 +78,42 @@ public class MyFragment extends LazyFragment {
     }
 
     @OnClick(R.id.rl_amount)
-    public void amount(){
+    public void amount() {
 
     }
 
     @OnClick(R.id.ll_account_balance)
-    public void accountBalance(){
+    public void accountBalance() {
 
     }
 
     @OnClick(R.id.ll_gold_coins)
-    public void goldCoins(){
+    public void goldCoins() {
 
     }
 
     @OnClick(R.id.ll_silver_coins)
-    public void silverCoins(){
+    public void silverCoins() {
 
     }
 
     @OnClick(R.id.tv_goods_focus)
-    public void goodsFocus(){
+    public void goodsFocus() {
 
     }
 
     @OnClick(R.id.tv_shop_focus)
-    public void shopFocus(){
+    public void shopFocus() {
 
     }
 
     @OnClick(R.id.tv_browsing_history)
-    public void browsingHistory(){
+    public void browsingHistory() {
 
     }
 
     @OnClick(R.id.tv_feedback)
-    public void feedback(){
+    public void feedback() {
 
     }
 }

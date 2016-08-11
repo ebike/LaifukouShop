@@ -219,8 +219,9 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_account_balance"
                     style="@style/black_16"
-                    android:text="￥888.44" />
+                    android:text="￥0" />
 
                 <TextView
                     style="@style/black_12"
@@ -239,8 +240,9 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_gold_coins"
                     style="@style/black_16"
-                    android:text="888" />
+                    android:text="0" />
 
                 <TextView
                     style="@style/black_12"
@@ -259,8 +261,9 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_silver_coins"
                     style="@style/black_16"
-                    android:text="666" />
+                    android:text="0" />
 
                 <TextView
                     style="@style/black_12"
