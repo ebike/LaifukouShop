@@ -12,6 +12,10 @@ import com.sdjy.sdjymall.common.util.ViewPagerUtil;
 import com.sdjy.sdjymall.fragment.GoodsDetailFragment;
 import com.sdjy.sdjymall.fragment.GoodsEvaluateFragment;
 import com.sdjy.sdjymall.fragment.GoodsGoodsFragment;
+import com.sdjy.sdjymall.http.HttpMethods;
+import com.sdjy.sdjymall.model.GoodsInfoModel;
+import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
+import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +39,7 @@ public class GoodsInfoActivity extends BaseActivity {
     private ViewPagerFragmentAdapter viewPagerFragmentAdapter;
     private int currentFragment;
 
+    private SubscriberOnNextListener<GoodsInfoModel> nextListener;
     private String goodsId;
 
     @Override
@@ -46,31 +51,39 @@ public class GoodsInfoActivity extends BaseActivity {
     public void init() {
         goodsId = getIntent().getStringExtra("GoodsId");
 
-        viewPager.setOffscreenPageLimit(3);
-        tabIndicatorList = ViewPagerUtil.getTabIndicator(3);
-        fragmentList = new ArrayList<>();
-        fragmentList.add(new GoodsGoodsFragment());
-        fragmentList.add(new GoodsDetailFragment());
-        fragmentList.add(new GoodsEvaluateFragment());
-        // 设置ViewPager适配器
-        viewPagerFragmentAdapter = new ViewPagerFragmentAdapter(getSupportFragmentManager(), tabIndicatorList, fragmentList);
-        viewPager.setAdapter(viewPagerFragmentAdapter);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        nextListener = new SubscriberOnNextListener<GoodsInfoModel>() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onNext(GoodsInfoModel goodsInfoModel) {
+                viewPager.setOffscreenPageLimit(3);
+                tabIndicatorList = ViewPagerUtil.getTabIndicator(3);
+                fragmentList = new ArrayList<>();
+                GoodsGoodsFragment goodsFragment = new GoodsGoodsFragment();
+                goodsFragment.setGoodsInfoModel(goodsInfoModel);
+                fragmentList.add(goodsFragment);
+                fragmentList.add(new GoodsDetailFragment());
+                fragmentList.add(new GoodsEvaluateFragment());
+                // 设置ViewPager适配器
+                viewPagerFragmentAdapter = new ViewPagerFragmentAdapter(getSupportFragmentManager(), tabIndicatorList, fragmentList);
+                viewPager.setAdapter(viewPagerFragmentAdapter);
+                viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                    @Override
+                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+                    }
+
+                    @Override
+                    public void onPageSelected(int position) {
+                        changeTab(position);
+                    }
+
+                    @Override
+                    public void onPageScrollStateChanged(int state) {
+
+                    }
+                });
             }
-
-            @Override
-            public void onPageSelected(int position) {
-                changeTab(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
+        };
+        HttpMethods.getInstance().findGoods(new ProgressSubscriber<GoodsInfoModel>(nextListener, this), goodsId);
     }
 
     @OnClick({R.id.rl_goods, R.id.rl_detail, R.id.rl_evaluate})
@@ -98,6 +111,11 @@ public class GoodsInfoActivity extends BaseActivity {
                 views[i].setVisibility(View.INVISIBLE);
             }
         }
+    }
+
+    @OnClick(R.id.iv_back)
+    public void back() {
+        finish();
     }
 
 }

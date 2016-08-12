@@ -43,4 +43,5 @@ dependencies {
     compile 'com.githang:iconpagerindicator:1.2'
     compile 'com.bigkoo:convenientbanner:2.0.5'
     compile 'com.zhy:percent-support-extends:1.1.1'
+    compile 'com.zhy:flowlayout-lib:1.0.3'
 }

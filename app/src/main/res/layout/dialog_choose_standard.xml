@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zhy="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/gray6_14"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="16dp"
+        android:text="规格" />
+
+    <com.zhy.view.flowlayout.TagFlowLayout
+        android:id="@+id/tag_flow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="8dp"
+        zhy:max_select="1" />
+
+    <View
+        style="@style/main_line"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="16dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            style="@style/gray6_14"
+            android:layout_centerVertical="true"
+            android:text="数量" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/bg_update_count"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_minus"
+                style="@style/gray_14"
+                android:layout_width="28dp"
+                android:gravity="center"
+                android:text="—" />
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="@color/text_gray" />
+
+            <TextView
+                android:id="@+id/tv_count"
+                style="@style/gray_14"
+                android:layout_width="28dp"
+                android:gravity="center"
+                android:text="1" />
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="@color/text_gray" />
+
+            <TextView
+                android:id="@+id/tv_plus"
+                style="@style/gray_14"
+                android:layout_width="28dp"
+                android:gravity="center"
+                android:text="+" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_into_car"
+        style="@style/white_14"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="96dp"
+        android:background="@color/red"
+        android:gravity="center"
+        android:text="加入购物车" />
+
+</LinearLayout>

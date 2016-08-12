@@ -3,6 +3,7 @@ package com.sdjy.sdjymall.http;
 
 import com.sdjy.sdjymall.model.CommonDataModel;
 import com.sdjy.sdjymall.model.CommonListModel;
+import com.sdjy.sdjymall.model.GoodsInfoModel;
 import com.sdjy.sdjymall.model.GoodsModel;
 import com.sdjy.sdjymall.model.HomePageDataModel;
 import com.sdjy.sdjymall.model.HomeScrollImageModel;
@@ -124,10 +125,17 @@ public class HttpMethods {
     }
 
     //搜索商品
-    public void searchGoods(Subscriber<CommonListModel<List<GoodsModel>>> subscriber, Map<String,String> params, int page) {
+    public void searchGoods(Subscriber<CommonListModel<List<GoodsModel>>> subscriber, Map<String, String> params, int page) {
         Observable observable = apiService.searchGoods(params, page)
                 .map(new HttpResultFunc<CommonListModel<List<GoodsModel>>>());
 
+        toSubscribe(observable, subscriber);
+    }
+
+    //获取商品详细信息接口
+    public void findGoods(Subscriber<GoodsInfoModel> subscriber, String id) {
+        Observable observable = apiService.findGoods(id)
+                .map(new HttpResultFunc<GoodsInfoModel>());
         toSubscribe(observable, subscriber);
     }
 }

@@ -140,7 +140,7 @@
         <TextView
             style="@style/white_14"
             android:layout_height="match_parent"
-            android:width="150dp"
+            android:layout_width="150dp"
             android:background="@color/red"
             android:gravity="center"
             android:text="加入购物车" />

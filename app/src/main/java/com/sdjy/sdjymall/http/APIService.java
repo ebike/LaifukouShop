@@ -2,6 +2,7 @@ package com.sdjy.sdjymall.http;
 
 import com.sdjy.sdjymall.model.CommonDataModel;
 import com.sdjy.sdjymall.model.CommonListModel;
+import com.sdjy.sdjymall.model.GoodsInfoModel;
 import com.sdjy.sdjymall.model.GoodsModel;
 import com.sdjy.sdjymall.model.HomePageDataModel;
 import com.sdjy.sdjymall.model.HomeScrollImageModel;
@@ -48,6 +49,12 @@ public interface APIService {
     Observable<HttpResult<CommonListModel<List<GoodsModel>>>> searchGoods(
             @QueryMap Map<String, String> params,
             @Query("page") int page
+    );
+
+    //获取商品详细信息接口
+    @GET("goods/findGoods.do")
+    Observable<HttpResult<GoodsInfoModel>> findGoods(
+            @Query("id") String id
     );
 
 }

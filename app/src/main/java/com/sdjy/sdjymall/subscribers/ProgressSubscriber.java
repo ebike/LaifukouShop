@@ -31,19 +31,19 @@ public class ProgressSubscriber<T> extends Subscriber<T> implements ProgressCanc
 
     public ProgressSubscriber(Context context) {
         this.context = context;
-        mProgressDialogHandler = new ProgressDialogHandler(context, this, true);
+        mProgressDialogHandler = new ProgressDialogHandler(context, this, false);
     }
 
     public ProgressSubscriber(SubscriberOnNextListener mSubscriberOnNextListener, Context context) {
         this.mSubscriberOnNextListener = mSubscriberOnNextListener;
         this.context = context;
-        mProgressDialogHandler = new ProgressDialogHandler(context, this, true);
+        mProgressDialogHandler = new ProgressDialogHandler(context, this, false);
     }
 
     public ProgressSubscriber(SubscriberNextErrorListener nextErrorListener, Context context) {
         this.nextErrorListener = nextErrorListener;
         this.context = context;
-        mProgressDialogHandler = new ProgressDialogHandler(context, this, true);
+        mProgressDialogHandler = new ProgressDialogHandler(context, this, false);
     }
 
     private void showProgressDialog() {
