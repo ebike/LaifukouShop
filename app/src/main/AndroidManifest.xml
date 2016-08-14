@@ -5,8 +5,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 网络状态权限 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
+        android:name=".BaseApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -33,10 +36,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.ShopActivity"></activity>
-        <activity android:name=".activity.GoodsActivity"></activity>
-        <activity android:name=".activity.SearchActivity"></activity>
-        <activity android:name=".activity.GoodsInfoActivity"></activity>
+        <activity android:name=".activity.ShopActivity" />
+        <activity android:name=".activity.GoodsActivity" />
+        <activity android:name=".activity.SearchActivity" />
+        <activity android:name=".activity.GoodsInfoActivity" />
+        <activity android:name=".activity.ShopInfoActivity"></activity>
+        <activity android:name=".activity.LoginActivity"></activity>
     </application>
 
 </manifest>

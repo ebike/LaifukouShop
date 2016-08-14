@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_all"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingBottom="9dp"
+            android:paddingTop="9dp">
+
+            <TextView
+                android:id="@+id/tv_all_label"
+                style="@style/black_12"
+                android:text="全部评价"
+                android:textColor="@color/red1" />
+
+            <TextView
+                android:id="@+id/tv_all_count"
+                style="@style/black_12"
+                android:layout_marginTop="12dp"
+                android:text="0"
+                android:textColor="@color/red1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_good"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingBottom="9dp"
+            android:paddingTop="9dp">
+
+            <TextView
+                android:id="@+id/tv_good_label"
+                style="@style/black_12"
+                android:text="好评"
+                android:textColor="@color/black1" />
+
+            <TextView
+                android:id="@+id/tv_good_count"
+                style="@style/black_12"
+                android:layout_marginTop="12dp"
+                android:text="0"
+                android:textColor="@color/black1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_middle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingBottom="9dp"
+            android:paddingTop="9dp">
+
+            <TextView
+                android:id="@+id/tv_middle_label"
+                style="@style/black_12"
+                android:text="中评"
+                android:textColor="@color/black1" />
+
+            <TextView
+                android:id="@+id/tv_middle_count"
+                style="@style/black_12"
+                android:layout_marginTop="12dp"
+                android:text="0"
+                android:textColor="@color/black1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_poor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingBottom="9dp"
+            android:paddingTop="9dp">
+
+            <TextView
+                android:id="@+id/tv_poor_label"
+                style="@style/black_12"
+                android:text="差评"
+                android:textColor="@color/black1" />
+
+            <TextView
+                android:id="@+id/tv_poor_count"
+                style="@style/black_12"
+                android:layout_marginTop="12dp"
+                android:text="0"
+                android:textColor="@color/black1" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View style="@style/main_line" />
+
+    <com.sdjy.sdjymall.view.pullrefresh.PullToRefreshListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_bg"
+        android:cacheColorHint="@null"
+        android:divider="@color/main_line"
+        android:dividerHeight="0dp"
+        android:fadingEdge="none"
+        android:fastScrollEnabled="false"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:listSelector="@null"
+        android:scrollbars="none"
+        android:scrollingCache="false"
+        android:smoothScrollbar="true" />
+</LinearLayout>

@@ -38,6 +38,7 @@ public class ChooseStandardDialog {
     private Dialog dialog;
     private List<GoodsPricesModel> goodsPricesList;
     private ChooseStandardCallback callback;
+    private ChangeCountCallback countCallback;
     private int selectedPos = 0;
     private int count = 1;
 
@@ -119,6 +120,9 @@ public class ChooseStandardDialog {
         if (count > 1) {
             count--;
             countView.setText(count + "");
+            if (countCallback != null) {
+                countCallback.changed(count);
+            }
         }
     }
 
@@ -126,6 +130,9 @@ public class ChooseStandardDialog {
     public void plus() {
         count++;
         countView.setText(count + "");
+        if (countCallback != null) {
+            countCallback.changed(count);
+        }
     }
 
     @OnClick(R.id.tv_into_car)
@@ -139,5 +146,13 @@ public class ChooseStandardDialog {
 
     public void setCallback(ChooseStandardCallback callback) {
         this.callback = callback;
+    }
+
+    public interface ChangeCountCallback {
+        void changed(int count);
+    }
+
+    public void setCountCallback(ChangeCountCallback countCallback) {
+        this.countCallback = countCallback;
     }
 }

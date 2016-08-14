@@ -17,10 +17,11 @@ import com.bigkoo.convenientbanner.holder.Holder;
 import com.bumptech.glide.Glide;
 import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.activity.GoodsActivity;
+import com.sdjy.sdjymall.activity.GoodsInfoActivity;
 import com.sdjy.sdjymall.activity.ShopActivity;
+import com.sdjy.sdjymall.adapter.HighQualityShopAdapter;
 import com.sdjy.sdjymall.adapter.HomeGoodsAdapter;
 import com.sdjy.sdjymall.adapter.NavigationAdapter;
-import com.sdjy.sdjymall.adapter.HighQualityShopAdapter;
 import com.sdjy.sdjymall.adapter.SortsAdapter1;
 import com.sdjy.sdjymall.adapter.SortsAdapter2;
 import com.sdjy.sdjymall.common.fragment.LazyFragment;
@@ -119,6 +120,15 @@ public class HomeFragment extends LazyFragment {
         homeGoodsAdapter = new HomeGoodsAdapter(getActivity());
         goodsView.setAdapter(homeGoodsAdapter);
         homeGoodsAdapter.setList(modelList);
+        goodsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                HomePageDataItemModel model = (HomePageDataItemModel) parent.getItemAtPosition(position);
+                Intent intent = new Intent(getActivity(), GoodsInfoActivity.class);
+                intent.putExtra("GoodsId", model.id);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initSorts(List<HomePageDataItemModel> modelList) {
@@ -235,12 +245,16 @@ public class HomeFragment extends LazyFragment {
         public View createView(Context context) {
             imageView = new ImageView(context);
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imageView.setImageResource(R.mipmap.img_banner_default);
             return imageView;
         }
 
         @Override
         public void UpdateUI(Context context, final int position, HomeScrollImageModel data) {
-            Glide.with(getActivity()).load(data.imageUrl).into(imageView);
+            Glide.with(getActivity())
+                    .load(data.imageUrl)
+                    .error(R.mipmap.img_banner_default)
+                    .into(imageView);
         }
     }
 

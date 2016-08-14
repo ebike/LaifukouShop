@@ -1,11 +1,14 @@
 package com.sdjy.sdjymall.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sdjy.sdjymall.R;
+import com.sdjy.sdjymall.activity.LoginActivity;
 import com.sdjy.sdjymall.common.fragment.LazyFragment;
+import com.sdjy.sdjymall.constants.StaticValues;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -35,6 +38,13 @@ public class MyFragment extends LazyFragment {
 //        if(){
 //
 //        }
+    }
+
+    @OnClick(R.id.ll_login)
+    public void login() {
+        if (StaticValues.userModel == null) {
+            startActivity(new Intent(getActivity(), LoginActivity.class));
+        }
     }
 
     @OnClick(R.id.iv_setting)

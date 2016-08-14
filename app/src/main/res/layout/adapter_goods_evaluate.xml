@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        style="@style/main_line"
+        android:layout_marginTop="10dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/iv_header"
+                android:layout_width="29dp"
+                android:layout_height="29dp"
+                android:src="@mipmap/icon_default_head" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/black_12"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="13dp"
+                android:layout_toRightOf="@+id/iv_header"
+                android:textColor="@color/black1" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                style="@style/gray6_12"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+        <View
+            style="@style/main_line"
+            android:layout_marginLeft="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/tv_content"
+                style="@style/black_12"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/black1" />
+
+            <TextView
+                style="@style/gray6_12"
+                android:layout_marginTop="25dp"
+                android:textColor="@color/grayc1" />
+
+            <TextView
+                style="@style/gray6_12"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/grayc1" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View style="@style/main_line" />
+</LinearLayout>

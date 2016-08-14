@@ -31,10 +31,12 @@
             android:src="@mipmap/icon_set" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/ll_login"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/iv_message"
             android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
 
             <ImageView
@@ -114,10 +116,10 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:drawablePadding="8dp"
-                android:drawableTop="@mipmap/icon_payment"
+                android:drawableTop="@mipmap/icon_order_topay"
                 android:gravity="center"
                 android:text="代付款"
-                android:textColor="#232326" />
+                android:textColor="@color/black1" />
 
             <TextView
                 android:id="@+id/tv_delivery"
@@ -125,10 +127,10 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:drawablePadding="8dp"
-                android:drawableTop="@mipmap/icon_delivery"
+                android:drawableTop="@mipmap/icon_order_tosend"
                 android:gravity="center"
                 android:text="代发货"
-                android:textColor="#232326" />
+                android:textColor="@color/black1" />
 
             <TextView
                 android:id="@+id/tv_take_delivery"
@@ -136,10 +138,10 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:drawablePadding="8dp"
-                android:drawableTop="@mipmap/icon_take_delivery"
+                android:drawableTop="@mipmap/icon_order_toget"
                 android:gravity="center"
                 android:text="代收货"
-                android:textColor="#232326" />
+                android:textColor="@color/black1" />
 
             <TextView
                 android:id="@+id/tv_comment"
@@ -147,10 +149,10 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:drawablePadding="8dp"
-                android:drawableTop="@mipmap/icon_comment"
+                android:drawableTop="@mipmap/icon_order_tocomment"
                 android:gravity="center"
                 android:text="代评论"
-                android:textColor="#232326" />
+                android:textColor="@color/black1" />
 
             <TextView
                 android:id="@+id/tv_refund_after_sales"
@@ -158,10 +160,10 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:drawablePadding="8dp"
-                android:drawableTop="@mipmap/icon_refund_after_sales"
+                android:drawableTop="@mipmap/icon_order_tochange"
                 android:gravity="center"
                 android:text="退款/售后"
-                android:textColor="#232326" />
+                android:textColor="@color/black1" />
         </LinearLayout>
     </LinearLayout>
 
@@ -227,7 +229,7 @@
                     style="@style/black_12"
                     android:layout_marginTop="16dp"
                     android:text="账户余额"
-                    android:textColor="#232326" />
+                    android:textColor="@color/black1" />
 
             </LinearLayout>
 
@@ -248,7 +250,7 @@
                     style="@style/black_12"
                     android:layout_marginTop="16dp"
                     android:text="金币个数"
-                    android:textColor="#232326" />
+                    android:textColor="@color/black1" />
 
             </LinearLayout>
 
@@ -269,7 +271,7 @@
                     style="@style/black_12"
                     android:layout_marginTop="16dp"
                     android:text="银币个数"
-                    android:textColor="#232326" />
+                    android:textColor="@color/black1" />
 
             </LinearLayout>
 
@@ -295,30 +297,30 @@
             style="@style/black_12"
             android:layout_weight="1"
             android:drawablePadding="8dp"
-            android:drawableTop="@mipmap/icon_goods_focus"
+            android:drawableTop="@mipmap/icon_goods_collect"
             android:gravity="center"
             android:text="商品关注"
-            android:textColor="#232326" />
+            android:textColor="@color/black1" />
 
         <TextView
             android:id="@+id/tv_shop_focus"
             style="@style/black_12"
             android:layout_weight="1"
             android:drawablePadding="8dp"
-            android:drawableTop="@mipmap/icon_shop_focus"
+            android:drawableTop="@mipmap/icon_shop_collect"
             android:gravity="center"
             android:text="店铺关注"
-            android:textColor="#232326" />
+            android:textColor="@color/black1" />
 
         <TextView
             android:id="@+id/tv_browsing_history"
             style="@style/black_12"
             android:layout_weight="1"
             android:drawablePadding="8dp"
-            android:drawableTop="@mipmap/icon_browsing_history"
+            android:drawableTop="@mipmap/icon_goods_browse"
             android:gravity="center"
             android:text="浏览记录"
-            android:textColor="#232326" />
+            android:textColor="@color/black1" />
 
         <TextView
             android:id="@+id/tv_feedback"
@@ -328,7 +330,7 @@
             android:drawableTop="@mipmap/icon_feedback"
             android:gravity="center"
             android:text="问题反馈"
-            android:textColor="#232326" />
+            android:textColor="@color/black1" />
     </LinearLayout>
 
 </LinearLayout>

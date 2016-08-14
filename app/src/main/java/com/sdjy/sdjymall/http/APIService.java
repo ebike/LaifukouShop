@@ -2,6 +2,8 @@ package com.sdjy.sdjymall.http;
 
 import com.sdjy.sdjymall.model.CommonDataModel;
 import com.sdjy.sdjymall.model.CommonListModel;
+import com.sdjy.sdjymall.model.GoodsEvaluateCountModel;
+import com.sdjy.sdjymall.model.GoodsEvaluateModel;
 import com.sdjy.sdjymall.model.GoodsInfoModel;
 import com.sdjy.sdjymall.model.GoodsModel;
 import com.sdjy.sdjymall.model.HomePageDataModel;
@@ -13,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 
 import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 import rx.Observable;
@@ -57,4 +61,47 @@ public interface APIService {
             @Query("id") String id
     );
 
+    //获取商家详细信息接口
+    @GET("shop/findShop.do")
+    Observable<HttpResult<ShopModel>> findShop(
+            @QueryMap Map<String, String> params
+    );
+
+    //关注商品或店铺接口
+    @POST("user/userCollect.do")
+    Observable<HttpResult<String>> userCollect(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @Query("collectType") int collectType,
+            @Query("oid") String oid
+    );
+
+    //取消关注商品或店铺接口
+    @POST("user/cancelCollect.do")
+    Observable<HttpResult> cancelCollect(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @Query("id") String id
+    );
+
+    //登录
+    @POST("checkLogin.do")
+    Observable<HttpResult> login(
+            @Query("userName") String userName,
+            @Query("password") String password,
+            @Query("clientId") String clientId,
+            @Query("platform") String platform
+    );
+
+    //获取商品评论个数接口
+    @GET("goods/findGoodsCommentsNum.do")
+    Observable<HttpResult<GoodsEvaluateCountModel>> findGoodsCommentsNum(
+            @Query("id") String id
+    );
+
+    //获取商品评论接口
+    @GET("goods/findGoodsComments.do")
+    Observable<HttpResult<List<GoodsEvaluateModel>>> findGoodsComments(
+            @QueryMap Map<String, String> params
+    );
 }

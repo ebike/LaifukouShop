@@ -1,8 +1,11 @@
 package com.sdjy.sdjymall.http;
 
 
+import com.sdjy.sdjymall.constants.StaticValues;
 import com.sdjy.sdjymall.model.CommonDataModel;
 import com.sdjy.sdjymall.model.CommonListModel;
+import com.sdjy.sdjymall.model.GoodsEvaluateCountModel;
+import com.sdjy.sdjymall.model.GoodsEvaluateModel;
 import com.sdjy.sdjymall.model.GoodsInfoModel;
 import com.sdjy.sdjymall.model.GoodsModel;
 import com.sdjy.sdjymall.model.HomePageDataModel;
@@ -136,6 +139,48 @@ public class HttpMethods {
     public void findGoods(Subscriber<GoodsInfoModel> subscriber, String id) {
         Observable observable = apiService.findGoods(id)
                 .map(new HttpResultFunc<GoodsInfoModel>());
+        toSubscribe(observable, subscriber);
+    }
+
+    //获取商家详细信息接口
+    public void findShop(Subscriber<ShopModel> subscriber, Map<String, String> params) {
+        Observable observable = apiService.findShop(params)
+                .map(new HttpResultFunc<ShopModel>());
+        toSubscribe(observable, subscriber);
+    }
+
+    //关注商品或店铺接口
+    public void userCollect(Subscriber<String> subscriber, String userId, int collectType, String oid) {
+        Observable observable = apiService.userCollect(StaticValues.userModel.userToken, userId, collectType, oid)
+                .map(new HttpResultFunc<String>());
+        toSubscribe(observable, subscriber);
+    }
+
+    //取消关注商品或店铺接口
+    public void cancelCollect(Subscriber subscriber, String userId, String id) {
+        Observable observable = apiService.cancelCollect(StaticValues.userModel.userToken, userId, id)
+                .map(new HttpResultFunc());
+        toSubscribe(observable, subscriber);
+    }
+
+    //登录
+    public void login(Subscriber subscriber, String userName, String password) {
+        Observable observable = apiService.login(userName, password, StaticValues.imei, "android:" + android.os.Build.VERSION.RELEASE)
+                .map(new HttpResultFunc());
+        toSubscribe(observable, subscriber);
+    }
+
+    //获取商品评论个数接口
+    public void findGoodsCommentsNum(Subscriber<GoodsEvaluateCountModel> subscriber, String id) {
+        Observable observable = apiService.findGoodsCommentsNum(id)
+                .map(new HttpResultFunc<GoodsEvaluateCountModel>());
+        toSubscribe(observable, subscriber);
+    }
+
+    //获取商品评论接口
+    public void findGoodsComments(Subscriber<List<GoodsEvaluateModel>> subscriber, Map<String, String> params) {
+        Observable observable = apiService.findGoodsComments(params)
+                .map(new HttpResultFunc<List<GoodsEvaluateModel>>());
         toSubscribe(observable, subscriber);
     }
 }

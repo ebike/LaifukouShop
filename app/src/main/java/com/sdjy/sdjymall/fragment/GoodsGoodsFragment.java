@@ -43,6 +43,8 @@ public class GoodsGoodsFragment extends LazyFragment {
     TextView postPriceView;
     @Bind(R.id.tv_standard)
     TextView standardView;
+    @Bind(R.id.tv_count)
+    TextView countView;
 
     private List<Fragment> fragmentList;
     private List<TabIndicator> tabIndicatorList;
@@ -88,12 +90,16 @@ public class GoodsGoodsFragment extends LazyFragment {
             });
 
             //商品名称
-            ImageSpan span = new ImageSpan(getActivity(), R.mipmap.icon_self_sale);
-            String goodsName = goodsInfoModel.goodsName + "  ";
-            int strLength = goodsName.length();
-            SpannableString spannableString = new SpannableString(goodsName);
-            spannableString.setSpan(span, strLength - 1, strLength, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-            nameView.setText(spannableString);
+            if (goodsInfoModel.shopType == 1) {
+                ImageSpan span = new ImageSpan(getActivity(), R.mipmap.icon_self_sale);
+                String goodsName = goodsInfoModel.goodsName + "  ";
+                int strLength = goodsName.length();
+                SpannableString spannableString = new SpannableString(goodsName);
+                spannableString.setSpan(span, strLength - 1, strLength, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                nameView.setText(spannableString);
+            } else {
+                nameView.setText(goodsInfoModel.goodsName);
+            }
 
             //商品价格
             if (goodsInfoModel.goodsPrices != null && goodsInfoModel.goodsPrices.size() > 0) {
@@ -134,6 +140,12 @@ public class GoodsGoodsFragment extends LazyFragment {
                 @Override
                 public void callback(GoodsPricesModel model) {
                     selectedPricesModel = model;
+                }
+            });
+            dialog.setCountCallback(new ChooseStandardDialog.ChangeCountCallback() {
+                @Override
+                public void changed(int count) {
+                    countView.setText(count + "个");
                 }
             });
         }
