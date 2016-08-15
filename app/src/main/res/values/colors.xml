@@ -3,6 +3,7 @@
     <color name="black">#000000</color>
     <color name="black1">#232326</color>
     <color name="white">#FFFFFF</color>
+    <color name="white1">#D8D8D8</color>
     <color name="main_bg">#EEEEEE</color>
     <color name="text_gray">#333333</color>
     <color name="text_selected">#AA000C</color>
@@ -15,6 +16,7 @@
     <color name="red">#D60E19</color>
     <color name="red1">#F23030</color>
     <color name="red2">#CC0000</color>
+    <color name="red3">#F12525</color>
     <color name="purple">#A75AD7</color>
     <color name="green">#2EB75E</color>
     <color name="transparent">#00000000</color>

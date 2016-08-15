@@ -12,6 +12,8 @@ import com.sdjy.sdjymall.model.HomePageDataModel;
 import com.sdjy.sdjymall.model.HomeScrollImageModel;
 import com.sdjy.sdjymall.model.HttpResult;
 import com.sdjy.sdjymall.model.ShopModel;
+import com.sdjy.sdjymall.model.UserCashBalanceModel;
+import com.sdjy.sdjymall.model.UserModel;
 
 import java.util.List;
 import java.util.Map;
@@ -164,9 +166,9 @@ public class HttpMethods {
     }
 
     //登录
-    public void login(Subscriber subscriber, String userName, String password) {
+    public void login(Subscriber<UserModel> subscriber, String userName, String password) {
         Observable observable = apiService.login(userName, password, StaticValues.imei, "android:" + android.os.Build.VERSION.RELEASE)
-                .map(new HttpResultFunc());
+                .map(new HttpResultFunc<UserModel>());
         toSubscribe(observable, subscriber);
     }
 
@@ -178,9 +180,16 @@ public class HttpMethods {
     }
 
     //获取商品评论接口
-    public void findGoodsComments(Subscriber<List<GoodsEvaluateModel>> subscriber, Map<String, String> params) {
+    public void findGoodsComments(Subscriber<CommonListModel<List<GoodsEvaluateModel>>> subscriber, Map<String, String> params) {
         Observable observable = apiService.findGoodsComments(params)
-                .map(new HttpResultFunc<List<GoodsEvaluateModel>>());
+                .map(new HttpResultFunc<CommonListModel<List<GoodsEvaluateModel>>>());
+        toSubscribe(observable, subscriber);
+    }
+
+    //获取用户资料接口：用户登录后进入我的首页调用此接口获取数据
+    public void userCashBalance(Subscriber<UserCashBalanceModel> subscriber, String userId) {
+        Observable observable = apiService.userCashBalance(StaticValues.userModel.userToken, userId)
+                .map(new HttpResultFunc<UserCashBalanceModel>());
         toSubscribe(observable, subscriber);
     }
 }

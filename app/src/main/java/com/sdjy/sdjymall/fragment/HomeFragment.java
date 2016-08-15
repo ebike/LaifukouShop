@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,6 +18,7 @@ import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.activity.GoodsActivity;
 import com.sdjy.sdjymall.activity.GoodsInfoActivity;
 import com.sdjy.sdjymall.activity.ShopActivity;
+import com.sdjy.sdjymall.activity.ShopInfoActivity;
 import com.sdjy.sdjymall.adapter.HighQualityShopAdapter;
 import com.sdjy.sdjymall.adapter.HomeGoodsAdapter;
 import com.sdjy.sdjymall.adapter.NavigationAdapter;
@@ -30,8 +30,10 @@ import com.sdjy.sdjymall.model.HomePageDataItemModel;
 import com.sdjy.sdjymall.model.HomePageDataModel;
 import com.sdjy.sdjymall.model.HomeScrollImageModel;
 import com.sdjy.sdjymall.model.ResourceModel;
+import com.sdjy.sdjymall.subscribers.NoProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
+import com.sdjy.sdjymall.util.StringUtils;
 import com.sdjy.sdjymall.view.ScrollGridView;
 import com.sdjy.sdjymall.view.pullrefresh.PullToRefreshBase;
 import com.sdjy.sdjymall.view.pullrefresh.PullToRefreshScrollView;
@@ -61,6 +63,10 @@ public class HomeFragment extends LazyFragment {
     private HomeGoodsAdapter homeGoodsAdapter;
     private SortsAdapter1 sortsAdapter1;
     private SortsAdapter2 sortsAdapter2;
+    private List<HomePageDataItemModel> shopModelList;
+    private List<HomePageDataItemModel> sortsModelList1;
+    private List<HomePageDataItemModel> sortsModelList2;
+    private List<HomePageDataItemModel> goodsModelList;
 
     private SubscriberOnNextListener<List<HomeScrollImageModel>> nextListener;
     private SubscriberOnNextListener<HomePageDataModel> nextListener1;
@@ -93,65 +99,86 @@ public class HomeFragment extends LazyFragment {
         initBanner();
         //分类导航
         initNavigation();
+        //优质商家
+        initShops();
+        //热门分类
+        initSorts();
+        //热销商品
+        initGoods();
         //首页数据
         initData();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                scrollView.getRefreshableView().smoothScrollTo(0, 0);
-            }
-        }, 200);
     }
 
     private void initData() {
         nextListener1 = new SubscriberOnNextListener<HomePageDataModel>() {
             @Override
             public void onNext(HomePageDataModel homePageDataModel) {
-                initShops(homePageDataModel.shops);
-                initSorts(homePageDataModel.sorts);
-                initGoods(homePageDataModel.goods);
+                highQualityShopAdapter.setList(homePageDataModel.shops);
+                sortsAdapter1.setList(homePageDataModel.sorts.subList(0, homePageDataModel.sorts.size() - 4));
+                sortsAdapter2.setList(homePageDataModel.sorts.subList(homePageDataModel.sorts.size() - 4, homePageDataModel.sorts.size()));
+                homeGoodsAdapter.setList(homePageDataModel.goods);
             }
         };
 
-        HttpMethods.getInstance().getHomePageDatas(new ProgressSubscriber<HomePageDataModel>(nextListener1, getActivity()));
+        HttpMethods.getInstance().getHomePageDatas(new NoProgressSubscriber<HomePageDataModel>(nextListener1, getActivity()));
     }
 
-    private void initGoods(List<HomePageDataItemModel> modelList) {
+    private void initGoods() {
+        goodsModelList = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            goodsModelList.add(new HomePageDataItemModel());
+        }
         homeGoodsAdapter = new HomeGoodsAdapter(getActivity());
         goodsView.setAdapter(homeGoodsAdapter);
-        homeGoodsAdapter.setList(modelList);
+        homeGoodsAdapter.setList(goodsModelList);
         goodsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 HomePageDataItemModel model = (HomePageDataItemModel) parent.getItemAtPosition(position);
-                Intent intent = new Intent(getActivity(), GoodsInfoActivity.class);
-                intent.putExtra("GoodsId", model.id);
-                startActivity(intent);
+                if (!StringUtils.strIsEmpty(model.id)) {
+                    Intent intent = new Intent(getActivity(), GoodsInfoActivity.class);
+                    intent.putExtra("GoodsId", model.id);
+                    startActivity(intent);
+                }
             }
         });
     }
 
-    private void initSorts(List<HomePageDataItemModel> modelList) {
+    private void initSorts() {
+        sortsModelList1 = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            sortsModelList1.add(new HomePageDataItemModel());
+        }
         sortsAdapter1 = new SortsAdapter1(getActivity());
         sortsView1.setAdapter(sortsAdapter1);
-        sortsAdapter1.setList(modelList.subList(0, modelList.size() - 4));
+        sortsAdapter1.setList(sortsModelList1);
 
+        sortsModelList2 = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            sortsModelList2.add(new HomePageDataItemModel());
+        }
         sortsAdapter2 = new SortsAdapter2(getActivity());
         sortsView2.setAdapter(sortsAdapter2);
-        sortsAdapter2.setList(modelList.subList(modelList.size() - 4, modelList.size()));
+        sortsAdapter2.setList(sortsModelList2);
     }
 
-    private void initShops(List<HomePageDataItemModel> modelList) {
+    private void initShops() {
+        shopModelList = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            shopModelList.add(new HomePageDataItemModel());
+        }
         highQualityShopAdapter = new HighQualityShopAdapter(getActivity());
         shopsView.setAdapter(highQualityShopAdapter);
-        highQualityShopAdapter.setList(modelList);
+        highQualityShopAdapter.setList(shopModelList);
         shopsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 HomePageDataItemModel model = (HomePageDataItemModel) parent.getItemAtPosition(position);
-//                Intent intent = new Intent(getActivity(),ShopActivity.class);
-//                intent.putExtra("",model);
-//                startActivity(intent);
+                if (!StringUtils.strIsEmpty(model.id)) {
+                    Intent intent = new Intent(getActivity(), ShopInfoActivity.class);
+                    intent.putExtra("shopId", model.id);
+                    startActivity(intent);
+                }
             }
         });
     }

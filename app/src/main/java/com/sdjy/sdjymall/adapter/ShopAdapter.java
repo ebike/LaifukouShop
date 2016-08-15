@@ -17,6 +17,8 @@ import com.sdjy.sdjymall.view.ViewHolder;
  */
 public class ShopAdapter extends TAdapter<ShopModel> {
 
+    private onItemClickListener itemClickListener;
+
     public ShopAdapter(Context mContext) {
         super(mContext);
     }
@@ -32,7 +34,7 @@ public class ShopAdapter extends TAdapter<ShopModel> {
         ImageView pictureView = ViewHolder.get(convertView, R.id.iv_picture);
         ImageView hotView = ViewHolder.get(convertView, R.id.iv_hot);
 
-        ShopModel model = mList.get(position);
+        final ShopModel model = mList.get(position);
         if (model != null) {
             nameView.setText(model.shopName);
             descView.setText(model.title);
@@ -42,7 +44,23 @@ public class ShopAdapter extends TAdapter<ShopModel> {
                     .error(R.mipmap.icon_no_pic)
                     .centerCrop()
                     .into(pictureView);
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (itemClickListener != null) {
+                        itemClickListener.onItem(model);
+                    }
+                }
+            });
         }
         return convertView;
+    }
+
+    public interface onItemClickListener {
+        void onItem(ShopModel model);
+    }
+
+    public void setItemClickListener(onItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
     }
 }

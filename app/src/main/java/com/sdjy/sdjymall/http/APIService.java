@@ -10,6 +10,8 @@ import com.sdjy.sdjymall.model.HomePageDataModel;
 import com.sdjy.sdjymall.model.HomeScrollImageModel;
 import com.sdjy.sdjymall.model.HttpResult;
 import com.sdjy.sdjymall.model.ShopModel;
+import com.sdjy.sdjymall.model.UserCashBalanceModel;
+import com.sdjy.sdjymall.model.UserModel;
 
 import java.util.List;
 import java.util.Map;
@@ -86,7 +88,7 @@ public interface APIService {
 
     //登录
     @POST("checkLogin.do")
-    Observable<HttpResult> login(
+    Observable<HttpResult<UserModel>> login(
             @Query("userName") String userName,
             @Query("password") String password,
             @Query("clientId") String clientId,
@@ -101,7 +103,14 @@ public interface APIService {
 
     //获取商品评论接口
     @GET("goods/findGoodsComments.do")
-    Observable<HttpResult<List<GoodsEvaluateModel>>> findGoodsComments(
+    Observable<HttpResult<CommonListModel<List<GoodsEvaluateModel>>>> findGoodsComments(
             @QueryMap Map<String, String> params
+    );
+
+    //获取用户资料接口：用户登录后进入我的首页调用此接口获取数据
+    @POST("user/userCashBalance.do")
+    Observable<HttpResult<UserCashBalanceModel>> userCashBalance(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId
     );
 }

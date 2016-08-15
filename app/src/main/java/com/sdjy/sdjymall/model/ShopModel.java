@@ -4,7 +4,7 @@ package com.sdjy.sdjymall.model;
  * 商家/店铺
  */
 public class ShopModel {
-
+    //店铺ID
     public String id;
 
     public String shopName;

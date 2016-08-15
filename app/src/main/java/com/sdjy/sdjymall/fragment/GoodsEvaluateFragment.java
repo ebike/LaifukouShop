@@ -8,6 +8,7 @@ import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.adapter.GoodsEvaluateAdapter;
 import com.sdjy.sdjymall.fragment.base.BaseListFragment;
 import com.sdjy.sdjymall.http.HttpMethods;
+import com.sdjy.sdjymall.model.CommonListModel;
 import com.sdjy.sdjymall.model.GoodsEvaluateCountModel;
 import com.sdjy.sdjymall.model.GoodsEvaluateModel;
 import com.sdjy.sdjymall.subscribers.NoProgressSubscriber;
@@ -40,6 +41,7 @@ public class GoodsEvaluateFragment extends BaseListFragment {
     private GoodsEvaluateAdapter adapter;
     private String goodsId;
     private String commentType;
+    private List<GoodsEvaluateModel> evaluateList;
 
     @Override
     protected void onCreateViewLazy(Bundle savedInstanceState) {
@@ -69,10 +71,28 @@ public class GoodsEvaluateFragment extends BaseListFragment {
 
     @Override
     public void requestDatas() {
-        SubscriberNextErrorListener listener = new SubscriberNextErrorListener<List<GoodsEvaluateModel>>() {
+        SubscriberNextErrorListener listener = new SubscriberNextErrorListener<CommonListModel<List<GoodsEvaluateModel>>>() {
             @Override
-            public void onNext(List<GoodsEvaluateModel> evaluateModels) {
+            public void onNext(CommonListModel<List<GoodsEvaluateModel>> listCommonListModel) {
+                if (listCommonListModel != null) {
+                    if (mPage == 1) {
+                        evaluateList = listCommonListModel.dataList;
+                    } else {
+                        evaluateList.addAll(listCommonListModel.dataList);
+                    }
+                    mIsMore = listCommonListModel.totalPage - listCommonListModel.page > 0 ? true : false;
+                } else {
+                    mIsMore = false;
+                }
 
+                if (evaluateList == null || evaluateList.size() == 0) {
+                    evaluateList.clear();
+                    handler.setEmptyViewVisible(View.VISIBLE);
+                } else {
+                    handler.setEmptyViewVisible(View.GONE);
+                }
+                adapter.setList(evaluateList);
+                handler.sendEmptyMessage(PULL_TO_REFRESH_COMPLETE);
             }
 
             @Override
@@ -86,7 +106,7 @@ public class GoodsEvaluateFragment extends BaseListFragment {
         if (!StringUtils.strIsEmpty(commentType)) {
             params.put("commentType", commentType);
         }
-        HttpMethods.getInstance().findGoodsComments(new NoProgressSubscriber<List<GoodsEvaluateModel>>(listener, getActivity()), params);
+        HttpMethods.getInstance().findGoodsComments(new NoProgressSubscriber<CommonListModel<List<GoodsEvaluateModel>>>(listener, getActivity()), params);
     }
 
     public void setGoodsId(String goodsId) {

@@ -2,16 +2,24 @@ package com.sdjy.sdjymall.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.activity.LoginActivity;
 import com.sdjy.sdjymall.common.fragment.LazyFragment;
 import com.sdjy.sdjymall.constants.StaticValues;
+import com.sdjy.sdjymall.http.HttpMethods;
+import com.sdjy.sdjymall.model.UserCashBalanceModel;
+import com.sdjy.sdjymall.model.UserModel;
+import com.sdjy.sdjymall.subscribers.NoProgressSubscriber;
+import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 /**
  * 我的
@@ -35,9 +43,39 @@ public class MyFragment extends LazyFragment {
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_my);
-//        if(){
-//
-//        }
+        EventBus.getDefault().register(this);
+        init();
+    }
+
+    private void init() {
+        if (StaticValues.userModel != null) {
+            Glide.with(getActivity())
+                    .load(StaticValues.userModel.headPic)
+                    .error(R.mipmap.icon_default_head)
+                    .into(headerView);
+            nameView.setText(StaticValues.userModel.loginName);
+            manageView.setVisibility(View.VISIBLE);
+            SubscriberOnNextListener listener = new SubscriberOnNextListener<UserCashBalanceModel>() {
+                @Override
+                public void onNext(UserCashBalanceModel model) {
+                    accountBalanceView.setText("￥" + model.money);
+                    goldCoinsView.setText(model.goldCoin);
+                    silverCoinsView.setText(model.coin);
+                }
+            };
+            HttpMethods.getInstance().userCashBalance(new NoProgressSubscriber<UserCashBalanceModel>(listener, getActivity()), StaticValues.userModel.userId);
+        } else {
+            headerView.setImageResource(R.mipmap.icon_default_head);
+            nameView.setText("登录/注册");
+            manageView.setVisibility(View.GONE);
+            accountBalanceView.setText("￥0");
+            goldCoinsView.setText("0");
+            silverCoinsView.setText("0");
+        }
+    }
+
+    public void onEvent(UserModel model) {
+        init();
     }
 
     @OnClick(R.id.ll_login)

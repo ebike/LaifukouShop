@@ -5,7 +5,10 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.activity.base.BaseActivity;
@@ -19,9 +22,11 @@ import com.sdjy.sdjymall.fragment.GoodsEvaluateFragment;
 import com.sdjy.sdjymall.fragment.GoodsGoodsFragment;
 import com.sdjy.sdjymall.http.HttpMethods;
 import com.sdjy.sdjymall.model.GoodsInfoModel;
+import com.sdjy.sdjymall.subscribers.IAddShopListener;
 import com.sdjy.sdjymall.subscribers.NoProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
+import com.sdjy.sdjymall.util.AnimUtils;
 import com.sdjy.sdjymall.util.StringUtils;
 
 import java.util.ArrayList;
@@ -41,6 +46,10 @@ public class GoodsInfoActivity extends BaseActivity {
     View[] views;
     @Bind(R.id.tv_goods_focus)
     TextView goodsFocusView;
+    @Bind(R.id.tv_into_car)
+    TextView intoCarView;
+    @Bind(R.id.tv_car)
+    TextView carView;
 
     private List<Fragment> fragmentList;
     private List<TabIndicator> tabIndicatorList;
@@ -50,6 +59,7 @@ public class GoodsInfoActivity extends BaseActivity {
     private SubscriberOnNextListener<GoodsInfoModel> nextListener;
     private String goodsId;
     private GoodsInfoModel goodsInfoModel;
+    private AnimUtils animUtils;
 
     @Override
     public void loadLoyout() {
@@ -162,7 +172,7 @@ public class GoodsInfoActivity extends BaseActivity {
                         goodsFocusView.setCompoundDrawables(null, drawable, null, null);
                     }
                 };
-                HttpMethods.getInstance().cancelCollect(new NoProgressSubscriber(listener, this), StaticValues.userModel.id, goodsInfoModel.collectId);
+                HttpMethods.getInstance().cancelCollect(new NoProgressSubscriber(listener, this), StaticValues.userModel.userId, goodsInfoModel.collectId);
             } else {
                 SubscriberOnNextListener<String> listener = new SubscriberOnNextListener<String>() {
                     @Override
@@ -174,12 +184,29 @@ public class GoodsInfoActivity extends BaseActivity {
                         goodsFocusView.setCompoundDrawables(null, drawable, null, null);
                     }
                 };
-                HttpMethods.getInstance().userCollect(new NoProgressSubscriber<String>(listener, this), StaticValues.userModel.id, 1, goodsInfoModel.id);
+                HttpMethods.getInstance().userCollect(new NoProgressSubscriber<String>(listener, this), StaticValues.userModel.userId, 1, goodsInfoModel.id);
             }
         } else {
             T.showShort(this, "使用关注功能需要先进行登录");
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
+    }
+
+    @OnClick(R.id.tv_into_car)
+    public void intoCar() {
+        final ImageView imageView = new ImageView(this);
+        imageView.setLayoutParams(new ViewGroup.LayoutParams(30, 60));
+        imageView.setImageResource(R.mipmap.ic_launcher);
+        if (animUtils == null) {
+            animUtils = new AnimUtils(this, intoCarView, carView, imageView);
+        }
+        animUtils.addShopCart(new IAddShopListener() {
+
+            @Override
+            public void addSucess() {
+                Toast.makeText(GoodsInfoActivity.this, "添加了一个商品", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

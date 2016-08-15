@@ -130,6 +130,7 @@
             android:text="关注" />
 
         <TextView
+            android:id="@+id/tv_car"
             style="@style/gray6_12"
             android:layout_marginBottom="4dp"
             android:layout_marginTop="8dp"
@@ -140,6 +141,7 @@
             android:text="购物车" />
 
         <TextView
+            android:id="@+id/tv_into_car"
             style="@style/white_14"
             android:layout_height="match_parent"
             android:layout_width="150dp"

@@ -9,15 +9,22 @@ import android.widget.ImageView;
 
 import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.activity.base.BaseActivity;
+import com.sdjy.sdjymall.common.util.SPUtils;
 import com.sdjy.sdjymall.common.util.T;
+import com.sdjy.sdjymall.constants.StaticValues;
 import com.sdjy.sdjymall.http.HttpMethods;
+import com.sdjy.sdjymall.model.UserModel;
 import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
 import com.sdjy.sdjymall.util.CommonUtils;
+import com.sdjy.sdjymall.util.DateUtil;
 import com.sdjy.sdjymall.util.StringUtils;
+
+import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 public class LoginActivity extends BaseActivity implements TextWatcher {
 
@@ -60,8 +67,8 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
 
     @OnClick(R.id.btn_login)
     public void login() {
-        String loginName = loginNameText.getText().toString();
-        String password = passwordText.getText().toString();
+        final String loginName = loginNameText.getText().toString();
+        final String password = passwordText.getText().toString();
         if (StringUtils.strIsEmpty(loginName)) {
             T.showShort(this, "请输入账号");
             return;
@@ -70,13 +77,18 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
             T.showShort(this, "请输入密码");
             return;
         }
-        SubscriberOnNextListener listener = new SubscriberOnNextListener() {
+        SubscriberOnNextListener listener = new SubscriberOnNextListener<UserModel>() {
             @Override
-            public void onNext(Object o) {
-
+            public void onNext(UserModel model) {
+                StaticValues.userModel = model;
+                SPUtils.put(LoginActivity.this, "loginName", loginName);
+                SPUtils.put(LoginActivity.this, "password", CommonUtils.MD5(password));
+                SPUtils.put(LoginActivity.this, "loginTime", DateUtil.DateToString(new Date(), null));
+                EventBus.getDefault().post(model);
+                LoginActivity.this.finish();
             }
         };
-        HttpMethods.getInstance().login(new ProgressSubscriber(listener, this), loginName, CommonUtils.MD5(password));
+        HttpMethods.getInstance().login(new ProgressSubscriber<UserModel>(listener, this), loginName, CommonUtils.MD5(password));
     }
 
     @OnClick(R.id.tv_register)

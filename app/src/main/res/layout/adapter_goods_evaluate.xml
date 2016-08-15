@@ -11,6 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -22,7 +23,7 @@
                 android:id="@+id/iv_header"
                 android:layout_width="29dp"
                 android:layout_height="29dp"
-                android:src="@mipmap/icon_default_head" />
+                android:src="@mipmap/icon_comment_head" />
 
             <TextView
                 android:id="@+id/tv_name"
@@ -49,6 +50,12 @@
             android:orientation="vertical"
             android:padding="10dp">
 
+            <ImageView
+                android:id="@+id/iv_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_star_0" />
+
             <TextView
                 android:id="@+id/tv_content"
                 style="@style/black_12"
@@ -56,11 +63,13 @@
                 android:textColor="@color/black1" />
 
             <TextView
+                android:id="@+id/tv_standard"
                 style="@style/gray6_12"
                 android:layout_marginTop="25dp"
                 android:textColor="@color/grayc1" />
 
             <TextView
+                android:id="@+id/tv_buy_time"
                 style="@style/gray6_12"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/grayc1" />

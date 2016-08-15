@@ -1,5 +1,6 @@
 package com.sdjy.sdjymall.activity;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -55,6 +56,14 @@ public class ShopActivity extends BaseListActivity {
         gridView.getRefreshableView().setHorizontalSpacing(DensityUtils.dp2px(this, 4));
         gridView.getRefreshableView().setVerticalSpacing(DensityUtils.dp2px(this, 4));
         gridView.doPullRefreshing(true, DELAY_MILLIS);
+        adapter.setItemClickListener(new ShopAdapter.onItemClickListener() {
+            @Override
+            public void onItem(ShopModel model) {
+                Intent intent = new Intent(ShopActivity.this, ShopInfoActivity.class);
+                intent.putExtra("shopId", model.id);
+                startActivity(intent);
+            }
+        });
 
         nextErrorListener = new SubscriberNextErrorListener<CommonListModel<List<ShopModel>>>() {
             @Override
