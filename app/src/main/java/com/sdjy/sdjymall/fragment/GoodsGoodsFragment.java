@@ -125,8 +125,9 @@ public class GoodsGoodsFragment extends LazyFragment {
                 postPriceView.setVisibility(View.GONE);
             }
 
+            //规格（默认选中第一项）
+            selectedPricesModel = goodsInfoModel.goodsPrices.get(0);
         }
-
     }
 
     @OnClick(R.id.ll_choose_standard)
@@ -154,5 +155,9 @@ public class GoodsGoodsFragment extends LazyFragment {
 
     public void setGoodsInfoModel(GoodsInfoModel goodsInfoModel) {
         this.goodsInfoModel = goodsInfoModel;
+    }
+
+    public GoodsPricesModel getSelectedPricesModel() {
+        return selectedPricesModel;
     }
 }

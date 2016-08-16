@@ -89,6 +89,22 @@ public class HttpMethods {
         }
     }
 
+    /**
+     * 用来统一处理Http的resultCode
+     * 只将错误的情况处理掉，成功的直接返回原对象
+     */
+    public class HttpResultFunc2<T> implements Func1<HttpResult<T>, HttpResult<T>> {
+
+        @Override
+        public HttpResult<T> call(HttpResult<T> httpResult) {
+            if ("0".equals(httpResult.code)) {
+                return httpResult;
+            } else {
+                throw new RuntimeException(httpResult.message);
+            }
+        }
+    }
+
     //获取首页滚动图片
     public void getHomeScrollImages(Subscriber<List<HomeScrollImageModel>> subscriber) {
         Observable observable = apiService.getHomeScrollImages()
@@ -190,6 +206,13 @@ public class HttpMethods {
     public void userCashBalance(Subscriber<UserCashBalanceModel> subscriber, String userId) {
         Observable observable = apiService.userCashBalance(StaticValues.userModel.userToken, userId)
                 .map(new HttpResultFunc<UserCashBalanceModel>());
+        toSubscribe(observable, subscriber);
+    }
+
+    //加入购物车接口
+    public void addToCart(Subscriber subscriber, String userId, String goodsId, String priceId) {
+        Observable observable = apiService.addToCart(StaticValues.userModel.userToken, userId, goodsId, priceId)
+                .map(new HttpResultFunc2());
         toSubscribe(observable, subscriber);
     }
 }

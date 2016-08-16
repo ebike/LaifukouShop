@@ -1,6 +1,7 @@
 package com.sdjy.sdjymall.activity;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,9 +11,11 @@ import com.bumptech.glide.Glide;
 import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.activity.base.BaseActivity;
 import com.sdjy.sdjymall.common.util.DialogUtils;
+import com.sdjy.sdjymall.common.util.T;
 import com.sdjy.sdjymall.constants.StaticValues;
 import com.sdjy.sdjymall.http.HttpMethods;
 import com.sdjy.sdjymall.model.ShopModel;
+import com.sdjy.sdjymall.subscribers.NoProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
 import com.sdjy.sdjymall.util.StringUtils;
@@ -80,11 +83,21 @@ public class ShopInfoActivity extends BaseActivity {
         } else if (shopModel.shopType == 2) {
             shopTypeView.setText("联盟商家");
         }
-        focusCountView.setText("");
+        focusCountView.setText(shopModel.collectNum + "人关注");
         if (!StringUtils.strIsEmpty(shopModel.collectId)) {//已关注
             focusView.setText("已关注");
+            focusView.setTextColor(getResources().getColor(R.color.red1));
+            focusView.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_white));
+            Drawable drawable = getResources().getDrawable(R.mipmap.icon_shop_unfocus);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            focusView.setCompoundDrawables(drawable, null, null, null);
         } else {//未关注
             focusView.setText("关注");
+            focusView.setTextColor(getResources().getColor(R.color.white));
+            focusView.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_red1));
+            Drawable drawable = getResources().getDrawable(R.mipmap.icon_shop_focus);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            focusView.setCompoundDrawables(drawable, null, null, null);
         }
         if (!StringUtils.strIsEmpty(shopModel.cusPhone)) {
             cusPhoneView.setText("联系客服");
@@ -94,8 +107,49 @@ public class ShopInfoActivity extends BaseActivity {
     }
 
     @OnClick(R.id.iv_back)
-    public void back(){
+    public void back() {
         finish();
+    }
+
+    @OnClick(R.id.tv_focus)
+    public void focus() {
+        if (StaticValues.userModel != null) {
+            if (!StringUtils.strIsEmpty(shopModel.collectId)) {
+                SubscriberOnNextListener listener = new SubscriberOnNextListener() {
+                    @Override
+                    public void onNext(Object o) {
+                        T.showShort(ShopInfoActivity.this, "取消关注");
+                        shopModel.collectId = null;
+                        focusView.setText("关注");
+                        focusView.setTextColor(getResources().getColor(R.color.white));
+                        focusView.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_red1));
+                        Drawable drawable = getResources().getDrawable(R.mipmap.icon_shop_focus);
+                        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                        focusView.setCompoundDrawables(drawable, null, null, null);
+                    }
+                };
+                HttpMethods.getInstance().cancelCollect(new NoProgressSubscriber(listener, this), StaticValues.userModel.userId, shopModel.collectId);
+            } else {
+                SubscriberOnNextListener<String> listener = new SubscriberOnNextListener<String>() {
+                    @Override
+                    public void onNext(String s) {
+                        T.showShort(ShopInfoActivity.this, "关注成功");
+                        shopModel.collectId = s;
+                        focusView.setText("已关注");
+                        focusView.setTextColor(getResources().getColor(R.color.red1));
+                        focusView.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_white));
+                        Drawable drawable = getResources().getDrawable(R.mipmap.icon_shop_unfocus);
+                        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                        focusView.setCompoundDrawables(drawable, null, null, null);
+                    }
+                };
+                HttpMethods.getInstance().userCollect(new NoProgressSubscriber<String>(listener, this), StaticValues.userModel.userId, 2, shopModel.id);
+            }
+        } else {
+            T.showShort(this, "使用关注功能需要先进行登录");
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        }
     }
 
     @OnClick(R.id.tv_shop_detail)

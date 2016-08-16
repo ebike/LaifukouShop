@@ -22,6 +22,8 @@ public class ShopModel {
     public int shopType;
     //关注记录id：存在表示商家已被关注
     public String collectId;
+    //关注人数
+    public String collectNum;
 
     public ShopModel() {
     }

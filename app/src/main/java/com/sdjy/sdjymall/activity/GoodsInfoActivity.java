@@ -5,11 +5,10 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.activity.base.BaseActivity;
 import com.sdjy.sdjymall.common.adapter.ViewPagerFragmentAdapter;
@@ -21,7 +20,11 @@ import com.sdjy.sdjymall.fragment.GoodsDetailFragment;
 import com.sdjy.sdjymall.fragment.GoodsEvaluateFragment;
 import com.sdjy.sdjymall.fragment.GoodsGoodsFragment;
 import com.sdjy.sdjymall.http.HttpMethods;
+import com.sdjy.sdjymall.model.CarGoodsModel;
+import com.sdjy.sdjymall.model.CarShopModel;
 import com.sdjy.sdjymall.model.GoodsInfoModel;
+import com.sdjy.sdjymall.model.GoodsPricesModel;
+import com.sdjy.sdjymall.model.HttpResult;
 import com.sdjy.sdjymall.subscribers.IAddShopListener;
 import com.sdjy.sdjymall.subscribers.NoProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
@@ -34,6 +37,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import io.realm.Realm;
 
 /**
  * 商品详情
@@ -60,6 +64,7 @@ public class GoodsInfoActivity extends BaseActivity {
     private String goodsId;
     private GoodsInfoModel goodsInfoModel;
     private AnimUtils animUtils;
+    private Realm realm;
 
     @Override
     public void loadLoyout() {
@@ -167,6 +172,7 @@ public class GoodsInfoActivity extends BaseActivity {
                     @Override
                     public void onNext(Object o) {
                         T.showShort(GoodsInfoActivity.this, "取消关注");
+                        goodsInfoModel.collectId = null;
                         Drawable drawable = getResources().getDrawable(R.mipmap.icon_goodsinfo_collect);
                         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
                         goodsFocusView.setCompoundDrawables(null, drawable, null, null);
@@ -196,8 +202,69 @@ public class GoodsInfoActivity extends BaseActivity {
     @OnClick(R.id.tv_into_car)
     public void intoCar() {
         final ImageView imageView = new ImageView(this);
-        imageView.setLayoutParams(new ViewGroup.LayoutParams(30, 60));
-        imageView.setImageResource(R.mipmap.ic_launcher);
+        Glide.with(this)
+                .load(goodsInfoModel.goodsPics.get(0))
+                .override(100, 100)
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
+                .into(imageView);
+        if (StaticValues.userModel != null) {
+            GoodsGoodsFragment goodsFragment = (GoodsGoodsFragment) fragmentList.get(0);
+            GoodsPricesModel pricesModel = goodsFragment.getSelectedPricesModel();
+            SubscriberOnNextListener listener = new SubscriberOnNextListener<HttpResult>() {
+                @Override
+                public void onNext(HttpResult httpResult) {
+                    T.showShort(GoodsInfoActivity.this, httpResult.message);
+                    intoCarAnim(imageView);
+                }
+            };
+            HttpMethods.getInstance().addToCart(new NoProgressSubscriber(listener, this), StaticValues.userModel.userId, goodsInfoModel.id, pricesModel.id);
+        } else {
+            realm = Realm.getDefaultInstance();
+            //判断本地购物车是否存在该商品，若存在，修改个数，若不存在，加入购物车
+            CarGoodsModel carGoodsModel = realm.where(CarGoodsModel.class).equalTo("id", goodsInfoModel.id).findFirst();
+            if (carGoodsModel != null) {
+                int num = carGoodsModel.getNum() + 1;
+                carGoodsModel.setNum(num);
+                realm.beginTransaction();
+                realm.copyToRealmOrUpdate(carGoodsModel);
+                realm.commitTransaction();
+            } else {
+                CarShopModel carShopModel = realm.where(CarShopModel.class).equalTo("shopId", goodsInfoModel.shopId).findFirst();
+                if(carShopModel != null){
+
+                }else{
+
+                }
+                realm.beginTransaction();
+                realm.copyToRealm(carShopModel);
+                realm.commitTransaction();
+            }
+
+//            RealmList<CarGoodsModel> goodsModels = new RealmList<>();
+//            CarGoodsModel carGoodsModel = new CarGoodsModel();
+//            carGoodsModel.setId("1");
+//            carGoodsModel.setGoodsName("我是商品呀");
+//            goodsModels.add(carGoodsModel);
+
+//            CarShopModel carShopModel = new CarShopModel();
+//            carShopModel.setShopId(goodsInfoModel.shopId);
+//            carShopModel.setShopName("这个字段没给");
+//            carShopModel.setShopType(goodsInfoModel.shopType);
+//            carShopModel.setGoods(goodsModels);
+//            //插入数据
+//            realm.beginTransaction();
+//            realm.copyToRealm(carShopModel);
+//            realm.commitTransaction();
+
+            List<CarShopModel> list = realm.where(CarShopModel.class).findAll();
+            T.showShort(this, list + "");
+            List<CarGoodsModel> list1 = realm.where(CarGoodsModel.class).findAll();
+            T.showShort(this, list1 + "");
+        }
+    }
+
+    private void intoCarAnim(ImageView imageView) {
         if (animUtils == null) {
             animUtils = new AnimUtils(this, intoCarView, carView, imageView);
         }
@@ -205,8 +272,16 @@ public class GoodsInfoActivity extends BaseActivity {
 
             @Override
             public void addSucess() {
-                Toast.makeText(GoodsInfoActivity.this, "添加了一个商品", Toast.LENGTH_SHORT).show();
+                //变化角标（目前不做）
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (realm != null) {
+            realm.close();
+        }
     }
 }

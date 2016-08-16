@@ -1,5 +1,6 @@
 package com.sdjy.sdjymall.http;
 
+import com.sdjy.sdjymall.model.CarShopModel;
 import com.sdjy.sdjymall.model.CommonDataModel;
 import com.sdjy.sdjymall.model.CommonListModel;
 import com.sdjy.sdjymall.model.GoodsEvaluateCountModel;
@@ -113,4 +114,21 @@ public interface APIService {
             @Header("Authorization") String auth,
             @Query("userId") String userId
     );
+
+    //加入购物车接口
+    @POST("cart/addToCart.do")
+    Observable<HttpResult> addToCart(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @Query("goodsId") String goodsId,
+            @Query("priceId") String priceId
+    );
+
+    //获取购物车信息接口
+    @POST("cart/cartGoods")
+    Observable<HttpResult<List<CarShopModel>>> cartGoods(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId
+    );
+
 }
