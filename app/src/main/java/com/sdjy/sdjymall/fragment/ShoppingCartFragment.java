@@ -44,9 +44,8 @@ public class ShoppingCartFragment extends BaseListFragment {
         realm = Realm.getDefaultInstance();
 
         handler = new PullListFragmentHandler(this, listView);
-        listView.setPullRefreshEnabled(false);
         listView.setPullLoadEnabled(false);
-        listView.setScrollLoadEnabled(true);
+        listView.setScrollLoadEnabled(false);
         listView.setDriverLine();
         adapter = new ShoppingCartAdapter(getActivity());
         listView.setAdapter(adapter);
@@ -78,7 +77,12 @@ public class ShoppingCartFragment extends BaseListFragment {
             HttpMethods.getInstance().cartGoods(new NoProgressSubscriber<List<CarShopModel>>(listener, getActivity()));
         } else {
             carShopList = realm.where(CarShopModel.class).findAll();
-            adapter.setList(carShopList);
+            if(carShopList != null && carShopList.size()>0){
+                listView.setBackgroundColor(getResources().getColor(R.color.main_bg));
+                adapter.setList(carShopList);
+            }else{
+                listView.setBackgroundColor(getResources().getColor(R.color.transparent));
+            }
             handler.sendEmptyMessage(PULL_TO_REFRESH_COMPLETE);
         }
     }

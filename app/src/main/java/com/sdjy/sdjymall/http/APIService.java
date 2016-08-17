@@ -125,10 +125,17 @@ public interface APIService {
     );
 
     //获取购物车信息接口
-    @POST("cart/cartGoods")
+    @POST("cart/cartGoods.do")
     Observable<HttpResult<List<CarShopModel>>> cartGoods(
             @Header("Authorization") String auth,
             @Query("userId") String userId
     );
 
+    //同步购物车接口
+    @POST("cart/syncShoppingCart.do")
+    Observable<HttpResult> syncShoppingCart(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @QueryMap Map<String, String> params
+    );
 }

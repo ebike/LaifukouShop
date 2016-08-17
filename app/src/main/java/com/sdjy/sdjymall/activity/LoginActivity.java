@@ -12,6 +12,7 @@ import com.sdjy.sdjymall.activity.base.BaseActivity;
 import com.sdjy.sdjymall.common.util.SPUtils;
 import com.sdjy.sdjymall.common.util.T;
 import com.sdjy.sdjymall.constants.StaticValues;
+import com.sdjy.sdjymall.http.CommonMethods;
 import com.sdjy.sdjymall.http.HttpMethods;
 import com.sdjy.sdjymall.model.UserModel;
 import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
@@ -85,6 +86,7 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
                 SPUtils.put(LoginActivity.this, "password", CommonUtils.MD5(password));
                 SPUtils.put(LoginActivity.this, "loginTime", DateUtil.DateToString(new Date(), null));
                 EventBus.getDefault().post(model);
+                CommonMethods.syncShoppingCart(LoginActivity.this);
                 LoginActivity.this.finish();
             }
         };

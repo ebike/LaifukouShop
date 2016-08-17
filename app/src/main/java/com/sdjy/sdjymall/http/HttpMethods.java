@@ -223,4 +223,11 @@ public class HttpMethods {
                 .map(new HttpResultFunc<List<CarShopModel>>());
         toSubscribe(observable, subscriber);
     }
+
+    //同步购物车接口
+    public void syncShoppingCart(Subscriber subscriber, Map<String, String> params) {
+        Observable observable = apiService.syncShoppingCart(StaticValues.userModel.userToken, StaticValues.userModel.userId, params)
+                .map(new HttpResultFunc2());
+        toSubscribe(observable, subscriber);
+    }
 }
