@@ -52,6 +52,7 @@ public class GoodsGoodsFragment extends LazyFragment {
     private GoodsInfoModel goodsInfoModel;
     private ChooseStandardDialog dialog;
     private GoodsPricesModel selectedPricesModel;
+    private int goodsNum;
 
     @Override
     protected void onCreateViewLazy(Bundle savedInstanceState) {
@@ -127,6 +128,7 @@ public class GoodsGoodsFragment extends LazyFragment {
 
             //规格（默认选中第一项）
             selectedPricesModel = goodsInfoModel.goodsPrices.get(0);
+            goodsNum = 1;
         }
     }
 
@@ -146,6 +148,7 @@ public class GoodsGoodsFragment extends LazyFragment {
             dialog.setCountCallback(new ChooseStandardDialog.ChangeCountCallback() {
                 @Override
                 public void changed(int count) {
+                    goodsNum = count;
                     countView.setText(count + "个");
                 }
             });
@@ -159,5 +162,9 @@ public class GoodsGoodsFragment extends LazyFragment {
 
     public GoodsPricesModel getSelectedPricesModel() {
         return selectedPricesModel;
+    }
+
+    public int getGoodsNum() {
+        return goodsNum;
     }
 }

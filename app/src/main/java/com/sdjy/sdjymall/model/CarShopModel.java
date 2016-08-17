@@ -2,12 +2,14 @@ package com.sdjy.sdjymall.model;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * 购物车中的店铺
  */
 public class CarShopModel extends RealmObject {
     //店铺ID
+    @PrimaryKey
     private String shopId;
     //商家类型：1自营；2联盟商家
     private int shopType;

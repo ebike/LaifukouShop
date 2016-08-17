@@ -1,12 +1,14 @@
 package com.sdjy.sdjymall.model;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * 购物车中的商品
  */
 public class CarGoodsModel extends RealmObject {
     //商品ID
+    @PrimaryKey
     private String id;
     //商品名称
     private String goodsName;
@@ -16,6 +18,10 @@ public class CarGoodsModel extends RealmObject {
     private int priceType;
     //现金
     private String priceMoney;
+    //金币
+    private String priceGoldCoin;
+    //银币
+    private String priceCoin;
     //数量
     private int num;
     //价格ID
@@ -108,5 +114,21 @@ public class CarGoodsModel extends RealmObject {
 
     public void setPraiseRate(String praiseRate) {
         this.praiseRate = praiseRate;
+    }
+
+    public String getPriceGoldCoin() {
+        return priceGoldCoin;
+    }
+
+    public void setPriceGoldCoin(String priceGoldCoin) {
+        this.priceGoldCoin = priceGoldCoin;
+    }
+
+    public String getPriceCoin() {
+        return priceCoin;
+    }
+
+    public void setPriceCoin(String priceCoin) {
+        this.priceCoin = priceCoin;
     }
 }

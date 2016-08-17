@@ -65,5 +65,22 @@
                 android:text="去挑几件中意的商品吧" />
         </LinearLayout>
 
+        <com.sdjy.sdjymall.view.pullrefresh.PullToRefreshListView
+            android:id="@+id/list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/main_bg"
+            android:cacheColorHint="@null"
+            android:divider="@color/main_line"
+            android:dividerHeight="0dp"
+            android:fadingEdge="none"
+            android:fastScrollEnabled="false"
+            android:footerDividersEnabled="false"
+            android:headerDividersEnabled="false"
+            android:listSelector="@null"
+            android:scrollbars="none"
+            android:scrollingCache="false"
+            android:smoothScrollbar="true" />
+
     </FrameLayout>
 </LinearLayout>

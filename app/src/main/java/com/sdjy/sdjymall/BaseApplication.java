@@ -18,7 +18,7 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         //数据库
-        RealmConfiguration config = new RealmConfiguration.Builder(this).name("sdjymall.realm").build();
+        RealmConfiguration config = new RealmConfiguration.Builder(this).name("sdjymall.realm").deleteRealmIfMigrationNeeded().build();
         Realm.setDefaultConfiguration(config);
         //获取手机imei码
         TelephonyManager TelephonyMgr = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);

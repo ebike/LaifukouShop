@@ -2,6 +2,7 @@ package com.sdjy.sdjymall.http;
 
 
 import com.sdjy.sdjymall.constants.StaticValues;
+import com.sdjy.sdjymall.model.CarShopModel;
 import com.sdjy.sdjymall.model.CommonDataModel;
 import com.sdjy.sdjymall.model.CommonListModel;
 import com.sdjy.sdjymall.model.GoodsEvaluateCountModel;
@@ -213,6 +214,13 @@ public class HttpMethods {
     public void addToCart(Subscriber subscriber, String userId, String goodsId, String priceId) {
         Observable observable = apiService.addToCart(StaticValues.userModel.userToken, userId, goodsId, priceId)
                 .map(new HttpResultFunc2());
+        toSubscribe(observable, subscriber);
+    }
+
+    //获取购物车信息接口
+    public void cartGoods(Subscriber<List<CarShopModel>> subscriber) {
+        Observable observable = apiService.cartGoods(StaticValues.userModel.userToken, StaticValues.userModel.userId)
+                .map(new HttpResultFunc<List<CarShopModel>>());
         toSubscribe(observable, subscriber);
     }
 }

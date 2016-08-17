@@ -38,6 +38,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.OnClick;
 import io.realm.Realm;
+import io.realm.RealmList;
 
 /**
  * 商品详情
@@ -69,6 +70,7 @@ public class GoodsInfoActivity extends BaseActivity {
     @Override
     public void loadLoyout() {
         setContentView(R.layout.activity_goods_info);
+        realm = Realm.getDefaultInstance();
     }
 
     @Override
@@ -208,9 +210,9 @@ public class GoodsInfoActivity extends BaseActivity {
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
                 .into(imageView);
+        GoodsGoodsFragment goodsFragment = (GoodsGoodsFragment) fragmentList.get(0);
+        GoodsPricesModel pricesModel = goodsFragment.getSelectedPricesModel();
         if (StaticValues.userModel != null) {
-            GoodsGoodsFragment goodsFragment = (GoodsGoodsFragment) fragmentList.get(0);
-            GoodsPricesModel pricesModel = goodsFragment.getSelectedPricesModel();
             SubscriberOnNextListener listener = new SubscriberOnNextListener<HttpResult>() {
                 @Override
                 public void onNext(HttpResult httpResult) {
@@ -220,47 +222,52 @@ public class GoodsInfoActivity extends BaseActivity {
             };
             HttpMethods.getInstance().addToCart(new NoProgressSubscriber(listener, this), StaticValues.userModel.userId, goodsInfoModel.id, pricesModel.id);
         } else {
-            realm = Realm.getDefaultInstance();
             //判断本地购物车是否存在该商品，若存在，修改个数，若不存在，加入购物车
             CarGoodsModel carGoodsModel = realm.where(CarGoodsModel.class).equalTo("id", goodsInfoModel.id).findFirst();
             if (carGoodsModel != null) {
                 int num = carGoodsModel.getNum() + 1;
-                carGoodsModel.setNum(num);
                 realm.beginTransaction();
+                carGoodsModel.setNum(num);
                 realm.copyToRealmOrUpdate(carGoodsModel);
                 realm.commitTransaction();
             } else {
+                RealmList<CarGoodsModel> carGoodsList = new RealmList<>();
+
+                carGoodsModel = new CarGoodsModel();
+                carGoodsModel.setId(goodsInfoModel.id);
+                carGoodsModel.setGoodsName(goodsInfoModel.goodsName);
+                carGoodsModel.setNum(goodsFragment.getGoodsNum());
+                carGoodsModel.setCommentNum(goodsInfoModel.commentNum);
+                carGoodsModel.setImageUrl(goodsInfoModel.goodsPics.get(0));
+                carGoodsModel.setPraiseRate(goodsInfoModel.praiseRate);
+                carGoodsModel.setPriceId(pricesModel.id);
+                carGoodsModel.setPriceMoney(pricesModel.priceMoney);
+                carGoodsModel.setPriceGoldCoin(pricesModel.priceGoldCoin);
+                carGoodsModel.setPriceCoin(pricesModel.priceCoin);
+                carGoodsModel.setPriceType(goodsInfoModel.priceType);
+                carGoodsModel.setStardand(pricesModel.standard);
+
                 CarShopModel carShopModel = realm.where(CarShopModel.class).equalTo("shopId", goodsInfoModel.shopId).findFirst();
-                if(carShopModel != null){
+                if (carShopModel != null) {
+                    carGoodsList = carShopModel.getGoods();
+                    realm.beginTransaction();
+                    carGoodsList.add(carGoodsModel);
+                    realm.copyToRealmOrUpdate(carShopModel);
+                    realm.commitTransaction();
+                } else {
+                    carGoodsList.add(carGoodsModel);
 
-                }else{
-
+                    carShopModel = new CarShopModel();
+                    carShopModel.setShopId(goodsInfoModel.shopId);
+                    carShopModel.setShopName(goodsInfoModel.shopName);
+                    carShopModel.setShopType(goodsInfoModel.shopType);
+                    carShopModel.setGoods(carGoodsList);
+                    realm.beginTransaction();
+                    realm.copyToRealm(carShopModel);
+                    realm.commitTransaction();
                 }
-                realm.beginTransaction();
-                realm.copyToRealm(carShopModel);
-                realm.commitTransaction();
             }
-
-//            RealmList<CarGoodsModel> goodsModels = new RealmList<>();
-//            CarGoodsModel carGoodsModel = new CarGoodsModel();
-//            carGoodsModel.setId("1");
-//            carGoodsModel.setGoodsName("我是商品呀");
-//            goodsModels.add(carGoodsModel);
-
-//            CarShopModel carShopModel = new CarShopModel();
-//            carShopModel.setShopId(goodsInfoModel.shopId);
-//            carShopModel.setShopName("这个字段没给");
-//            carShopModel.setShopType(goodsInfoModel.shopType);
-//            carShopModel.setGoods(goodsModels);
-//            //插入数据
-//            realm.beginTransaction();
-//            realm.copyToRealm(carShopModel);
-//            realm.commitTransaction();
-
-            List<CarShopModel> list = realm.where(CarShopModel.class).findAll();
-            T.showShort(this, list + "");
-            List<CarGoodsModel> list1 = realm.where(CarGoodsModel.class).findAll();
-            T.showShort(this, list1 + "");
+            intoCarAnim(imageView);
         }
     }
 

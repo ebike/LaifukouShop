@@ -17,6 +17,8 @@ public class GoodsInfoModel {
     public int priceType;
     //店铺ID
     public String shopId;
+    //店铺名称
+    public String shopName;
     //商家类型：1自营；2联盟商家
     public int shopType;
     //评论数
