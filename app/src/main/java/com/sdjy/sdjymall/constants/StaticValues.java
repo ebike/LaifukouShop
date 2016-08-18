@@ -7,6 +7,7 @@ import com.sdjy.sdjymall.model.UserModel;
  * 全局使用
  */
 public class StaticValues {
+
     //当前登录的用户信息
     public static UserModel userModel;
     //clientId

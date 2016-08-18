@@ -40,8 +40,9 @@
         <activity android:name=".activity.GoodsActivity" />
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.GoodsInfoActivity" />
-        <activity android:name=".activity.ShopInfoActivity"></activity>
-        <activity android:name=".activity.LoginActivity"></activity>
+        <activity android:name=".activity.ShopInfoActivity" />
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.RechargeActivity"></activity>
     </application>
 
 </manifest>

@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.activity.GoodsActivity;
 import com.sdjy.sdjymall.activity.GoodsInfoActivity;
+import com.sdjy.sdjymall.activity.RechargeActivity;
 import com.sdjy.sdjymall.activity.ShopActivity;
 import com.sdjy.sdjymall.activity.ShopInfoActivity;
 import com.sdjy.sdjymall.adapter.HighQualityShopAdapter;
@@ -215,6 +216,10 @@ public class HomeFragment extends LazyFragment {
                     case 2://银币专区
                         intent = new Intent(getActivity(), GoodsActivity.class);
                         intent.putExtra("pageSorts", "3");
+                        startActivity(intent);
+                        break;
+                    case 3://充值立返
+                        intent = new Intent(getActivity(), RechargeActivity.class);
                         startActivity(intent);
                         break;
                     case 5://最新上架

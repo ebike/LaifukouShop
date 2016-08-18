@@ -14,10 +14,9 @@ import java.util.List;
  */
 public abstract class AutoRVAdapter<T> extends RecyclerView.Adapter<RVHolder> {
 
-
     public List<T> list;
-
     public Context context;
+    public OnRVItemClickListener rvItemClickListener;
 
     public AutoRVAdapter(Context context, List<T> list) {
         this.list = list;
@@ -41,17 +40,7 @@ public abstract class AutoRVAdapter<T> extends RecyclerView.Adapter<RVHolder> {
 
     @Override
     public void onBindViewHolder(final RVHolder holder, final int position) {
-
         onBindViewHolder(holder.getViewHolder(), position);
-        if (onItemClickListener != null) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onItemClickListener.onItemClick(null, v, holder.getPosition(), holder.getItemId());
-                }
-            });
-        }
-
     }
 
     public abstract void onBindViewHolder(ViewHolder holder, int position);
@@ -67,7 +56,7 @@ public abstract class AutoRVAdapter<T> extends RecyclerView.Adapter<RVHolder> {
         return onItemClickListener;
     }
 
-    public void setOnItemClickListener(AdapterView.OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
+    public void setRvItemClickListener(OnRVItemClickListener rvItemClickListener) {
+        this.rvItemClickListener = rvItemClickListener;
     }
 }

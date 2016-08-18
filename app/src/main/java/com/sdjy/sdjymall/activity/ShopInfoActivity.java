@@ -3,6 +3,8 @@ package com.sdjy.sdjymall.activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,9 +12,14 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.activity.base.BaseActivity;
+import com.sdjy.sdjymall.common.adapter.ViewPagerFragmentAdapter;
+import com.sdjy.sdjymall.common.model.TabIndicator;
 import com.sdjy.sdjymall.common.util.DialogUtils;
 import com.sdjy.sdjymall.common.util.T;
+import com.sdjy.sdjymall.common.util.ViewPagerUtil;
 import com.sdjy.sdjymall.constants.StaticValues;
+import com.sdjy.sdjymall.fragment.ShopGoodsFragment;
+import com.sdjy.sdjymall.fragment.ShopHomeFragment;
 import com.sdjy.sdjymall.http.HttpMethods;
 import com.sdjy.sdjymall.model.ShopModel;
 import com.sdjy.sdjymall.subscribers.NoProgressSubscriber;
@@ -20,7 +27,9 @@ import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
 import com.sdjy.sdjymall.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
@@ -43,10 +52,22 @@ public class ShopInfoActivity extends BaseActivity {
     TextView focusView;
     @Bind(R.id.tv_cus_phone)
     TextView cusPhoneView;
+    @Bind(R.id.view_pager)
+    ViewPager viewPager;
+    @Bind(R.id.iv_home)
+    ImageView homeView;
+    @Bind({R.id.tv_all_count, R.id.tv_hot_count, R.id.tv_new_count})
+    TextView[] countViews;
+    @Bind({R.id.tv_home, R.id.tv_all_label, R.id.tv_hot_label, R.id.tv_new_label})
+    TextView[] labelViews;
 
     private String shopId;
     private ShopModel shopModel;
     private SubscriberOnNextListener<ShopModel> nextListener;
+    private List<Fragment> fragmentList;
+    private List<TabIndicator> tabIndicatorList;
+    private ViewPagerFragmentAdapter viewPagerFragmentAdapter;
+    private int currentFragment;
 
     @Override
     public void loadLoyout() {
@@ -70,6 +91,47 @@ public class ShopInfoActivity extends BaseActivity {
             params.put("userId", StaticValues.userModel.userId);
         }
         HttpMethods.getInstance().findShop(new ProgressSubscriber<ShopModel>(nextListener, this), params);
+
+        initPagerView();
+    }
+
+    private void initPagerView() {
+        viewPager.setOffscreenPageLimit(4);
+        tabIndicatorList = ViewPagerUtil.getTabIndicator(4);
+        fragmentList = new ArrayList<>();
+        ShopHomeFragment shopHomeFragment = new ShopHomeFragment();
+        fragmentList.add(shopHomeFragment);
+        ShopGoodsFragment allFragment = new ShopGoodsFragment();
+        allFragment.setShopId(shopId);
+        allFragment.setPageSorts("13");
+        fragmentList.add(allFragment);
+        ShopGoodsFragment hotFragment = new ShopGoodsFragment();
+        hotFragment.setShopId(shopId);
+        hotFragment.setPageSorts("11");
+        fragmentList.add(hotFragment);
+        ShopGoodsFragment newFragment = new ShopGoodsFragment();
+        newFragment.setShopId(shopId);
+        newFragment.setPageSorts("12");
+        fragmentList.add(newFragment);
+        // 设置ViewPager适配器
+        viewPagerFragmentAdapter = new ViewPagerFragmentAdapter(getSupportFragmentManager(), tabIndicatorList, fragmentList);
+        viewPager.setAdapter(viewPagerFragmentAdapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                changeTab(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     private void initView() {
@@ -152,6 +214,25 @@ public class ShopInfoActivity extends BaseActivity {
         }
     }
 
+    @OnClick({R.id.ll_home, R.id.ll_all, R.id.ll_hot, R.id.ll_new})
+    public void clickTab(View v) {
+        switch (v.getId()) {
+            case R.id.ll_home:
+                changeTab(0);
+                break;
+            case R.id.ll_all:
+                changeTab(1);
+                break;
+            case R.id.ll_hot:
+                changeTab(2);
+                break;
+            case R.id.ll_new:
+                changeTab(3);
+                break;
+        }
+        viewPager.setCurrentItem(currentFragment);
+    }
+
     @OnClick(R.id.tv_shop_detail)
     public void shopDetail() {
 
@@ -177,6 +258,27 @@ public class ShopInfoActivity extends BaseActivity {
                     }
                 }
             });
+        }
+    }
+
+    private void changeTab(int index) {
+        currentFragment = index;
+        for (int i = 0; i < labelViews.length; i++) {
+            if (index == i) {
+                if (i == 0) {
+                    homeView.setImageResource(R.mipmap.icon_shop_active);
+                } else {
+                    countViews[i - 1].setTextColor(getResources().getColor(R.color.red3));
+                }
+                labelViews[i].setTextColor(getResources().getColor(R.color.red3));
+            } else {
+                if (i == 0) {
+                    homeView.setImageResource(R.mipmap.icon_goodsinfo_shop);
+                } else {
+                    countViews[i - 1].setTextColor(getResources().getColor(R.color.text_gray));
+                }
+                labelViews[i].setTextColor(getResources().getColor(R.color.text_gray));
+            }
         }
     }
 }

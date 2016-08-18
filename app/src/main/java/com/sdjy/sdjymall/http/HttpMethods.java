@@ -1,6 +1,7 @@
 package com.sdjy.sdjymall.http;
 
 
+import com.sdjy.sdjymall.constants.FinalValues;
 import com.sdjy.sdjymall.constants.StaticValues;
 import com.sdjy.sdjymall.model.CarShopModel;
 import com.sdjy.sdjymall.model.CommonDataModel;
@@ -21,6 +22,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -41,9 +43,16 @@ public class HttpMethods {
 
     //构造方法私有
     private HttpMethods() {
-        //手动创建一个OkHttpClient并设置超时时间
+        //手动创建一个OkHttpClient
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        //设置超时时间
         builder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+        //设置打印日志
+        if (FinalValues.IS_DEBUG) {
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+            builder.addInterceptor(logging);
+        }
 
         retrofit = new Retrofit.Builder()
                 .client(builder.build())
@@ -228,6 +237,13 @@ public class HttpMethods {
     public void syncShoppingCart(Subscriber subscriber, Map<String, String> params) {
         Observable observable = apiService.syncShoppingCart(StaticValues.userModel.userToken, StaticValues.userModel.userId, params)
                 .map(new HttpResultFunc2());
+        toSubscribe(observable, subscriber);
+    }
+
+    //获取充值返现数值接口
+    public void findRechargeNums(Subscriber<List<Integer>> subscriber) {
+        Observable observable = apiService.findRechargeNums()
+                .map(new HttpResultFunc<List<Integer>>());
         toSubscribe(observable, subscriber);
     }
 }

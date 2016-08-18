@@ -138,4 +138,24 @@ public interface APIService {
             @Query("userId") String userId,
             @QueryMap Map<String, String> params
     );
+
+    //获取充值返现数值接口
+    @GET("recharge/findRechargeNums.do")
+    Observable<HttpResult<List<Integer>>> findRechargeNums();
+
+    //充值接口
+    @POST("recharge/recharge.do")
+    Observable<HttpResult> recharge(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @Query("num") String num
+    );
+
+    //删除购物车接口
+    @POST("cart/delShoppingCart.do")
+    Observable<HttpResult> delShoppingCart(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @QueryMap Map<String, String> params
+    );
 }

@@ -49,6 +49,8 @@ public class GoodsAdapter extends TAdapter<GoodsModel> {
             } else if ("3".equals(model.priceType)) {
                 moneyView.setText("币 " + model.priceCoin);
             }
+            commentsCountView.setText(model.commentNum + "条评论");
+            commentsRateView.setText("好评" + model.praiseRate);
 
         }
         return convertView;
