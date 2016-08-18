@@ -232,6 +232,9 @@ public class HomeFragment extends LazyFragment {
                         intent.putExtra("pageSorts", "11");
                         startActivity(intent);
                         break;
+                    case 7://所有分类
+
+                        break;
                 }
             }
         });

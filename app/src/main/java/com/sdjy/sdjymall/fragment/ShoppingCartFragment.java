@@ -72,6 +72,7 @@ public class ShoppingCartFragment extends BaseListFragment {
                 @Override
                 public void onError() {
                     listView.setBackgroundColor(getResources().getColor(R.color.transparent));
+                    handler.sendEmptyMessage(PULL_TO_REFRESH_COMPLETE);
                 }
             };
             HttpMethods.getInstance().cartGoods(new NoProgressSubscriber<List<CarShopModel>>(listener, getActivity()));

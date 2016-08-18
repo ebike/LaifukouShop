@@ -7,7 +7,9 @@ import android.widget.TextView;
 import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.activity.base.BaseActivity;
 import com.sdjy.sdjymall.adapter.RechargeAdapter;
+import com.sdjy.sdjymall.common.util.T;
 import com.sdjy.sdjymall.http.HttpMethods;
+import com.sdjy.sdjymall.model.HttpResult;
 import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
 import com.sdjy.sdjymall.view.ScrollGridView;
@@ -40,11 +42,15 @@ public class RechargeActivity extends BaseActivity {
             @Override
             public void onNext(List<Integer> list) {
                 adapter.setList(list);
+                amount = list.get(0);
+                amountView.setText("合计：￥" + amount);
                 gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         amount = (Integer) parent.getItemAtPosition(position);
-                        amountView.setText(""+amount);
+                        amountView.setText("合计：￥" + amount);
+                        adapter.setSelectedPosition(position);
+                        adapter.notifyDataSetChanged();
                     }
                 });
             }
@@ -59,6 +65,12 @@ public class RechargeActivity extends BaseActivity {
 
     @OnClick(R.id.tv_recharge)
     public void recharge() {
-
+        SubscriberOnNextListener listener = new SubscriberOnNextListener<HttpResult>() {
+            @Override
+            public void onNext(HttpResult httpResult) {
+                T.showShort(RechargeActivity.this, httpResult.message);
+            }
+        };
+        HttpMethods.getInstance().recharge(new ProgressSubscriber(listener, this), amount);
     }
 }

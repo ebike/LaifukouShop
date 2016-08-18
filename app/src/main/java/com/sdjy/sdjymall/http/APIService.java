@@ -148,7 +148,7 @@ public interface APIService {
     Observable<HttpResult> recharge(
             @Header("Authorization") String auth,
             @Query("userId") String userId,
-            @Query("num") String num
+            @Query("num") Integer num
     );
 
     //删除购物车接口

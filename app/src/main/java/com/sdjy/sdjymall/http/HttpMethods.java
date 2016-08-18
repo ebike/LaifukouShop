@@ -246,4 +246,11 @@ public class HttpMethods {
                 .map(new HttpResultFunc<List<Integer>>());
         toSubscribe(observable, subscriber);
     }
+
+    //充值接口
+    public void recharge(Subscriber subscriber,Integer num){
+        Observable observable = apiService.recharge(StaticValues.userModel.userToken, StaticValues.userModel.userId, num)
+                .map(new HttpResultFunc2());
+        toSubscribe(observable, subscriber);
+    }
 }
