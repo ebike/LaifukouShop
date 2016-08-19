@@ -116,7 +116,7 @@
             android:drawablePadding="8dp"
             android:drawableTop="@mipmap/icon_goodsinfo_shop"
             android:gravity="center"
-            android:text="店铺" />
+            android:text="商家" />
 
         <TextView
             android:id="@+id/tv_goods_focus"

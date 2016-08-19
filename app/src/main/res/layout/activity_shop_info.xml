@@ -28,7 +28,7 @@
             android:background="@mipmap/bg_head_search"
             android:drawableLeft="@mipmap/icon_head_search"
             android:drawablePadding="4dp"
-            android:hint="搜索店铺内商品"
+            android:hint="搜索商家内商品"
             android:padding="8dp"
             android:singleLine="true"
             android:textColorHint="@color/white"
@@ -129,7 +129,7 @@
                         style="@style/gray_12"
                         android:layout_marginBottom="6dp"
                         android:layout_marginTop="6dp"
-                        android:text="店铺首页"
+                        android:text="商家首页"
                         android:textColor="@color/red3"
                         android:textSize="13sp" />
 
@@ -256,7 +256,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="店铺详情" />
+            android:text="商家详情" />
 
         <View
             android:layout_width="1px"

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.activity.LoginActivity;
+import com.sdjy.sdjymall.activity.MessageActivity;
 import com.sdjy.sdjymall.common.fragment.LazyFragment;
 import com.sdjy.sdjymall.constants.StaticValues;
 import com.sdjy.sdjymall.http.HttpMethods;
@@ -92,7 +93,8 @@ public class MyFragment extends LazyFragment {
 
     @OnClick(R.id.iv_message)
     public void message() {
-
+        Intent intent = new Intent(getActivity(), MessageActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.rl_all_order)

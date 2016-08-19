@@ -13,11 +13,16 @@ import android.widget.ScrollView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
+import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.bumptech.glide.Glide;
 import com.sdjy.sdjymall.R;
+import com.sdjy.sdjymall.activity.CreateTeamActivity;
 import com.sdjy.sdjymall.activity.GoodsActivity;
 import com.sdjy.sdjymall.activity.GoodsInfoActivity;
+import com.sdjy.sdjymall.activity.MainActivity;
+import com.sdjy.sdjymall.activity.MessageActivity;
 import com.sdjy.sdjymall.activity.RechargeActivity;
+import com.sdjy.sdjymall.activity.SearchActivity;
 import com.sdjy.sdjymall.activity.ShopActivity;
 import com.sdjy.sdjymall.activity.ShopInfoActivity;
 import com.sdjy.sdjymall.adapter.HighQualityShopAdapter;
@@ -32,7 +37,6 @@ import com.sdjy.sdjymall.model.HomePageDataModel;
 import com.sdjy.sdjymall.model.HomeScrollImageModel;
 import com.sdjy.sdjymall.model.ResourceModel;
 import com.sdjy.sdjymall.subscribers.NoProgressSubscriber;
-import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
 import com.sdjy.sdjymall.util.StringUtils;
 import com.sdjy.sdjymall.view.ScrollGridView;
@@ -43,6 +47,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * 首页
@@ -85,8 +90,8 @@ public class HomeFragment extends LazyFragment {
         scrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView, boolean isAutoRefresh) {
-                HttpMethods.getInstance().getHomeScrollImages(new ProgressSubscriber<List<HomeScrollImageModel>>(nextListener, getActivity()));
-                HttpMethods.getInstance().getHomePageDatas(new ProgressSubscriber<HomePageDataModel>(nextListener1, getActivity()));
+                HttpMethods.getInstance().getHomeScrollImages(new NoProgressSubscriber<List<HomeScrollImageModel>>(nextListener, getActivity()));
+                HttpMethods.getInstance().getHomePageDatas(new NoProgressSubscriber<HomePageDataModel>(nextListener1, getActivity()));
                 scrollView.doComplete(true);
             }
 
@@ -222,6 +227,10 @@ public class HomeFragment extends LazyFragment {
                         intent = new Intent(getActivity(), RechargeActivity.class);
                         startActivity(intent);
                         break;
+                    case 4://互助创业
+                        intent = new Intent(getActivity(), CreateTeamActivity.class);
+                        startActivity(intent);
+                        break;
                     case 5://最新上架
                         intent = new Intent(getActivity(), GoodsActivity.class);
                         intent.putExtra("pageSorts", "12");
@@ -233,7 +242,7 @@ public class HomeFragment extends LazyFragment {
                         startActivity(intent);
                         break;
                     case 7://所有分类
-
+                        ((MainActivity) getActivity()).changeTab(1);
                         break;
                 }
             }
@@ -249,18 +258,40 @@ public class HomeFragment extends LazyFragment {
 
         nextListener = new SubscriberOnNextListener<List<HomeScrollImageModel>>() {
             @Override
-            public void onNext(List<HomeScrollImageModel> homeScrollImageModels) {
+            public void onNext(final List<HomeScrollImageModel> homeScrollImageModels) {
                 convenientBanner.setPages(
                         new CBViewHolderCreator<NetworkImageHolderView>() {
                             @Override
                             public NetworkImageHolderView createHolder() {
                                 return new NetworkImageHolderView();
                             }
-                        }, homeScrollImageModels);
+                        }, homeScrollImageModels)
+                        .setOnItemClickListener(new OnItemClickListener() {
+                            @Override
+                            public void onItemClick(int position) {
+                                HomeScrollImageModel imageModel = homeScrollImageModels.get(position);
+                                Intent intent = new Intent();
+                                switch (imageModel.type) {
+                                    case 1://商品
+                                        intent.setClass(getActivity(), GoodsInfoActivity.class);
+                                        intent.putExtra("GoodsId", imageModel.typeValue);
+                                        startActivity(intent);
+                                        break;
+                                    case 2://店铺
+                                        intent.setClass(getActivity(), ShopInfoActivity.class);
+                                        intent.putExtra("shopId", imageModel.typeValue);
+                                        startActivity(intent);
+                                        break;
+                                    case 3://超链接
+
+                                        break;
+                                }
+                            }
+                        });
             }
         };
 
-        HttpMethods.getInstance().getHomeScrollImages(new ProgressSubscriber<List<HomeScrollImageModel>>(nextListener, getActivity()));
+        HttpMethods.getInstance().getHomeScrollImages(new NoProgressSubscriber<List<HomeScrollImageModel>>(nextListener, getActivity()));
     }
 
     private void initHomeContent() {
@@ -293,9 +324,16 @@ public class HomeFragment extends LazyFragment {
         }
     }
 
-    @Override
-    protected void onFragmentStartLazy() {
-        super.onFragmentStartLazy();
+    @OnClick(R.id.tv_search)
+    public void search() {
+        Intent intent = new Intent(getActivity(), SearchActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.tv_message)
+    public void message(){
+        Intent intent = new Intent(getActivity(), MessageActivity.class);
+        startActivity(intent);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.sdjy.sdjymall.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -7,6 +8,8 @@ import android.widget.GridView;
 import android.widget.ListView;
 
 import com.sdjy.sdjymall.R;
+import com.sdjy.sdjymall.activity.MessageActivity;
+import com.sdjy.sdjymall.activity.SearchActivity;
 import com.sdjy.sdjymall.adapter.FirstSortsAdapter;
 import com.sdjy.sdjymall.adapter.SecondSortsAdapter;
 import com.sdjy.sdjymall.common.fragment.LazyFragment;
@@ -19,6 +22,7 @@ import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * 分类
@@ -76,5 +80,15 @@ public class SortFragment extends LazyFragment {
         });
     }
 
+    @OnClick(R.id.tv_search)
+    public void search() {
+        Intent intent = new Intent(getActivity(), SearchActivity.class);
+        startActivity(intent);
+    }
 
+    @OnClick(R.id.tv_message)
+    public void message(){
+        Intent intent = new Intent(getActivity(), MessageActivity.class);
+        startActivity(intent);
+    }
 }

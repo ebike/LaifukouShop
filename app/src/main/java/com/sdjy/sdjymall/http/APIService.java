@@ -136,7 +136,9 @@ public interface APIService {
     Observable<HttpResult> syncShoppingCart(
             @Header("Authorization") String auth,
             @Query("userId") String userId,
-            @QueryMap Map<String, String> params
+            @Query("goodsIds") String goodsIds,
+            @Query("priceIds") String priceIds,
+            @Query("nums") String nums
     );
 
     //获取充值返现数值接口

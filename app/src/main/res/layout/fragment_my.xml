@@ -309,7 +309,7 @@
             android:drawablePadding="8dp"
             android:drawableTop="@mipmap/icon_shop_collect"
             android:gravity="center"
-            android:text="店铺关注"
+            android:text="商家关注"
             android:textColor="@color/black1" />
 
         <TextView

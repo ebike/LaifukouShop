@@ -82,4 +82,10 @@ public class MainActivity extends BaseActivity {
         viewPager.setCurrentItem(currentFragment);
     }
 
+    public void changeTab(int position) {
+        currentFragment = position;
+        ViewPagerUtil.changeBottomTab(this, currentFragment, tabViews);
+        viewPager.setCurrentItem(currentFragment);
+    }
+
 }

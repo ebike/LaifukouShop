@@ -159,7 +159,6 @@ public class HttpMethods {
     public void searchGoods(Subscriber<CommonListModel<List<GoodsModel>>> subscriber, Map<String, String> params, int page) {
         Observable observable = apiService.searchGoods(params, page)
                 .map(new HttpResultFunc<CommonListModel<List<GoodsModel>>>());
-
         toSubscribe(observable, subscriber);
     }
 
@@ -234,8 +233,8 @@ public class HttpMethods {
     }
 
     //同步购物车接口
-    public void syncShoppingCart(Subscriber subscriber, Map<String, String> params) {
-        Observable observable = apiService.syncShoppingCart(StaticValues.userModel.userToken, StaticValues.userModel.userId, params)
+    public void syncShoppingCart(Subscriber subscriber, String goodsIds, String priceIds, String nums) {
+        Observable observable = apiService.syncShoppingCart(StaticValues.userModel.userToken, StaticValues.userModel.userId, goodsIds, priceIds, nums)
                 .map(new HttpResultFunc2());
         toSubscribe(observable, subscriber);
     }
@@ -248,7 +247,7 @@ public class HttpMethods {
     }
 
     //充值接口
-    public void recharge(Subscriber subscriber,Integer num){
+    public void recharge(Subscriber subscriber, Integer num) {
         Observable observable = apiService.recharge(StaticValues.userModel.userToken, StaticValues.userModel.userId, num)
                 .map(new HttpResultFunc2());
         toSubscribe(observable, subscriber);
