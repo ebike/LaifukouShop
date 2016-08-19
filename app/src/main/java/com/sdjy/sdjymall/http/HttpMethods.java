@@ -14,6 +14,7 @@ import com.sdjy.sdjymall.model.HomePageDataModel;
 import com.sdjy.sdjymall.model.HomeScrollImageModel;
 import com.sdjy.sdjymall.model.HttpResult;
 import com.sdjy.sdjymall.model.ShopModel;
+import com.sdjy.sdjymall.model.TeamGoodsModel;
 import com.sdjy.sdjymall.model.UserCashBalanceModel;
 import com.sdjy.sdjymall.model.UserModel;
 
@@ -250,6 +251,13 @@ public class HttpMethods {
     public void recharge(Subscriber subscriber, Integer num) {
         Observable observable = apiService.recharge(StaticValues.userModel.userToken, StaticValues.userModel.userId, num)
                 .map(new HttpResultFunc2());
+        toSubscribe(observable, subscriber);
+    }
+
+    //查询创业套餐列表接口
+    public void teamGoods(Subscriber<CommonListModel<List<TeamGoodsModel>>> subscriber, int page) {
+        Observable observable = apiService.teamGoods(page)
+                .map(new HttpResultFunc<CommonListModel<List<TeamGoodsModel>>>());
         toSubscribe(observable, subscriber);
     }
 }

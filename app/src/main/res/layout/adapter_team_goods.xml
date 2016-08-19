@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="12dp">
+
+    <LinearLayout
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:background="@color/red1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_grade"
+            style="@style/white_20" />
+
+        <TextView
+            style="@style/white_20"
+            android:text="套餐" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="12dp">
+
+        <TextView
+            android:id="@+id/tv_resume"
+            style="@style/gray_14"
+            android:maxLines="2" />
+
+        <View
+            android:id="@+id/line"
+            style="@style/main_line"
+            android:layout_alignParentBottom="true" />
+
+        <TextView
+            android:id="@+id/tv_people_num"
+            style="@style/gray9_12"
+            android:layout_above="@+id/line"
+            android:layout_marginBottom="8dp"
+            android:text="0人参与" />
+
+        <TextView
+            android:id="@+id/tv_total"
+            style="@style/red_16"
+            android:layout_above="@+id/tv_people_num"
+            android:layout_marginBottom="4dp"
+            android:text="￥0"
+            android:textColor="@color/red4" />
+    </RelativeLayout>
+</LinearLayout>

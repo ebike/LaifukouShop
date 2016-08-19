@@ -25,6 +25,7 @@ import com.sdjy.sdjymall.activity.RechargeActivity;
 import com.sdjy.sdjymall.activity.SearchActivity;
 import com.sdjy.sdjymall.activity.ShopActivity;
 import com.sdjy.sdjymall.activity.ShopInfoActivity;
+import com.sdjy.sdjymall.activity.WebActivity;
 import com.sdjy.sdjymall.adapter.HighQualityShopAdapter;
 import com.sdjy.sdjymall.adapter.HomeGoodsAdapter;
 import com.sdjy.sdjymall.adapter.NavigationAdapter;
@@ -283,7 +284,10 @@ public class HomeFragment extends LazyFragment {
                                         startActivity(intent);
                                         break;
                                     case 3://超链接
-
+                                        intent.setClass(getActivity(), WebActivity.class);
+                                        intent.putExtra("title", "标题");
+                                        intent.putExtra("url", imageModel.typeValue);
+                                        startActivity(intent);
                                         break;
                                 }
                             }
@@ -331,7 +335,7 @@ public class HomeFragment extends LazyFragment {
     }
 
     @OnClick(R.id.tv_message)
-    public void message(){
+    public void message() {
         Intent intent = new Intent(getActivity(), MessageActivity.class);
         startActivity(intent);
     }

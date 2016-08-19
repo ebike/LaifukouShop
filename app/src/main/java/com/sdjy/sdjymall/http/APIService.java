@@ -11,6 +11,7 @@ import com.sdjy.sdjymall.model.HomePageDataModel;
 import com.sdjy.sdjymall.model.HomeScrollImageModel;
 import com.sdjy.sdjymall.model.HttpResult;
 import com.sdjy.sdjymall.model.ShopModel;
+import com.sdjy.sdjymall.model.TeamGoodsModel;
 import com.sdjy.sdjymall.model.UserCashBalanceModel;
 import com.sdjy.sdjymall.model.UserModel;
 
@@ -159,5 +160,11 @@ public interface APIService {
             @Header("Authorization") String auth,
             @Query("userId") String userId,
             @QueryMap Map<String, String> params
+    );
+
+    //查询创业套餐列表接口
+    @GET("team/teamGoods.do")
+    Observable<HttpResult<CommonListModel<List<TeamGoodsModel>>>> teamGoods(
+            @Query("page") int page
     );
 }

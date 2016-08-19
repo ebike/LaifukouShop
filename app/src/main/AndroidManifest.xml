@@ -24,27 +24,40 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="splash"
-                    android:scheme="laifukoushop" />
-            </intent-filter>
         </activity>
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.ShopActivity" />
-        <activity android:name=".activity.GoodsActivity" />
-        <activity android:name=".activity.SearchActivity" />
-        <activity android:name=".activity.GoodsInfoActivity" />
-        <activity android:name=".activity.ShopInfoActivity" />
-        <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.RechargeActivity" />
-        <activity android:name=".activity.CreateTeamActivity" />
-        <activity android:name=".activity.MessageActivity"></activity>
+        <activity
+            android:name=".activity.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ShopActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.GoodsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.GoodsInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ShopInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.RechargeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CreateTeamActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MessageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.WebActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

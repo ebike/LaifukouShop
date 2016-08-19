@@ -1,12 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" >
+<items version="2" />
 
-    <item
-        jar="F:\github\LaifukouShop\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        revision="23.0.1"
-        sha1="f2b82879744a2b0fce1dbb31f96e894e060f0618">
-        <dex dex="F:\github\LaifukouShop\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_2c637bc364382d6747c0e4b02a8d69ac9a3bde0e\classes.dex" />
-    </item>
-
-</items>
