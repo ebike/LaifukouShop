@@ -11,4 +11,14 @@
         <attr name="_date_type" format="integer" />
         <attr name="_show_now" format="boolean" />
     </declare-styleable>
+
+    <!-- RowLabelValueView -->
+    <declare-styleable name="RowLabelValueView">
+        <attr name="row_label_value_top_line" format="integer" />
+        <attr name="row_label_value_label" format="string" />
+        <attr name="row_label_value_value" format="string" />
+        <attr name="row_label_value_has_right_arrow" format="boolean" />
+        <attr name="row_label_value_can_click" format="boolean" />
+        <attr name="row_label_value_bottom_line" format="integer" />
+    </declare-styleable>
 </resources>

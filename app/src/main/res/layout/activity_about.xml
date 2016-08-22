@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/red">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:src="@mipmap/icon_back" />
+
+        <TextView
+            style="@style/white_18"
+            android:layout_centerInParent="true"
+            android:text="关于" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_logo"
+        style="@style/gray6_12"
+        android:layout_below="@id/rl_top"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:drawablePadding="8dp"
+        android:drawableTop="@mipmap/logo_about" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="16dp">
+
+        <TextView
+            style="@style/gray6_14"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:text="山东聚缘网络科技有限公司 版权所有" />
+
+        <TextView
+            style="@style/gray6_12"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="4dp"
+            android:text="©2016 Shandong Juyuan Tech All Rights Reserved." />
+    </LinearLayout>
+
+</RelativeLayout>

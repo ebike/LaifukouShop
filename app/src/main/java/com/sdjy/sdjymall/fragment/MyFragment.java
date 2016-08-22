@@ -8,8 +8,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.sdjy.sdjymall.R;
+import com.sdjy.sdjymall.activity.AccountManageActivity;
 import com.sdjy.sdjymall.activity.LoginActivity;
 import com.sdjy.sdjymall.activity.MessageActivity;
+import com.sdjy.sdjymall.activity.SettingsActivity;
 import com.sdjy.sdjymall.common.fragment.LazyFragment;
 import com.sdjy.sdjymall.constants.StaticValues;
 import com.sdjy.sdjymall.http.HttpMethods;
@@ -81,14 +83,16 @@ public class MyFragment extends LazyFragment {
 
     @OnClick(R.id.ll_login)
     public void login() {
-        if (StaticValues.userModel == null) {
+        if (StaticValues.userModel != null) {
+            startActivity(new Intent(getActivity(), AccountManageActivity.class));
+        } else {
             startActivity(new Intent(getActivity(), LoginActivity.class));
         }
     }
 
     @OnClick(R.id.iv_setting)
     public void setting() {
-
+        startActivity(new Intent(getActivity(), SettingsActivity.class));
     }
 
     @OnClick(R.id.iv_message)

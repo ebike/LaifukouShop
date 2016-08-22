@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/red">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:src="@mipmap/icon_back" />
+
+        <TextView
+            style="@style/white_18"
+            android:layout_centerInParent="true"
+            android:text="账号管理" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="8dp">
+
+        <TextView
+            style="@style/gray_16"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:singleLine="true"
+            android:text="头像" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_header"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@mipmap/icon_comment_head" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:src="@mipmap/navigation" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <com.sdjy.sdjymall.view.RowLabelValueView
+        android:id="@+id/rlvv_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:row_label_value_bottom_line="2"
+        app:row_label_value_can_click="true"
+        app:row_label_value_has_right_arrow="true"
+        app:row_label_value_label="用户名"
+        app:row_label_value_top_line="1"
+        app:row_label_value_value="点击去设置" />
+
+    <com.sdjy.sdjymall.view.RowLabelValueView
+        android:id="@+id/rlvv_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:row_label_value_bottom_line="2"
+        app:row_label_value_can_click="true"
+        app:row_label_value_has_right_arrow="true"
+        app:row_label_value_label="姓名"
+        app:row_label_value_top_line="1" />
+
+    <com.sdjy.sdjymall.view.RowLabelValueView
+        android:id="@+id/rlvv_sex"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:row_label_value_bottom_line="2"
+        app:row_label_value_can_click="true"
+        app:row_label_value_has_right_arrow="true"
+        app:row_label_value_label="性别" />
+
+    <com.sdjy.sdjymall.view.RowLabelValueView
+        android:id="@+id/rlvv_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:row_label_value_bottom_line="2"
+        app:row_label_value_can_click="true"
+        app:row_label_value_has_right_arrow="false"
+        app:row_label_value_label="手机号码" />
+
+    <com.sdjy.sdjymall.view.RowLabelValueView
+        android:id="@+id/rlvv_id_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:row_label_value_bottom_line="2"
+        app:row_label_value_can_click="true"
+        app:row_label_value_has_right_arrow="true"
+        app:row_label_value_label="身份证号" />
+
+    <com.sdjy.sdjymall.view.RowLabelValueView
+        android:id="@+id/rlvv_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:row_label_value_bottom_line="2"
+        app:row_label_value_can_click="true"
+        app:row_label_value_has_right_arrow="true"
+        app:row_label_value_label="所在地区" />
+
+    <com.sdjy.sdjymall.view.RowLabelValueView
+        android:id="@+id/rlvv_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:row_label_value_bottom_line="1"
+        app:row_label_value_can_click="true"
+        app:row_label_value_has_right_arrow="true"
+        app:row_label_value_label="详细地址" />
+
+    <com.sdjy.sdjymall.view.RowLabelValueView
+        android:id="@+id/rlvv_receive_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        app:row_label_value_bottom_line="1"
+        app:row_label_value_can_click="true"
+        app:row_label_value_has_right_arrow="true"
+        app:row_label_value_label="收货地址"
+        app:row_label_value_top_line="1" />
+
+    <com.sdjy.sdjymall.view.RowLabelValueView
+        android:id="@+id/rlvv_create_team"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        app:row_label_value_bottom_line="1"
+        app:row_label_value_can_click="true"
+        app:row_label_value_has_right_arrow="true"
+        app:row_label_value_label="互助创业"
+        app:row_label_value_top_line="1" />
+
+</LinearLayout>
