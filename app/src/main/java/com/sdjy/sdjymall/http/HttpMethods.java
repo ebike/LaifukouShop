@@ -108,7 +108,7 @@ public class HttpMethods {
 
         @Override
         public HttpResult<T> call(HttpResult<T> httpResult) {
-            if ("0".equals(httpResult.code)) {
+            if ("1".equals(httpResult.code)) {
                 return httpResult;
             } else {
                 throw new RuntimeException(httpResult.message);
@@ -220,8 +220,8 @@ public class HttpMethods {
     }
 
     //加入购物车接口
-    public void addToCart(Subscriber subscriber, String userId, String goodsId, String priceId) {
-        Observable observable = apiService.addToCart(StaticValues.userModel.userToken, userId, goodsId, priceId)
+    public void addToCart(Subscriber subscriber, String userId, String goodsId, String priceId, int num) {
+        Observable observable = apiService.addToCart(StaticValues.userModel.userToken, userId, goodsId, priceId, num)
                 .map(new HttpResultFunc2());
         toSubscribe(observable, subscriber);
     }
@@ -255,8 +255,8 @@ public class HttpMethods {
     }
 
     //查询创业套餐列表接口
-    public void teamGoods(Subscriber<CommonListModel<List<TeamGoodsModel>>> subscriber, int page) {
-        Observable observable = apiService.teamGoods(page)
+    public void teamGoods(Subscriber<CommonListModel<List<TeamGoodsModel>>> subscriber, int page, Map<String, String> params) {
+        Observable observable = apiService.teamGoods(page, params)
                 .map(new HttpResultFunc<CommonListModel<List<TeamGoodsModel>>>());
         toSubscribe(observable, subscriber);
     }

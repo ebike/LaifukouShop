@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.sdjy.sdjymall.R;
+import com.sdjy.sdjymall.activity.GoodsInfoActivity;
 import com.sdjy.sdjymall.common.adapter.ViewPagerFragmentAdapter;
 import com.sdjy.sdjymall.common.fragment.LazyFragment;
 import com.sdjy.sdjymall.common.model.TabIndicator;
@@ -150,6 +151,12 @@ public class GoodsGoodsFragment extends LazyFragment {
                 public void changed(int count) {
                     goodsNum = count;
                     countView.setText(count + "个");
+                }
+            });
+            dialog.setIntoCarCallback(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((GoodsInfoActivity)getActivity()).intoCar();
                 }
             });
         }

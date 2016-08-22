@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -60,6 +61,18 @@ public class ShopInfoActivity extends BaseActivity {
     TextView[] countViews;
     @Bind({R.id.tv_home, R.id.tv_all_label, R.id.tv_hot_label, R.id.tv_new_label})
     TextView[] labelViews;
+    @Bind(R.id.ll_order)
+    LinearLayout orderLayout;
+    @Bind(R.id.tv_recommend)
+    TextView recommendView;
+    @Bind(R.id.tv_sales)
+    TextView salesView;
+    @Bind(R.id.tv_price)
+    TextView priceView;
+    @Bind(R.id.iv_up_arrow)
+    ImageView upArrowView;
+    @Bind(R.id.iv_down_arrow)
+    ImageView downArrowView;
 
     private String shopId;
     private ShopModel shopModel;
@@ -166,6 +179,10 @@ public class ShopInfoActivity extends BaseActivity {
         } else {
             cusPhoneView.setText("暂无客服");
         }
+
+        countViews[0].setText(shopModel.goodsNum);
+        countViews[1].setText(shopModel.hotGoodsNum);
+        countViews[2].setText(shopModel.newGoodsNum);
     }
 
     @OnClick(R.id.iv_back)
@@ -233,6 +250,54 @@ public class ShopInfoActivity extends BaseActivity {
         viewPager.setCurrentItem(currentFragment);
     }
 
+    @OnClick(R.id.tv_recommend)
+    public void recommend() {
+        recommendView.setTextColor(getResources().getColor(R.color.red3));
+        salesView.setTextColor(getResources().getColor(R.color.text_gray));
+        priceView.setTextColor(getResources().getColor(R.color.text_gray));
+        ShopGoodsFragment fragment = (ShopGoodsFragment) fragmentList.get(1);
+        fragment.setPageSorts("13");
+        fragment.setSortTerm("");
+        fragment.setSortOrder("");
+        fragment.requestDatas();
+        upArrowView.setImageResource(R.mipmap.icon_up_arrow_gray);
+        downArrowView.setImageResource(R.mipmap.icon_down_arrow_gray);
+    }
+
+    @OnClick(R.id.tv_sales)
+    public void sales() {
+        recommendView.setTextColor(getResources().getColor(R.color.text_gray));
+        salesView.setTextColor(getResources().getColor(R.color.red3));
+        priceView.setTextColor(getResources().getColor(R.color.text_gray));
+        ShopGoodsFragment fragment = (ShopGoodsFragment) fragmentList.get(1);
+        fragment.setPageSorts("");
+        fragment.setSortTerm("2");
+        fragment.setSortOrder("");
+        fragment.requestDatas();
+        upArrowView.setImageResource(R.mipmap.icon_up_arrow_gray);
+        downArrowView.setImageResource(R.mipmap.icon_down_arrow_gray);
+    }
+
+    @OnClick(R.id.ll_price)
+    public void price() {
+        recommendView.setTextColor(getResources().getColor(R.color.text_gray));
+        salesView.setTextColor(getResources().getColor(R.color.text_gray));
+        priceView.setTextColor(getResources().getColor(R.color.red3));
+        ShopGoodsFragment fragment = (ShopGoodsFragment) fragmentList.get(1);
+        fragment.setPageSorts("");
+        fragment.setSortTerm("1");
+        if (fragment.getSortOrder() != null && fragment.getSortOrder().equals("1")) {
+            fragment.setSortOrder("2");
+            upArrowView.setImageResource(R.mipmap.icon_up_arrow_gray);
+            downArrowView.setImageResource(R.mipmap.icon_down_arrow_red);
+        } else {
+            fragment.setSortOrder("1");
+            upArrowView.setImageResource(R.mipmap.icon_up_arrow_red);
+            downArrowView.setImageResource(R.mipmap.icon_down_arrow_gray);
+        }
+        fragment.requestDatas();
+    }
+
     @OnClick(R.id.tv_shop_detail)
     public void shopDetail() {
 
@@ -263,6 +328,11 @@ public class ShopInfoActivity extends BaseActivity {
 
     private void changeTab(int index) {
         currentFragment = index;
+        if (currentFragment == 1) {
+            orderLayout.setVisibility(View.VISIBLE);
+        } else {
+            orderLayout.setVisibility(View.GONE);
+        }
         for (int i = 0; i < labelViews.length; i++) {
             if (index == i) {
                 if (i == 0) {

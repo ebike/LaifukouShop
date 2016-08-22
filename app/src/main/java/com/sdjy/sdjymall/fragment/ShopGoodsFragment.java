@@ -108,4 +108,12 @@ public class ShopGoodsFragment extends BaseListFragment {
     public void setSortTerm(String sortTerm) {
         this.sortTerm = sortTerm;
     }
+
+    public void setSortOrder(String sortOrder) {
+        this.sortOrder = sortOrder;
+    }
+
+    public String getSortOrder() {
+        return sortOrder;
+    }
 }

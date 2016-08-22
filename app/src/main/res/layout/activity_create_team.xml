@@ -68,7 +68,7 @@
             android:background="@color/main_line" />
 
         <LinearLayout
-            android:id="@+id/ll_price"
+            android:id="@+id/ll_join_num"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -76,7 +76,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_people_num"
+                android:id="@+id/tv_join_num"
                 style="@style/gray_14"
                 android:gravity="center"
                 android:paddingBottom="10dp"

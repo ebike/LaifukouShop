@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.model.CarGoodsModel;
 import com.sdjy.sdjymall.view.ViewHolder;
@@ -43,7 +42,7 @@ public class ShoppingCartGoodsAdapter extends TAdapter<CarGoodsModel> {
                     .error(R.mipmap.img_goods_default)
                     .into(picView);
             nameView.setText(model.getGoodsName());
-            standardView.setText("规格：" + model.getStardand());
+            standardView.setText("规格：" + model.getStandard());
             countView.setText(model.getNum() + "");
             if (model.getPriceType() == 1) {
                 priceView.setText("￥" + model.getPriceMoney());

@@ -32,8 +32,9 @@ public class TeamGoodsAdapter extends TAdapter<TeamGoodsModel> {
 
         TeamGoodsModel model = mList.get(position);
         if (model != null) {
-            gradeView.setText(model.grade);
+            gradeView.setText(model.gradeStr);
             resumeView.setText(model.resume);
+            peopleNumView.setText(model.joinNum + "人参与");
             totalView.setText("￥" + model.total);
         }
 

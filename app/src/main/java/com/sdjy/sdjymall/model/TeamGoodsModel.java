@@ -9,7 +9,9 @@ public class TeamGoodsModel {
 
     public String shopId;
     //等级
-    public String grade;
+    public int grade;
+    //等级（文字）
+    public String gradeStr;
     //
     public String total;
 
@@ -28,6 +30,8 @@ public class TeamGoodsModel {
     public String createTime;
 
     public boolean isJoin;
+    //参与人数
+    public int joinNum;
 
     public TeamGoodsModel() {
     }

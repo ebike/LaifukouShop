@@ -220,7 +220,7 @@ public class GoodsInfoActivity extends BaseActivity {
                     intoCarAnim(imageView);
                 }
             };
-            HttpMethods.getInstance().addToCart(new NoProgressSubscriber(listener, this), StaticValues.userModel.userId, goodsInfoModel.id, pricesModel.id);
+            HttpMethods.getInstance().addToCart(new NoProgressSubscriber(listener, this), StaticValues.userModel.userId, goodsInfoModel.id, pricesModel.id, goodsFragment.getGoodsNum());
         } else {
             //判断本地购物车是否存在该商品，若存在，修改个数，若不存在，加入购物车
             CarGoodsModel carGoodsModel = realm.where(CarGoodsModel.class).equalTo("id", goodsInfoModel.id).findFirst();
@@ -245,7 +245,7 @@ public class GoodsInfoActivity extends BaseActivity {
                 carGoodsModel.setPriceGoldCoin(pricesModel.priceGoldCoin);
                 carGoodsModel.setPriceCoin(pricesModel.priceCoin);
                 carGoodsModel.setPriceType(goodsInfoModel.priceType);
-                carGoodsModel.setStardand(pricesModel.standard);
+                carGoodsModel.setStandard(pricesModel.standard);
 
                 CarShopModel carShopModel = realm.where(CarShopModel.class).equalTo("shopId", goodsInfoModel.shopId).findFirst();
                 if (carShopModel != null) {

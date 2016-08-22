@@ -122,7 +122,8 @@ public interface APIService {
             @Header("Authorization") String auth,
             @Query("userId") String userId,
             @Query("goodsId") String goodsId,
-            @Query("priceId") String priceId
+            @Query("priceId") String priceId,
+            @Query("num") int num
     );
 
     //获取购物车信息接口
@@ -165,6 +166,7 @@ public interface APIService {
     //查询创业套餐列表接口
     @GET("team/teamGoods.do")
     Observable<HttpResult<CommonListModel<List<TeamGoodsModel>>>> teamGoods(
-            @Query("page") int page
+            @Query("page") int page,
+            @QueryMap Map<String, String> params
     );
 }

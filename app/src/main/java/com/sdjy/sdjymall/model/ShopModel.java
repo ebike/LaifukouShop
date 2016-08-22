@@ -24,6 +24,12 @@ public class ShopModel {
     public String collectId;
     //关注人数
     public String collectNum;
+    //全部商品个数
+    public String goodsNum;
+    //热销商品个数
+    public String hotGoodsNum;
+    //上新商品个数
+    public String newGoodsNum;
 
     public ShopModel() {
     }

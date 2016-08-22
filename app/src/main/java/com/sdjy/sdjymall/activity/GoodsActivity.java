@@ -114,15 +114,10 @@ public class GoodsActivity extends BaseListActivity {
         finish();
     }
 
-    @OnClick(R.id.tv_search)
-    public void search() {
-
-    }
-
     @OnClick(R.id.tv_sales)
     public void sales() {
-        salesView.setTextColor(getResources().getColor(R.color.red));
-        priceView.setTextColor(getResources().getColor(R.color.black));
+        salesView.setTextColor(getResources().getColor(R.color.red3));
+        priceView.setTextColor(getResources().getColor(R.color.text_gray));
         params.put("sortTerm", "2");
         params.put("sortOrder", "2");
         listView.doPullRefreshing(true, DELAY_MILLIS);
@@ -133,8 +128,8 @@ public class GoodsActivity extends BaseListActivity {
 
     @OnClick(R.id.ll_price)
     public void price() {
-        salesView.setTextColor(getResources().getColor(R.color.black));
-        priceView.setTextColor(getResources().getColor(R.color.red));
+        salesView.setTextColor(getResources().getColor(R.color.text_gray));
+        priceView.setTextColor(getResources().getColor(R.color.red3));
         params.put("sortTerm", "1");
         params.put("sortOrder", priceOrder);
         if (priceOrder.equals("1")) {
@@ -147,6 +142,12 @@ public class GoodsActivity extends BaseListActivity {
             downArrowView.setImageResource(R.mipmap.icon_down_arrow_red);
         }
         listView.doPullRefreshing(true, DELAY_MILLIS);
+    }
+
+    @OnClick(R.id.tv_search)
+    public void search(){
+        Intent intent = new Intent(this, SearchActivity.class);
+        startActivity(intent);
     }
 
     @Override

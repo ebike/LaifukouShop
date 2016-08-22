@@ -2,6 +2,7 @@ package com.sdjy.sdjymall.activity;
 
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sdjy.sdjymall.R;
@@ -26,6 +27,14 @@ public class CreateTeamActivity extends BaseListActivity {
 
     @Bind(R.id.tv_level)
     TextView levelView;
+    @Bind(R.id.tv_amount)
+    TextView amountView;
+    @Bind(R.id.tv_join_num)
+    TextView joinNumView;
+    @Bind(R.id.iv_up_arrow)
+    ImageView upArrowView;
+    @Bind(R.id.iv_down_arrow)
+    ImageView downArrowView;
     @Bind(R.id.list_view)
     PullToRefreshListView listView;
 
@@ -34,6 +43,8 @@ public class CreateTeamActivity extends BaseListActivity {
     private PullListActivityHandler handler;
     private List<TeamGoodsModel> teamGoodsList;
     private TeamGoodsAdapter adapter;
+    private String sortTerm = "1";
+    private String sortOrder = "2";
 
     @Override
     public void loadLoyout() {
@@ -97,11 +108,49 @@ public class CreateTeamActivity extends BaseListActivity {
     @OnClick(R.id.tv_level)
     public void level() {
         levelView.setTextColor(getResources().getColor(R.color.red3));
+        amountView.setTextColor(getResources().getColor(R.color.text_gray));
+        joinNumView.setTextColor(getResources().getColor(R.color.text_gray));
+        sortTerm = "1";
+        sortOrder = "2";
+        upArrowView.setImageResource(R.mipmap.icon_up_arrow_gray);
+        downArrowView.setImageResource(R.mipmap.icon_down_arrow_gray);
+        listView.doPullRefreshing(true, DELAY_MILLIS);
+    }
 
+    @OnClick(R.id.tv_amount)
+    public void amount() {
+        levelView.setTextColor(getResources().getColor(R.color.text_gray));
+        amountView.setTextColor(getResources().getColor(R.color.red3));
+        joinNumView.setTextColor(getResources().getColor(R.color.text_gray));
+        sortTerm = "2";
+        sortOrder = "2";
+        upArrowView.setImageResource(R.mipmap.icon_up_arrow_gray);
+        downArrowView.setImageResource(R.mipmap.icon_down_arrow_gray);
+        listView.doPullRefreshing(true, DELAY_MILLIS);
+    }
+
+    @OnClick(R.id.ll_join_num)
+    public void joinNum() {
+        levelView.setTextColor(getResources().getColor(R.color.text_gray));
+        amountView.setTextColor(getResources().getColor(R.color.text_gray));
+        joinNumView.setTextColor(getResources().getColor(R.color.red3));
+        sortTerm = "3";
+        if ("2".equals(sortOrder)) {
+            sortOrder = "1";
+            upArrowView.setImageResource(R.mipmap.icon_up_arrow_red);
+            downArrowView.setImageResource(R.mipmap.icon_down_arrow_gray);
+        } else {
+            sortOrder = "2";
+            upArrowView.setImageResource(R.mipmap.icon_up_arrow_gray);
+            downArrowView.setImageResource(R.mipmap.icon_down_arrow_red);
+        }
+        listView.doPullRefreshing(true, DELAY_MILLIS);
     }
 
     @Override
     public void requestDatas() {
-        HttpMethods.getInstance().teamGoods(new NoProgressSubscriber<CommonListModel<List<TeamGoodsModel>>>(nextErrorListener, this), mPage);
+        params.put("sortTerm", sortTerm);
+        params.put("sortOrder", sortOrder);
+        HttpMethods.getInstance().teamGoods(new NoProgressSubscriber<CommonListModel<List<TeamGoodsModel>>>(nextErrorListener, this), mPage, params);
     }
 }
