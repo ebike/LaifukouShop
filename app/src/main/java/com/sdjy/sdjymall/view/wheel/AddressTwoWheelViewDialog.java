@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.Button;
 
-import com.xiaomizuche.R;
-import com.xiaomizuche.adapter.WheelProvinceAdapter;
-import com.xiaomizuche.bean.LocationJson;
-import com.xiaomizuche.db.CityInfoDao;
-import com.xiaomizuche.utils.CommonUtils;
+import com.sdjy.sdjymall.R;
+import com.sdjy.sdjymall.adapter.WheelProvinceAdapter;
+import com.sdjy.sdjymall.db.CityInfoDao;
+import com.sdjy.sdjymall.model.LocationJson;
+import com.sdjy.sdjymall.util.StringUtils;
 
 import java.util.List;
 
@@ -98,7 +98,7 @@ public class AddressTwoWheelViewDialog extends AbsDialog implements View.OnClick
 
     public void setData(List<LocationJson> beanList, String provinceName, String cityName) {
         setProvinceList(beanList);
-        if (!CommonUtils.strIsEmpty(provinceName)) {
+        if (!StringUtils.strIsEmpty(provinceName)) {
             wheelProvinceIndex = getWheelProvinceIndex(beanList, provinceName);
         }
         adapter = new WheelProvinceAdapter(mContext, beanList);
@@ -107,7 +107,7 @@ public class AddressTwoWheelViewDialog extends AbsDialog implements View.OnClick
         LocationJson areaBean = beanList.get(wheelView_view1.getCurrentItem());
         CityInfoDao cityDao = new CityInfoDao(getContext());
         List<LocationJson> stationList = cityDao.queryByProvinceId(areaBean.getId());
-        if (!CommonUtils.strIsEmpty(cityName)) {
+        if (!StringUtils.strIsEmpty(cityName)) {
             wheelCityIndex = getWheelCityIndex(stationList, cityName);
         }
         adapter2 = new WheelProvinceAdapter(mContext, stationList);

@@ -33,7 +33,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
 
-import com.xiaomizuche.R;
+import com.sdjy.sdjymall.R;
 
 import java.util.LinkedList;
 import java.util.List;

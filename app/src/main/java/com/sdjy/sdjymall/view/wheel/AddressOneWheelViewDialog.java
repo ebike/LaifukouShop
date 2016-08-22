@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.Button;
 
-import com.xiaomizuche.R;
-import com.xiaomizuche.adapter.WheelProvinceAdapter;
-import com.xiaomizuche.bean.LocationJson;
+import com.sdjy.sdjymall.R;
+import com.sdjy.sdjymall.adapter.WheelProvinceAdapter;
+import com.sdjy.sdjymall.model.LocationJson;
 
 import java.util.List;
 

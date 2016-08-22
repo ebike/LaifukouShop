@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
 
-import com.xiaomizuche.R;
+import com.sdjy.sdjymall.R;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.activity.AccountManageActivity;
+import com.sdjy.sdjymall.activity.FeedbackActivity;
 import com.sdjy.sdjymall.activity.LoginActivity;
 import com.sdjy.sdjymall.activity.MessageActivity;
 import com.sdjy.sdjymall.activity.SettingsActivity;
@@ -168,6 +169,6 @@ public class MyFragment extends LazyFragment {
 
     @OnClick(R.id.tv_feedback)
     public void feedback() {
-
+        startActivity(new Intent(getActivity(), FeedbackActivity.class));
     }
 }

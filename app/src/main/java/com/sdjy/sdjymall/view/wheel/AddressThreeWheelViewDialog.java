@@ -4,12 +4,12 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.Button;
 
-import com.xiaomizuche.R;
-import com.xiaomizuche.adapter.WheelProvinceAdapter;
-import com.xiaomizuche.bean.LocationJson;
-import com.xiaomizuche.db.CityInfoDao;
-import com.xiaomizuche.db.DistrictInfoDao;
-import com.xiaomizuche.utils.CommonUtils;
+import com.sdjy.sdjymall.R;
+import com.sdjy.sdjymall.adapter.WheelProvinceAdapter;
+import com.sdjy.sdjymall.db.CityInfoDao;
+import com.sdjy.sdjymall.db.DistrictInfoDao;
+import com.sdjy.sdjymall.model.LocationJson;
+import com.sdjy.sdjymall.util.StringUtils;
 
 import java.util.List;
 
@@ -148,7 +148,7 @@ public class AddressThreeWheelViewDialog extends AbsDialog implements View.OnCli
 
     public void setData(List<LocationJson> beanList, String provinceName, String cityName, String districtName) {
         setProvinceList(beanList);
-        if (!CommonUtils.strIsEmpty(provinceName)) {
+        if (!StringUtils.strIsEmpty(provinceName)) {
             wheelProvinceIndex = getWheelIndex(beanList, provinceName);
         }
         adapter = new WheelProvinceAdapter(mContext, beanList);
@@ -158,7 +158,7 @@ public class AddressThreeWheelViewDialog extends AbsDialog implements View.OnCli
         LocationJson areaBean = beanList.get(wheelView_view1.getCurrentItem());
         CityInfoDao cityDao = new CityInfoDao(getContext());
         List<LocationJson> stationList = cityDao.queryByProvinceId(areaBean.getId());
-        if (!CommonUtils.strIsEmpty(cityName)) {
+        if (!StringUtils.strIsEmpty(cityName)) {
             wheelCityIndex = getWheelIndex(stationList, cityName);
         }
         adapter2 = new WheelProvinceAdapter(mContext, stationList);
@@ -167,7 +167,7 @@ public class AddressThreeWheelViewDialog extends AbsDialog implements View.OnCli
 
         DistrictInfoDao districtDao = new DistrictInfoDao(getContext());
         List<LocationJson> districtList = districtDao.queryByCityId(stationList.get(wheelCityIndex).getId());
-        if (!CommonUtils.strIsEmpty(districtName)) {
+        if (!StringUtils.strIsEmpty(districtName)) {
             wheelDistrictIndex = getWheelIndex(districtList, districtName);
         }
         adapter3 = new WheelProvinceAdapter(mContext, districtList);

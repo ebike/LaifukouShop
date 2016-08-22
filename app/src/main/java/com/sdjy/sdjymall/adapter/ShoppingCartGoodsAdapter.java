@@ -7,9 +7,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.sdjy.sdjymall.R;
+import com.sdjy.sdjymall.constants.StaticValues;
+import com.sdjy.sdjymall.http.HttpMethods;
 import com.sdjy.sdjymall.model.CarGoodsModel;
+import com.sdjy.sdjymall.model.HttpResult;
+import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
+import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
 import com.sdjy.sdjymall.view.ViewHolder;
+
+import io.realm.Realm;
 
 /**
  * 购物车商品
@@ -21,7 +29,7 @@ public class ShoppingCartGoodsAdapter extends TAdapter<CarGoodsModel> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.adapter_shopping_cart_goods, parent, false);
         }
@@ -35,7 +43,7 @@ public class ShoppingCartGoodsAdapter extends TAdapter<CarGoodsModel> {
         TextView plusView = ViewHolder.get(convertView, R.id.tv_plus);
         TextView priceView = ViewHolder.get(convertView, R.id.tv_price);
 
-        CarGoodsModel model = mList.get(position);
+        final CarGoodsModel model = mList.get(position);
         if (model != null) {
             Glide.with(mContext)
                     .load(model.getImageUrl())
@@ -51,8 +59,51 @@ public class ShoppingCartGoodsAdapter extends TAdapter<CarGoodsModel> {
             } else if (model.getPriceType() == 3) {
                 priceView.setText("币 " + model.getPriceCoin());
             }
+            minusView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    intoCar(model, position, 0);
+                }
+            });
+            plusView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    intoCar(model, position, 1);
+                }
+            });
+
         }
 
         return convertView;
+    }
+
+    /**
+     * 修改购物车商品个数
+     *
+     * @param type:0：减，1：加
+     */
+    private void intoCar(CarGoodsModel model, final int position, int type) {
+        final int count = type == 0 ? model.getNum() - 1 : model.getNum() + 1;
+        if (count == 0) {
+            return;
+        }
+        if (StaticValues.userModel != null) {
+            SubscriberOnNextListener listener = new SubscriberOnNextListener<HttpResult>() {
+                @Override
+                public void onNext(HttpResult httpResult) {
+                    mList.get(position).setNum(count);
+                    notifyDataSetChanged();
+                }
+            };
+            HttpMethods.getInstance().addToCart(new ProgressSubscriber(listener, mContext), StaticValues.userModel.userId, model.getId(), model.getPriceId(), count);
+        } else {
+            Realm realm = Realm.getDefaultInstance();
+            realm.beginTransaction();
+            mList.get(position).setNum(count);
+            realm.copyToRealmOrUpdate(mList.get(position));
+            realm.commitTransaction();
+            realm.close();
+            notifyDataSetChanged();
+        }
     }
 }
