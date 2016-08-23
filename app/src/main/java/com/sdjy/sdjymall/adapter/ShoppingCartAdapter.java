@@ -14,8 +14,6 @@ import com.sdjy.sdjymall.util.CartUtils;
 import com.sdjy.sdjymall.view.ScrollListView;
 import com.sdjy.sdjymall.view.ViewHolder;
 
-import io.realm.Realm;
-
 /**
  * 购物车商品
  */
@@ -59,8 +57,6 @@ public class ShoppingCartAdapter extends TAdapter<CarShopModel> {
             adapter.setCallback(new ShoppingCartGoodsAdapter.ChangeSelectedCallback() {
                 @Override
                 public void onChanged() {
-                    Realm realm = Realm.getDefaultInstance();
-                    realm.beginTransaction();
                     if (inEdit) {
                         boolean isAllSelected = CartUtils.isAllSelectedInEdit(model);
                         if (isAllSelected) {
@@ -76,9 +72,6 @@ public class ShoppingCartAdapter extends TAdapter<CarShopModel> {
                             model.setSelected(false);
                         }
                     }
-                    realm.copyToRealmOrUpdate(model);
-                    realm.commitTransaction();
-                    realm.close();
                     notifyDataSetChanged();
                     if (callback != null) {
                         callback.onChanged();
@@ -90,8 +83,6 @@ public class ShoppingCartAdapter extends TAdapter<CarShopModel> {
             selectedView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Realm realm = Realm.getDefaultInstance();
-                    realm.beginTransaction();
                     if (inEdit) {
                         boolean isAllSelected = CartUtils.isAllSelectedInEdit(model);
                         if (isAllSelected) {
@@ -119,9 +110,6 @@ public class ShoppingCartAdapter extends TAdapter<CarShopModel> {
                             }
                         }
                     }
-                    realm.copyToRealmOrUpdate(model);
-                    realm.commitTransaction();
-                    realm.close();
                     notifyDataSetChanged();
                     if (callback != null) {
                         callback.onChanged();

@@ -90,8 +90,6 @@ public class ShoppingCartGoodsAdapter extends TAdapter<CarGoodsModel> {
             chooseView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Realm realm = Realm.getDefaultInstance();
-                    realm.beginTransaction();
                     if (inEdit) {
                         if (model.isSelectedInEdit()) {
                             model.setSelectedInEdit(false);
@@ -105,9 +103,6 @@ public class ShoppingCartGoodsAdapter extends TAdapter<CarGoodsModel> {
                             model.setSelected(true);
                         }
                     }
-                    realm.copyToRealmOrUpdate(model);
-                    realm.commitTransaction();
-                    realm.close();
                     if (callback != null) {
                         callback.onChanged();
                     }
