@@ -24,6 +24,14 @@ public class UserModel {
     public String regTime;
     //请求头部信息
     public String userToken;
+    //省
+    public String province;
+    //市
+    public String city;
+    //区县
+    public String area;
+    //详细地址
+    public String address;
 
     public UserModel() {
     }

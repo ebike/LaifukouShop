@@ -24,6 +24,9 @@ import io.realm.Realm;
  */
 public class ShoppingCartGoodsAdapter extends TAdapter<CarGoodsModel> {
 
+    private ChangeSelectedCallback callback;
+    private boolean inEdit;
+
     public ShoppingCartGoodsAdapter(Context mContext) {
         super(mContext);
     }
@@ -45,6 +48,19 @@ public class ShoppingCartGoodsAdapter extends TAdapter<CarGoodsModel> {
 
         final CarGoodsModel model = mList.get(position);
         if (model != null) {
+            if (inEdit) {
+                if (model.isSelectedInEdit()) {
+                    chooseView.setImageResource(R.mipmap.icon_circle_sel);
+                } else {
+                    chooseView.setImageResource(R.mipmap.icon_circle_nosel);
+                }
+            } else {
+                if (model.isSelected()) {
+                    chooseView.setImageResource(R.mipmap.icon_circle_sel);
+                } else {
+                    chooseView.setImageResource(R.mipmap.icon_circle_nosel);
+                }
+            }
             Glide.with(mContext)
                     .load(model.getImageUrl())
                     .error(R.mipmap.img_goods_default)
@@ -69,6 +85,32 @@ public class ShoppingCartGoodsAdapter extends TAdapter<CarGoodsModel> {
                 @Override
                 public void onClick(View v) {
                     intoCar(model, position, 1);
+                }
+            });
+            chooseView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Realm realm = Realm.getDefaultInstance();
+                    realm.beginTransaction();
+                    if (inEdit) {
+                        if (model.isSelectedInEdit()) {
+                            model.setSelectedInEdit(false);
+                        } else {
+                            model.setSelectedInEdit(true);
+                        }
+                    } else {
+                        if (model.isSelected()) {
+                            model.setSelected(false);
+                        } else {
+                            model.setSelected(true);
+                        }
+                    }
+                    realm.copyToRealmOrUpdate(model);
+                    realm.commitTransaction();
+                    realm.close();
+                    if (callback != null) {
+                        callback.onChanged();
+                    }
                 }
             });
 
@@ -105,5 +147,17 @@ public class ShoppingCartGoodsAdapter extends TAdapter<CarGoodsModel> {
             realm.close();
             notifyDataSetChanged();
         }
+    }
+
+    public interface ChangeSelectedCallback {
+        void onChanged();
+    }
+
+    public void setCallback(ChangeSelectedCallback callback) {
+        this.callback = callback;
+    }
+
+    public void setInEdit(boolean inEdit) {
+        this.inEdit = inEdit;
     }
 }

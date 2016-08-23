@@ -32,6 +32,10 @@ public class CarGoodsModel extends RealmObject {
     private int commentNum;
     //好评率
     private String praiseRate;
+    //是否选中
+    private boolean isSelected;
+    //是否选中（编辑状态下）
+    private boolean isSelectedInEdit;
 
     public CarGoodsModel() {
     }
@@ -130,5 +134,21 @@ public class CarGoodsModel extends RealmObject {
 
     public void setPriceCoin(String priceCoin) {
         this.priceCoin = priceCoin;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+    public boolean isSelectedInEdit() {
+        return isSelectedInEdit;
+    }
+
+    public void setSelectedInEdit(boolean selectedInEdit) {
+        isSelectedInEdit = selectedInEdit;
     }
 }

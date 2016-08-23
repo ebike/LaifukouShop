@@ -44,6 +44,7 @@ public class GoodsActivity extends BaseListActivity {
     private String userId;
     private String shopId;
     private String goodsName;
+    private String sortId;
     private String priceOrder = "1";
     private Map<String, String> params = new HashMap<>();
     private SubscriberNextErrorListener nextErrorListener;

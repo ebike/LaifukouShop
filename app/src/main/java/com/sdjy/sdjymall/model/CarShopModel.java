@@ -17,6 +17,10 @@ public class CarShopModel extends RealmObject {
     private String shopName;
     //购物车中的商品
     private RealmList<CarGoodsModel> goods;
+    //是否选中
+    private boolean isSelected;
+    //是否选中（编辑状态下）
+    private boolean isSelectedInEdit;
 
     public CarShopModel() {
     }
@@ -51,5 +55,21 @@ public class CarShopModel extends RealmObject {
 
     public void setGoods(RealmList<CarGoodsModel> goods) {
         this.goods = goods;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+    public boolean isSelectedInEdit() {
+        return isSelectedInEdit;
+    }
+
+    public void setSelectedInEdit(boolean selectedInEdit) {
+        isSelectedInEdit = selectedInEdit;
     }
 }

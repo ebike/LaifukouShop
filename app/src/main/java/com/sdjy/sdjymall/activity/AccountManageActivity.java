@@ -10,7 +10,6 @@ import com.sdjy.sdjymall.db.ProvinceInfoDao;
 import com.sdjy.sdjymall.model.LocationJson;
 import com.sdjy.sdjymall.model.UserModel;
 import com.sdjy.sdjymall.util.ImageCompress;
-import com.sdjy.sdjymall.util.StringUtils;
 import com.sdjy.sdjymall.view.RowLabelValueView;
 import com.sdjy.sdjymall.view.wheel.AddressThreeWheelViewDialog;
 
@@ -63,9 +62,7 @@ public class AccountManageActivity extends BaseActivity {
                     .bitmapTransform(new CropCircleTransformation(this))
                     .error(R.mipmap.icon_comment_head)
                     .into(headerView);
-            if (!StringUtils.strIsEmpty(StaticValues.userModel.loginName)) {
-                userNameView.setValue(StaticValues.userModel.loginName);
-            }
+            userNameView.setValue(StaticValues.userModel.loginName);
 //            if (!StringUtils.strIsEmpty(StaticValues.userModel.)) {
 //                nameView.setValue(AppConfig.userInfoBean.getUserName());
 //            }
@@ -76,15 +73,10 @@ public class AccountManageActivity extends BaseActivity {
             } else {
                 sexView.setValue("保密");
             }
-            if (!StringUtils.strIsEmpty(StaticValues.userModel.phone)) {
-                phoneView.setValue(StaticValues.userModel.phone);
-            }
-            if (!StringUtils.strIsEmpty(StaticValues.userModel.idCard)) {
-                idCardView.setValue(StaticValues.userModel.idCard);
-            }
-//            areaView.setValue(AppConfig.userInfoBean.getProvince() + "-" + AppConfig.userInfoBean.getCity() + "-" + AppConfig.userInfoBean.getArea());
-
-//            addressView.setValue();
+            phoneView.setValue(StaticValues.userModel.phone);
+            idCardView.setValue(StaticValues.userModel.idCard);
+            areaView.setValue(StaticValues.userModel.province + "-" + StaticValues.userModel.city + "-" + StaticValues.userModel.area);
+            addressView.setValue(StaticValues.userModel.address);
         }
         dialog = new AddressThreeWheelViewDialog(this);
         provinceDao = new ProvinceInfoDao(this);

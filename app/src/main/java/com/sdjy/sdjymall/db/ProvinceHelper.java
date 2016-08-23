@@ -14,14 +14,11 @@ import java.io.InputStream;
 
 /**
  * 省市区数据读取
- *
- * @author longyanliang
- *         version 1.0
  */
 public class ProvinceHelper {
     private final int BUFFER_SIZE = 1024;
     public static final String DB_NAME = "ecar_city.db";
-    public static final String PACKAGE_NAME = "com.xiaomizuche";
+    public static final String PACKAGE_NAME = "com.sdjy.sdjymall";
 
     public static final String DB_PATH = "/data"
             + Environment.getDataDirectory().getAbsolutePath() + "/" + PACKAGE_NAME;

@@ -21,8 +21,7 @@
             android:layout_alignParentRight="true"
             android:paddingLeft="8dp"
             android:paddingRight="16dp"
-            android:src="@mipmap/icon_head_msg"
-            android:visibility="gone" />
+            android:src="@mipmap/icon_head_msg" />
 
         <TextView
             android:id="@+id/tv_edit"
@@ -39,7 +38,8 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:background="@color/main_bg">
 
         <LinearLayout
@@ -83,4 +83,75 @@
             android:smoothScrollbar="true" />
 
     </FrameLayout>
+
+    <View style="@style/main_line" />
+
+    <LinearLayout
+        android:id="@+id/ll_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_choose_all"
+            style="@style/gray6_14"
+            android:layout_height="match_parent"
+            android:drawableLeft="@mipmap/icon_circle_nosel"
+            android:drawablePadding="6dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:text="全选" />
+
+        <TextView
+            android:id="@+id/tv_total"
+            style="@style/gray_16"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginTop="16dp"
+            android:layout_weight="1"
+            android:text="合计:￥0.00" />
+
+        <TextView
+            android:id="@+id/tv_checkout"
+            style="@style/white_14"
+            android:layout_width="103dp"
+            android:layout_height="match_parent"
+            android:background="@color/red"
+            android:gravity="center"
+            android:text="去结算(0)" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_bottom_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_choose_all_edit"
+            style="@style/gray6_14"
+            android:drawableLeft="@mipmap/icon_circle_nosel"
+            android:drawablePadding="6dp"
+            android:gravity="center_vertical"
+            android:paddingBottom="16dp"
+            android:paddingLeft="12dp"
+            android:paddingTop="16dp"
+            android:text="全选" />
+
+        <TextView
+            android:id="@+id/tv_delete"
+            style="@style/red_14"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/border_red"
+            android:paddingBottom="12dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="12dp"
+            android:text="删除" />
+    </RelativeLayout>
 </LinearLayout>

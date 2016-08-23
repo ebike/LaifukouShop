@@ -160,7 +160,8 @@ public interface APIService {
     Observable<HttpResult> delShoppingCart(
             @Header("Authorization") String auth,
             @Query("userId") String userId,
-            @QueryMap Map<String, String> params
+            @Query("goodsIds") String goodsIds,
+            @Query("priceIds") String priceIds
     );
 
     //查询创业套餐列表接口

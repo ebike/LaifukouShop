@@ -260,4 +260,11 @@ public class HttpMethods {
                 .map(new HttpResultFunc<CommonListModel<List<TeamGoodsModel>>>());
         toSubscribe(observable, subscriber);
     }
+
+    //删除购物车接口
+    public void delShoppingCart(Subscriber subscriber, String goodsIds, String priceIds) {
+        Observable observable = apiService.delShoppingCart(StaticValues.userModel.userToken, StaticValues.userModel.userId, goodsIds, priceIds)
+                .map(new HttpResultFunc2());
+        toSubscribe(observable, subscriber);
+    }
 }
