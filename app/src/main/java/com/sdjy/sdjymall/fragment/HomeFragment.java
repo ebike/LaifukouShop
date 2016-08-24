@@ -159,6 +159,17 @@ public class HomeFragment extends LazyFragment {
         sortsAdapter1 = new SortsAdapter1(getActivity());
         sortsView1.setAdapter(sortsAdapter1);
         sortsAdapter1.setList(sortsModelList1);
+        sortsView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
+                HomePageDataItemModel model = (HomePageDataItemModel) parent.getItemAtPosition(position);
+                if (!StringUtils.strIsEmpty(model.id)) {
+                    Intent intent = new Intent(getActivity(), GoodsActivity.class);
+                    intent.putExtra("sortId", model.id);
+                    startActivity(intent);
+                }
+            }
+        });
 
         sortsModelList2 = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
@@ -167,6 +178,17 @@ public class HomeFragment extends LazyFragment {
         sortsAdapter2 = new SortsAdapter2(getActivity());
         sortsView2.setAdapter(sortsAdapter2);
         sortsAdapter2.setList(sortsModelList2);
+        sortsView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
+                HomePageDataItemModel model = (HomePageDataItemModel) parent.getItemAtPosition(position);
+                if (!StringUtils.strIsEmpty(model.id)) {
+                    Intent intent = new Intent(getActivity(), GoodsActivity.class);
+                    intent.putExtra("sortId", model.id);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     private void initShops() {

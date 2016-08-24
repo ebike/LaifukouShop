@@ -15,6 +15,7 @@ import com.sdjy.sdjymall.activity.MessageActivity;
 import com.sdjy.sdjymall.activity.SettingsActivity;
 import com.sdjy.sdjymall.common.fragment.LazyFragment;
 import com.sdjy.sdjymall.constants.StaticValues;
+import com.sdjy.sdjymall.event.LogoutEvent;
 import com.sdjy.sdjymall.http.HttpMethods;
 import com.sdjy.sdjymall.model.UserCashBalanceModel;
 import com.sdjy.sdjymall.model.UserModel;
@@ -79,6 +80,10 @@ public class MyFragment extends LazyFragment {
     }
 
     public void onEvent(UserModel model) {
+        init();
+    }
+
+    public void onEvent(LogoutEvent event){
         init();
     }
 
@@ -170,5 +175,11 @@ public class MyFragment extends LazyFragment {
     @OnClick(R.id.tv_feedback)
     public void feedback() {
         startActivity(new Intent(getActivity(), FeedbackActivity.class));
+    }
+
+    @Override
+    protected void onDestroyViewLazy() {
+        super.onDestroyViewLazy();
+        EventBus.getDefault().unregister(this);
     }
 }

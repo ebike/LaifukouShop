@@ -1,5 +1,6 @@
 package com.sdjy.sdjymall.activity;
 
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -63,7 +64,7 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
 
     @OnClick(R.id.tv_find_password)
     public void findPassword() {
-
+        startActivity(new Intent(this, FindPasswordActivity.class));
     }
 
     @OnClick(R.id.btn_login)
@@ -95,7 +96,7 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
 
     @OnClick(R.id.tv_register)
     public void register() {
-
+        startActivity(new Intent(this, RegisterActivity.class));
     }
 
     @Override

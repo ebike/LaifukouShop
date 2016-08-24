@@ -14,6 +14,7 @@ import com.sdjy.sdjymall.model.CommonListModel;
 import com.sdjy.sdjymall.model.GoodsModel;
 import com.sdjy.sdjymall.subscribers.NoProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.SubscriberNextErrorListener;
+import com.sdjy.sdjymall.util.StringUtils;
 import com.sdjy.sdjymall.view.PullListActivityHandler;
 import com.sdjy.sdjymall.view.pullrefresh.PullToRefreshListView;
 
@@ -57,8 +58,14 @@ public class GoodsActivity extends BaseListActivity {
     @Override
     public void init() {
         pageSorts = getIntent().getStringExtra("pageSorts");
+        sortId = getIntent().getStringExtra("sortId");
 
-        params.put("pageSorts", pageSorts);
+        if (!StringUtils.strIsEmpty(pageSorts)) {
+            params.put("pageSorts", pageSorts);
+        }
+        if (!StringUtils.strIsEmpty(sortId)) {
+            params.put("sortId", sortId);
+        }
 
         nextErrorListener = new SubscriberNextErrorListener<CommonListModel<List<GoodsModel>>>() {
             @Override
@@ -146,7 +153,7 @@ public class GoodsActivity extends BaseListActivity {
     }
 
     @OnClick(R.id.tv_search)
-    public void search(){
+    public void search() {
         Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
     }

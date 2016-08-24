@@ -32,7 +32,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
         android:drawablePadding="8dp"
-        android:drawableTop="@mipmap/logo_about" />
+        android:drawableTop="@mipmap/icon_about_logo" />
 
     <LinearLayout
         android:layout_width="match_parent"

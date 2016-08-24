@@ -26,6 +26,7 @@ public class ShoppingCartGoodsAdapter extends TAdapter<CarGoodsModel> {
 
     private ChangeSelectedCallback callback;
     private boolean inEdit;
+    private Realm realm;
 
     public ShoppingCartGoodsAdapter(Context mContext) {
         super(mContext);
@@ -90,6 +91,9 @@ public class ShoppingCartGoodsAdapter extends TAdapter<CarGoodsModel> {
             chooseView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if(StaticValues.userModel == null){
+                        realm.beginTransaction();
+                    }
                     if (inEdit) {
                         if (model.isSelectedInEdit()) {
                             model.setSelectedInEdit(false);
@@ -102,6 +106,9 @@ public class ShoppingCartGoodsAdapter extends TAdapter<CarGoodsModel> {
                         } else {
                             model.setSelected(true);
                         }
+                    }
+                    if(StaticValues.userModel == null){
+                        realm.commitTransaction();
                     }
                     if (callback != null) {
                         callback.onChanged();
@@ -132,7 +139,7 @@ public class ShoppingCartGoodsAdapter extends TAdapter<CarGoodsModel> {
                     notifyDataSetChanged();
                 }
             };
-            HttpMethods.getInstance().addToCart(new ProgressSubscriber(listener, mContext), StaticValues.userModel.userId, model.getId(), model.getPriceId(), count);
+            HttpMethods.getInstance().updateCart(new ProgressSubscriber(listener, mContext), StaticValues.userModel.userId, model.getId(), model.getPriceId(), count);
         } else {
             Realm realm = Realm.getDefaultInstance();
             realm.beginTransaction();
@@ -154,5 +161,9 @@ public class ShoppingCartGoodsAdapter extends TAdapter<CarGoodsModel> {
 
     public void setInEdit(boolean inEdit) {
         this.inEdit = inEdit;
+    }
+
+    public void setRealm(Realm realm) {
+        this.realm = realm;
     }
 }

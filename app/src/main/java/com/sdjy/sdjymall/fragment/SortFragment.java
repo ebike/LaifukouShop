@@ -8,6 +8,7 @@ import android.widget.GridView;
 import android.widget.ListView;
 
 import com.sdjy.sdjymall.R;
+import com.sdjy.sdjymall.activity.GoodsActivity;
 import com.sdjy.sdjymall.activity.MessageActivity;
 import com.sdjy.sdjymall.activity.SearchActivity;
 import com.sdjy.sdjymall.adapter.FirstSortsAdapter;
@@ -18,6 +19,7 @@ import com.sdjy.sdjymall.model.CommonDataModel;
 import com.sdjy.sdjymall.subscribers.NoProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
+import com.sdjy.sdjymall.util.StringUtils;
 
 import java.util.List;
 
@@ -76,6 +78,17 @@ public class SortFragment extends LazyFragment {
                 firstSortsList.get(position).isChecked = true;
                 firstSortsAdapter.setList(firstSortsList);
                 HttpMethods.getInstance().getSecondSorts(new ProgressSubscriber<List<CommonDataModel>>(nextListener1, getActivity()), firstSortsList.get(position).id);
+            }
+        });
+        secondSortsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
+                CommonDataModel model = (CommonDataModel) parent.getItemAtPosition(position);
+                if (!StringUtils.strIsEmpty(model.id)) {
+                    Intent intent = new Intent(getActivity(), GoodsActivity.class);
+                    intent.putExtra("sortId", model.id);
+                    startActivity(intent);
+                }
             }
         });
     }

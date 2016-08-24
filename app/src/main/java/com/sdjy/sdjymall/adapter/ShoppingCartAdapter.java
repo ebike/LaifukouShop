@@ -8,11 +8,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sdjy.sdjymall.R;
+import com.sdjy.sdjymall.constants.StaticValues;
 import com.sdjy.sdjymall.model.CarGoodsModel;
 import com.sdjy.sdjymall.model.CarShopModel;
 import com.sdjy.sdjymall.util.CartUtils;
 import com.sdjy.sdjymall.view.ScrollListView;
 import com.sdjy.sdjymall.view.ViewHolder;
+
+import io.realm.Realm;
 
 /**
  * 购物车商品
@@ -21,6 +24,7 @@ public class ShoppingCartAdapter extends TAdapter<CarShopModel> {
 
     private ChangeSelectedCallback callback;
     private boolean inEdit;
+    private Realm realm;
 
     public ShoppingCartAdapter(Context mContext) {
         super(mContext);
@@ -54,9 +58,13 @@ public class ShoppingCartAdapter extends TAdapter<CarShopModel> {
             }
             ShoppingCartGoodsAdapter adapter = new ShoppingCartGoodsAdapter(mContext);
             adapter.setInEdit(inEdit);
+            adapter.setRealm(realm);
             adapter.setCallback(new ShoppingCartGoodsAdapter.ChangeSelectedCallback() {
                 @Override
                 public void onChanged() {
+                    if(StaticValues.userModel == null){
+                        realm.beginTransaction();
+                    }
                     if (inEdit) {
                         boolean isAllSelected = CartUtils.isAllSelectedInEdit(model);
                         if (isAllSelected) {
@@ -72,6 +80,9 @@ public class ShoppingCartAdapter extends TAdapter<CarShopModel> {
                             model.setSelected(false);
                         }
                     }
+                    if(StaticValues.userModel == null){
+                        realm.commitTransaction();
+                    }
                     notifyDataSetChanged();
                     if (callback != null) {
                         callback.onChanged();
@@ -83,6 +94,9 @@ public class ShoppingCartAdapter extends TAdapter<CarShopModel> {
             selectedView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if(StaticValues.userModel == null){
+                        realm.beginTransaction();
+                    }
                     if (inEdit) {
                         boolean isAllSelected = CartUtils.isAllSelectedInEdit(model);
                         if (isAllSelected) {
@@ -110,6 +124,9 @@ public class ShoppingCartAdapter extends TAdapter<CarShopModel> {
                             }
                         }
                     }
+                    if(StaticValues.userModel == null){
+                        realm.commitTransaction();
+                    }
                     notifyDataSetChanged();
                     if (callback != null) {
                         callback.onChanged();
@@ -131,5 +148,9 @@ public class ShoppingCartAdapter extends TAdapter<CarShopModel> {
 
     public void setInEdit(boolean inEdit) {
         this.inEdit = inEdit;
+    }
+
+    public void setRealm(Realm realm) {
+        this.realm = realm;
     }
 }

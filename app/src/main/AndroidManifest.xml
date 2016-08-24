@@ -70,6 +70,9 @@
         <activity
             android:name=".activity.AccountManageActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".activity.FindPasswordActivity" />
+        <activity android:name=".activity.UpdatePasswordActivity" />
+        <activity android:name=".activity.RegisterActivity"></activity>
     </application>
 
 </manifest>

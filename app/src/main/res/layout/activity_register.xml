@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/red">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:src="@mipmap/icon_back" />
+
+        <TextView
+            style="@style/white_18"
+            android:layout_centerInParent="true"
+            android:text="会员注册" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="32dp">
+
+        <ImageView
+            android:id="@+id/iv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:src="@mipmap/icon_phone" />
+
+        <TextView
+            android:id="@+id/tv_send_validatecode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/iv_phone"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/border_gray"
+            android:paddingBottom="4dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="4dp"
+            android:text="发送验证码"
+            android:textColor="@color/gray9"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_phone"
+            android:layout_alignTop="@+id/iv_phone"
+            android:layout_marginLeft="8dp"
+            android:layout_toLeftOf="@id/tv_send_validatecode"
+            android:layout_toRightOf="@id/iv_phone"
+            android:background="@null"
+            android:digits="@string/digits_number"
+            android:hint="请输入手机号码"
+            android:inputType="phone"
+            android:textColorHint="@color/gray9"
+            android:textSize="14sp" />
+
+        <View
+            android:id="@+id/v_line_phone"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/iv_phone"
+            android:layout_marginTop="8dp"
+            android:background="@color/gray9" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="16dp">
+
+        <ImageView
+            android:id="@+id/iv_validatecode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:src="@mipmap/icon_code" />
+
+        <EditText
+            android:id="@+id/et_validatecode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_validatecode"
+            android:layout_alignTop="@+id/iv_validatecode"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/iv_validatecode"
+            android:background="@null"
+            android:digits="@string/digits_number"
+            android:hint="输入收到的验证码"
+            android:inputType="number"
+            android:textColorHint="@color/gray9"
+            android:textSize="14sp" />
+
+        <View
+            android:id="@+id/v_line_validatecode"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/iv_validatecode"
+            android:layout_marginTop="8dp"
+            android:background="@color/gray9" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="16dp">
+
+        <ImageView
+            android:id="@+id/iv_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:src="@mipmap/icon_pass" />
+
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/iv_password"
+            android:layout_alignTop="@id/iv_password"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@id/iv_password"
+            android:background="@null"
+            android:digits="@string/digits_password"
+            android:hint="设置密码(6-16位字母或数字)"
+            android:inputType="textPassword"
+            android:textColorHint="@color/gray9"
+            android:textSize="14sp" />
+
+        <View
+            android:id="@+id/v_line_password"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/iv_password"
+            android:layout_marginTop="8dp"
+            android:background="@color/gray9" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="28dp"
+        android:alpha="0.7"
+        android:background="@drawable/button_red"
+        android:text="确定"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <TextView
+        style="@style/gray9_14"
+        android:layout_marginLeft="32dp"
+        android:paddingTop="15dp"
+        android:text="点击确定完成注册视为你同意《用户协议》" />
+</LinearLayout>

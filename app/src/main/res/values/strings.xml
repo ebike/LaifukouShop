@@ -6,4 +6,8 @@
     <string name="cart">购物车</string>
     <string name="my">我的</string>
     <string name="message">消息</string>
+
+    <string name="digits_password">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLIMNOPQRSTUVWXYZ</string>
+    <string name="digits_number">0123456789</string>
+    <string name="digits_id_card">0123456789xX</string>
 </resources>

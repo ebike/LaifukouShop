@@ -14,6 +14,7 @@ import com.sdjy.sdjymall.model.ShopModel;
 import com.sdjy.sdjymall.model.TeamGoodsModel;
 import com.sdjy.sdjymall.model.UserCashBalanceModel;
 import com.sdjy.sdjymall.model.UserModel;
+import com.sdjy.sdjymall.model.ValidateCodeModel;
 
 import java.util.List;
 import java.util.Map;
@@ -126,6 +127,16 @@ public interface APIService {
             @Query("num") int num
     );
 
+    //更新购物车接口
+    @POST("cart/updateCart.do")
+    Observable<HttpResult> updateCart(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @Query("goodsId") String goodsId,
+            @Query("priceId") String priceId,
+            @Query("num") int num
+    );
+
     //获取购物车信息接口
     @POST("cart/cartGoods.do")
     Observable<HttpResult<List<CarShopModel>>> cartGoods(
@@ -169,5 +180,23 @@ public interface APIService {
     Observable<HttpResult<CommonListModel<List<TeamGoodsModel>>>> teamGoods(
             @Query("page") int page,
             @QueryMap Map<String, String> params
+    );
+
+    //退出账号接口
+    @GET("logout.do")
+    Observable<HttpResult> logout(
+            @Query("userId") String userId
+    );
+
+    //发送找回密码短信验证码接口
+    @POST("sms/sendUpdatePassCode.do")
+    Observable<HttpResult<ValidateCodeModel>> sendUpdatePassCode(
+            @Query("phone") String phone
+    );
+
+    //发送注册短信验证码接口
+    @POST("sms/sendRegCode.do")
+    Observable<HttpResult<ValidateCodeModel>> sendRegCode(
+            @Query("phone") String phone
     );
 }

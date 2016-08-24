@@ -17,6 +17,7 @@ import com.sdjy.sdjymall.model.ShopModel;
 import com.sdjy.sdjymall.model.TeamGoodsModel;
 import com.sdjy.sdjymall.model.UserCashBalanceModel;
 import com.sdjy.sdjymall.model.UserModel;
+import com.sdjy.sdjymall.model.ValidateCodeModel;
 
 import java.util.List;
 import java.util.Map;
@@ -226,6 +227,13 @@ public class HttpMethods {
         toSubscribe(observable, subscriber);
     }
 
+    //更新购物车接口
+    public void updateCart(Subscriber subscriber, String userId, String goodsId, String priceId, int num) {
+        Observable observable = apiService.updateCart(StaticValues.userModel.userToken, userId, goodsId, priceId, num)
+                .map(new HttpResultFunc2());
+        toSubscribe(observable, subscriber);
+    }
+
     //获取购物车信息接口
     public void cartGoods(Subscriber<List<CarShopModel>> subscriber) {
         Observable observable = apiService.cartGoods(StaticValues.userModel.userToken, StaticValues.userModel.userId)
@@ -265,6 +273,27 @@ public class HttpMethods {
     public void delShoppingCart(Subscriber subscriber, String goodsIds, String priceIds) {
         Observable observable = apiService.delShoppingCart(StaticValues.userModel.userToken, StaticValues.userModel.userId, goodsIds, priceIds)
                 .map(new HttpResultFunc2());
+        toSubscribe(observable, subscriber);
+    }
+
+    //退出账号接口
+    public void logout(Subscriber subscriber) {
+        Observable observable = apiService.logout(StaticValues.userModel.userId)
+                .map(new HttpResultFunc2());
+        toSubscribe(observable, subscriber);
+    }
+
+    //发送找回密码短信验证码接口
+    public void sendUpdatePassCode(Subscriber<ValidateCodeModel> subscriber, String phone) {
+        Observable observable = apiService.sendUpdatePassCode(phone)
+                .map(new HttpResultFunc<ValidateCodeModel>());
+        toSubscribe(observable, subscriber);
+    }
+
+    //发送注册短信验证码接口
+    public void sendRegCode(Subscriber<ValidateCodeModel> subscriber, String phone){
+        Observable observable = apiService.sendRegCode(phone)
+                .map(new HttpResultFunc<ValidateCodeModel>());
         toSubscribe(observable, subscriber);
     }
 }

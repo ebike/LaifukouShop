@@ -80,4 +80,26 @@ public class CommonUtils {
             v.requestLayout();
         }
     }
+
+    /**
+     * 手机号码校验 11位以1开头
+     *
+     * @param mobileNumber
+     * @return
+     */
+    public static boolean isPhoneNumber(String mobileNumber) {
+        if (!StringUtils.strIsEmpty(mobileNumber)) {
+            if (mobileNumber.startsWith("+86"))
+                mobileNumber = mobileNumber.replace("+86", "");
+        }
+        boolean flag = false;
+        try {
+            if (mobileNumber.startsWith("1") && mobileNumber.length() == 11) {
+                flag = true;
+            }
+        } catch (Exception e) {
+            flag = false;
+        }
+        return flag;
+    }
 }

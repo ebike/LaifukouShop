@@ -12,11 +12,13 @@ import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.adapter.ShoppingCartAdapter;
 import com.sdjy.sdjymall.common.util.T;
 import com.sdjy.sdjymall.constants.StaticValues;
+import com.sdjy.sdjymall.event.LogoutEvent;
 import com.sdjy.sdjymall.fragment.base.BaseListFragment;
 import com.sdjy.sdjymall.http.HttpMethods;
 import com.sdjy.sdjymall.model.CarGoodsModel;
 import com.sdjy.sdjymall.model.CarShopModel;
 import com.sdjy.sdjymall.model.HttpResult;
+import com.sdjy.sdjymall.model.UserModel;
 import com.sdjy.sdjymall.subscribers.NoProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.SubscriberNextErrorListener;
@@ -29,6 +31,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 import io.realm.Realm;
 
 /**
@@ -66,6 +69,7 @@ public class ShoppingCartFragment extends BaseListFragment {
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_shopping_car);
+        EventBus.getDefault().register(this);
         realm = Realm.getDefaultInstance();
 
         handler = new PullListFragmentHandler(this, listView);
@@ -73,6 +77,7 @@ public class ShoppingCartFragment extends BaseListFragment {
         listView.setScrollLoadEnabled(false);
         listView.setDriverLine();
         adapter = new ShoppingCartAdapter(getActivity());
+        adapter.setRealm(realm);
         adapter.setCallback(new ShoppingCartAdapter.ChangeSelectedCallback() {
             @Override
             public void onChanged() {
@@ -97,14 +102,20 @@ public class ShoppingCartFragment extends BaseListFragment {
                     if (carShopModels != null && carShopModels.size() > 0) {
                         listView.setBackgroundColor(getResources().getColor(R.color.main_bg));
                         carShopList = carShopModels;
-                        adapter.setList(carShopList);
                         editView.setVisibility(View.VISIBLE);
-                        bottomLayout.setVisibility(View.VISIBLE);
+                        if(inEdit){
+                            bottomEditLayout.setVisibility(View.VISIBLE);
+                        }else{
+                            bottomLayout.setVisibility(View.VISIBLE);
+                        }
                     } else {
+                        carShopList.clear();
                         listView.setBackgroundColor(getResources().getColor(R.color.transparent));
                         editView.setVisibility(View.GONE);
                         bottomLayout.setVisibility(View.GONE);
+                        bottomEditLayout.setVisibility(View.GONE);
                     }
+                    adapter.setList(carShopList);
                     handler.sendEmptyMessage(PULL_TO_REFRESH_COMPLETE);
                 }
 
@@ -113,6 +124,7 @@ public class ShoppingCartFragment extends BaseListFragment {
                     listView.setBackgroundColor(getResources().getColor(R.color.transparent));
                     editView.setVisibility(View.GONE);
                     bottomLayout.setVisibility(View.GONE);
+                    bottomEditLayout.setVisibility(View.GONE);
                     handler.sendEmptyMessage(PULL_TO_REFRESH_COMPLETE);
                 }
             };
@@ -121,14 +133,20 @@ public class ShoppingCartFragment extends BaseListFragment {
             carShopList = realm.where(CarShopModel.class).findAll();
             if (carShopList != null && carShopList.size() > 0) {
                 listView.setBackgroundColor(getResources().getColor(R.color.main_bg));
-                adapter.setList(carShopList);
                 editView.setVisibility(View.VISIBLE);
-                bottomLayout.setVisibility(View.VISIBLE);
+                if(inEdit){
+                    bottomEditLayout.setVisibility(View.VISIBLE);
+                }else{
+                    bottomLayout.setVisibility(View.VISIBLE);
+                }
+                updateBottom();
             } else {
                 listView.setBackgroundColor(getResources().getColor(R.color.transparent));
                 editView.setVisibility(View.GONE);
                 bottomLayout.setVisibility(View.GONE);
+                bottomEditLayout.setVisibility(View.GONE);
             }
+            adapter.setList(carShopList);
             handler.sendEmptyMessage(PULL_TO_REFRESH_COMPLETE);
         }
     }
@@ -152,6 +170,9 @@ public class ShoppingCartFragment extends BaseListFragment {
 
     @OnClick(R.id.tv_choose_all_edit)
     public void chooseAllEdit() {
+        if (StaticValues.userModel == null) {
+            realm.beginTransaction();
+        }
         boolean isAllSelected = CartUtils.isAllSelectedInEdit(carShopList);
         if (isAllSelected) {
             Drawable drawable = getResources().getDrawable(R.mipmap.icon_circle_nosel);
@@ -175,10 +196,16 @@ public class ShoppingCartFragment extends BaseListFragment {
             }
         }
         adapter.setList(carShopList);
+        if (StaticValues.userModel == null) {
+            realm.commitTransaction();
+        }
     }
 
     @OnClick(R.id.tv_choose_all)
     public void chooseAll() {
+        if (StaticValues.userModel == null) {
+            realm.beginTransaction();
+        }
         boolean isAllSelected = CartUtils.isAllSelected(carShopList);
         int count = 0;
         Double amount = 0d;
@@ -211,6 +238,9 @@ public class ShoppingCartFragment extends BaseListFragment {
             checkoutView.setText("去结算(99+)");
         } else {
             checkoutView.setText("去结算(" + count + ")");
+        }
+        if (StaticValues.userModel == null) {
+            realm.commitTransaction();
         }
     }
 
@@ -251,13 +281,11 @@ public class ShoppingCartFragment extends BaseListFragment {
                 for (CarShopModel shopModel : carShopList) {
                     if (shopModel.isSelectedInEdit()) {
                         shopModel.deleteFromRealm();
-                    } else {
-                        for (CarGoodsModel goodsModel : shopModel.getGoods()) {
-                            if (goodsModel.isSelectedInEdit()) {
-                                goodsModel.deleteFromRealm();
-                            }
-                        }
                     }
+                }
+                List<CarGoodsModel> carGoodsList = realm.where(CarGoodsModel.class).equalTo("isSelectedInEdit", true).findAll();
+                for (CarGoodsModel goodsModel : carGoodsList) {
+                    goodsModel.deleteFromRealm();
                 }
                 realm.commitTransaction();
                 requestDatas();
@@ -309,9 +337,18 @@ public class ShoppingCartFragment extends BaseListFragment {
         }
     }
 
+    public void onEvent(UserModel model) {
+        requestDatas();
+    }
+
+    public void onEvent(LogoutEvent event) {
+        requestDatas();
+    }
+
     @Override
     protected void onDestroyViewLazy() {
         super.onDestroyViewLazy();
+        EventBus.getDefault().unregister(this);
         if (realm != null) {
             realm.close();
         }
