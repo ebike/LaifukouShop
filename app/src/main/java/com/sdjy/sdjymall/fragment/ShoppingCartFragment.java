@@ -259,8 +259,8 @@ public class ShoppingCartFragment extends BaseListFragment {
                 for (CarShopModel shopModel : carShopList) {
                     for (CarGoodsModel goodsModel : shopModel.getGoods()) {
                         if (goodsModel.isSelectedInEdit()) {
-                            goodsIds.append(goodsModel.getId()).append(",");
-                            priceIds.append(goodsModel.getPriceId()).append(",");
+                            goodsIds.append(goodsModel.getId()).append(";");
+                            priceIds.append(goodsModel.getPriceId()).append(";");
                         }
                     }
                 }

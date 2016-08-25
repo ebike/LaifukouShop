@@ -19,11 +19,15 @@ import com.sdjy.sdjymall.model.UserCashBalanceModel;
 import com.sdjy.sdjymall.model.UserModel;
 import com.sdjy.sdjymall.model.ValidateCodeModel;
 
+import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -291,9 +295,48 @@ public class HttpMethods {
     }
 
     //发送注册短信验证码接口
-    public void sendRegCode(Subscriber<ValidateCodeModel> subscriber, String phone){
+    public void sendRegCode(Subscriber<ValidateCodeModel> subscriber, String phone) {
         Observable observable = apiService.sendRegCode(phone)
                 .map(new HttpResultFunc<ValidateCodeModel>());
+        toSubscribe(observable, subscriber);
+    }
+
+    //根据手机号验证用户是否存在接口
+    public void checkUserByPhone(Subscriber<String> subscriber, String phone) {
+        Observable observable = apiService.checkUserByPhone(phone)
+                .map(new HttpResultFunc<String>());
+        toSubscribe(observable, subscriber);
+    }
+
+    //重置密码接口
+    public void resetPassword(Subscriber subscriber, String userId, String password) {
+        Observable observable = apiService.resetPassword(userId, password)
+                .map(new HttpResultFunc2());
+        toSubscribe(observable, subscriber);
+    }
+
+    //查看创业套餐详细信息接口
+    public void findTeamGoods(Subscriber<TeamGoodsModel> subscriber, String id) {
+        Observable observable = apiService.findTeamGoods(id)
+                .map(new HttpResultFunc<TeamGoodsModel>());
+        toSubscribe(observable, subscriber);
+    }
+
+    //修改用户头像接口
+    public void updateHeadPic(Subscriber<UserModel> subscriber, File file) {
+        Map<String, RequestBody> map = new HashMap<String, RequestBody>();
+        RequestBody fileBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        map.put("headPic\"; filename=\"" + file.getName(), fileBody);
+
+        Observable observable = apiService.updateHeadPic(StaticValues.userModel.userToken, StaticValues.userModel.userId, map)
+                .map(new HttpResultFunc<UserModel>());
+        toSubscribe(observable, subscriber);
+    }
+
+    //修改用户资料接口
+    public void updateUserData(Subscriber<UserModel> subscriber, Map<String, String> params) {
+        Observable observable = apiService.updateUserData(StaticValues.userModel.userToken, StaticValues.userModel.userId, params)
+                .map(new HttpResultFunc<UserModel>());
         toSubscribe(observable, subscriber);
     }
 }

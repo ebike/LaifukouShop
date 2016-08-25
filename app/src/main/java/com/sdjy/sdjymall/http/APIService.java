@@ -19,9 +19,12 @@ import com.sdjy.sdjymall.model.ValidateCodeModel;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.RequestBody;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 import rx.Observable;
@@ -198,5 +201,41 @@ public interface APIService {
     @POST("sms/sendRegCode.do")
     Observable<HttpResult<ValidateCodeModel>> sendRegCode(
             @Query("phone") String phone
+    );
+
+    //根据手机号验证用户是否存在接口
+    @GET("user/checkUserByPhone.do")
+    Observable<HttpResult<String>> checkUserByPhone(
+            @Query("phone") String phone
+    );
+
+    //重置密码接口
+    @POST("user/resetPassword.do")
+    Observable<HttpResult> resetPassword(
+            @Query("userId") String userId,
+            @Query("password") String password
+    );
+
+    //查看创业套餐详细信息接口
+    @GET("team/findTeamGoods.do")
+    Observable<HttpResult<TeamGoodsModel>> findTeamGoods(
+            @Query("id") String id
+    );
+
+    //修改用户头像接口
+    @Multipart
+    @POST("user/updateHeadPic.do")
+    Observable<HttpResult<UserModel>> updateHeadPic(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @PartMap Map<String, RequestBody> map
+    );
+
+    //修改用户资料接口
+    @POST("user/updateUserData.do")
+    Observable<HttpResult<UserModel>> updateUserData(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @QueryMap Map<String, String> params
     );
 }

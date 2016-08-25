@@ -8,6 +8,8 @@ public class UserModel {
     public String userId;
     //登录名
     public String loginName;
+    //姓名
+    public String name;
     //性别
     public int sex;
     //身份证

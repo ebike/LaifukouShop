@@ -31,9 +31,9 @@ public class CommonMethods {
             StringBuffer priceIds = new StringBuffer();
             StringBuffer nums = new StringBuffer();
             for (int i = 0; i < carGoodsList.size(); i++) {
-                goodsIds.append(carGoodsList.get(i).getId()).append(",");
-                priceIds.append(carGoodsList.get(i).getPriceId()).append(",");
-                nums.append(carGoodsList.get(i).getNum() + "").append(",");
+                goodsIds.append(carGoodsList.get(i).getId()).append(";");
+                priceIds.append(carGoodsList.get(i).getPriceId()).append(";");
+                nums.append(carGoodsList.get(i).getNum() + "").append(";");
             }
             goodsIds.deleteCharAt(goodsIds.length() - 1);
             priceIds.deleteCharAt(priceIds.length() - 1);

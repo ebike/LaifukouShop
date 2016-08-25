@@ -122,6 +122,14 @@ public class GoodsInfoActivity extends BaseActivity {
                     drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
                     goodsFocusView.setCompoundDrawables(null, drawable, null, null);
                 }
+
+                if (goodsInfoModel.stock <= 0) {
+                    intoCarView.setBackgroundColor(getResources().getColor(R.color.yellow1));
+                    intoCarView.setText("暂时缺货");
+                } else {
+                    intoCarView.setBackgroundColor(getResources().getColor(R.color.red));
+                    intoCarView.setText("加入购物车");
+                }
             }
         };
         HttpMethods.getInstance().findGoods(new ProgressSubscriber<GoodsInfoModel>(nextListener, this), goodsId);

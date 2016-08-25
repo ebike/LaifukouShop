@@ -1,5 +1,6 @@
 package com.sdjy.sdjymall.activity;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -95,7 +96,10 @@ public class CreateTeamActivity extends BaseListActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                TeamGoodsModel model = (TeamGoodsModel) parent.getItemAtPosition(position);
+                Intent intent = new Intent(CreateTeamActivity.this, TeamGoodsInfoActivity.class);
+                intent.putExtra("id", model.id);
+                startActivity(intent);
             }
         });
     }

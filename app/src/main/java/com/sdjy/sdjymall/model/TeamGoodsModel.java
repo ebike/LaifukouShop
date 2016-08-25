@@ -4,7 +4,7 @@ package com.sdjy.sdjymall.model;
  * 创业套餐
  */
 public class TeamGoodsModel {
-
+    //套餐ID
     public String id;
 
     public String shopId;
@@ -12,7 +12,7 @@ public class TeamGoodsModel {
     public int grade;
     //等级（文字）
     public String gradeStr;
-    //
+    //金额
     public String total;
 
     public String refereeMoney;
@@ -26,6 +26,8 @@ public class TeamGoodsModel {
     public String perMoney;
 
     public String resume;
+    //详情信息
+    public String description;
 
     public String createTime;
 

@@ -25,6 +25,7 @@ import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
 import butterknife.Bind;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 /**
  * 我的
@@ -56,6 +57,7 @@ public class MyFragment extends LazyFragment {
         if (StaticValues.userModel != null) {
             Glide.with(getActivity())
                     .load(StaticValues.userModel.headPic)
+                    .bitmapTransform(new CropCircleTransformation(getActivity()))
                     .error(R.mipmap.icon_default_head)
                     .into(headerView);
             nameView.setText(StaticValues.userModel.loginName);

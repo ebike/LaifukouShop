@@ -10,10 +10,17 @@ import android.widget.ImageView;
 import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.activity.base.BaseActivity;
 import com.sdjy.sdjymall.common.util.T;
+import com.sdjy.sdjymall.event.FinishEvent;
+import com.sdjy.sdjymall.http.HttpMethods;
+import com.sdjy.sdjymall.model.HttpResult;
+import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
+import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
+import com.sdjy.sdjymall.util.CommonUtils;
 import com.sdjy.sdjymall.util.StringUtils;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 public class UpdatePasswordActivity extends BaseActivity implements TextWatcher {
 
@@ -69,7 +76,21 @@ public class UpdatePasswordActivity extends BaseActivity implements TextWatcher 
             T.showShort(this, "两次密码不一致");
             return;
         }
-
+        SubscriberOnNextListener<String> listener = new SubscriberOnNextListener<String>() {
+            @Override
+            public void onNext(String userId) {
+                SubscriberOnNextListener listener1 = new SubscriberOnNextListener<HttpResult>() {
+                    @Override
+                    public void onNext(HttpResult httpResult) {
+                        T.showShort(UpdatePasswordActivity.this, httpResult.message);
+                        EventBus.getDefault().post(new FinishEvent(FindPasswordActivity.class.getSimpleName()));
+                        UpdatePasswordActivity.this.finish();
+                    }
+                };
+                HttpMethods.getInstance().resetPassword(new ProgressSubscriber(listener1, UpdatePasswordActivity.this), userId, CommonUtils.MD5(password));
+            }
+        };
+        HttpMethods.getInstance().checkUserByPhone(new ProgressSubscriber<String>(listener, this), phone);
     }
 
     @Override

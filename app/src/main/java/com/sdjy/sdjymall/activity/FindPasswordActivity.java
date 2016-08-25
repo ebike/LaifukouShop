@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.activity.base.BaseActivity;
 import com.sdjy.sdjymall.common.util.T;
+import com.sdjy.sdjymall.event.FinishEvent;
 import com.sdjy.sdjymall.http.HttpMethods;
 import com.sdjy.sdjymall.model.ValidateCodeModel;
 import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
@@ -24,6 +25,7 @@ import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 public class FindPasswordActivity extends BaseActivity implements TextWatcher {
 
@@ -48,12 +50,14 @@ public class FindPasswordActivity extends BaseActivity implements TextWatcher {
     private Runnable runnable;
     private int minute = 60;
     private String phone;
+    private String validatePhone;
     private String validateCode;
     private ValidateCodeModel validateCodeModel;
 
     @Override
     public void loadLoyout() {
         setContentView(R.layout.activity_find_password);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -78,6 +82,7 @@ public class FindPasswordActivity extends BaseActivity implements TextWatcher {
             @Override
             public void onNext(ValidateCodeModel model) {
                 validateCodeModel = model;
+                validatePhone = phone;
                 T.showShort(FindPasswordActivity.this, "验证码已发送至手机");
                 handler = new Handler();
                 runnable = new Runnable() {
@@ -113,7 +118,10 @@ public class FindPasswordActivity extends BaseActivity implements TextWatcher {
             T.showShort(this, "请输入验证码");
             return;
         }
-        if (validateCodeModel != null && new Date().getTime() < validateCodeModel.expireTime) {
+        if (validateCodeModel != null
+                && new Date().getTime() < validateCodeModel.expireTime
+                && phone.equals(validatePhone)
+                && validateCodeModel.code.equals(validateCode)) {
             Intent intent = new Intent(this, UpdatePasswordActivity.class);
             intent.putExtra("phone", phone);
             startActivity(intent);
@@ -159,9 +167,16 @@ public class FindPasswordActivity extends BaseActivity implements TextWatcher {
         }
     }
 
+    public void onEvent(FinishEvent event) {
+        if (event.simpleName.equals(this.getClass().getSimpleName())) {
+            finish();
+        }
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         if (handler != null) {
             handler.removeCallbacks(runnable);
         }

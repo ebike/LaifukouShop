@@ -1,22 +1,41 @@
 package com.sdjy.sdjymall.activity;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.activity.base.BaseActivity;
+import com.sdjy.sdjymall.constants.FinalValues;
 import com.sdjy.sdjymall.constants.StaticValues;
 import com.sdjy.sdjymall.db.ProvinceInfoDao;
+import com.sdjy.sdjymall.event.SelectPhotoEvent;
+import com.sdjy.sdjymall.http.HttpMethods;
+import com.sdjy.sdjymall.model.ImageItem;
 import com.sdjy.sdjymall.model.LocationJson;
 import com.sdjy.sdjymall.model.UserModel;
+import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
+import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
 import com.sdjy.sdjymall.util.ImageCompress;
+import com.sdjy.sdjymall.util.StringUtils;
+import com.sdjy.sdjymall.view.ActionSheetDialog;
 import com.sdjy.sdjymall.view.RowLabelValueView;
 import com.sdjy.sdjymall.view.wheel.AddressThreeWheelViewDialog;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 /**
@@ -52,6 +71,7 @@ public class AccountManageActivity extends BaseActivity {
     @Override
     public void loadLoyout() {
         setContentView(R.layout.activity_account_manage);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -63,9 +83,7 @@ public class AccountManageActivity extends BaseActivity {
                     .error(R.mipmap.icon_comment_head)
                     .into(headerView);
             userNameView.setValue(StaticValues.userModel.loginName);
-//            if (!StringUtils.strIsEmpty(StaticValues.userModel.)) {
-//                nameView.setValue(AppConfig.userInfoBean.getUserName());
-//            }
+            nameView.setValue(StaticValues.userModel.name);
             if (StaticValues.userModel.sex == 0) {
                 sexView.setValue("男");
             } else if (StaticValues.userModel.sex == 1) {
@@ -89,112 +107,131 @@ public class AccountManageActivity extends BaseActivity {
         finish();
     }
 
-//    @Event(value = R.id.rl_header)
-//    private void header(View view) {
-//        takePhotoTime = System.currentTimeMillis();
-//        showPhotoDialog(this, takePhotoTime);
-//    }
-//
-//    public static void showPhotoDialog(final Activity activity, final long takePhotoTime) {
-//        new ActionSheetDialog(activity)
-//                .builder()
-//                .setCancelable(true)
-//                .setCanceledOnTouchOutside(true)
-//                .addSheetItem("拍照", ActionSheetDialog.SheetItemColor.Blue,
-//                        new ActionSheetDialog.OnSheetItemClickListener() {
-//                            @Override
-//                            public void onClick(int which) {
-//                                File file = new File(AppConfig.CAMERA_PIC_PATH);
-//                                if (!file.exists()) {
-//                                    file.mkdirs();
-//                                }
-//                                File file2 = new File(AppConfig.CAMERA_PIC_PATH, takePhotoTime + ".jpg");
-//                                try {
-//                                    file2.createNewFile();
-//                                } catch (IOException e) {
-//                                    e.printStackTrace();
-//                                }
-//                                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file2));
-//                                activity.startActivityForResult(intent, 2);
-//                            }
-//                        })
-//                .addSheetItem("从手机相册选择", ActionSheetDialog.SheetItemColor.Blue,
-//                        new ActionSheetDialog.OnSheetItemClickListener() {
-//                            @Override
-//                            public void onClick(int which) {
-//                                Intent intent = new Intent(activity, PhotoAlbumListActivity.class);
-//                                activity.startActivity(intent);
-//                            }
-//                        }).show();
-//    }
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        //判断请求码
-//        switch (requestCode) {
-//            case 2://拍照
-//                //设置文件保存路径这里放在跟目录下
-//                File mFile = new File(AppConfig.CAMERA_PIC_PATH + takePhotoTime + ".jpg");
-//                if (mFile.length() != 0) {
-//                    ImageItem item = new ImageItem();
-//                    item.imageId = takePhotoTime + "";
-//                    item.picName = takePhotoTime + ".jpg";
-//                    item.size = String.valueOf(mFile.length());
-//                    item.sourcePath = AppConfig.CAMERA_PIC_PATH + takePhotoTime + ".jpg";
-//                    uploadImage(item);
-//                }
-//                break;
-//        }
-//        super.onActivityResult(requestCode, resultCode, data);
-//    }
-//
-//    //根据当前操作的照片进行赋值
-//    private void uploadImage(final ImageItem imageItem) {
-//        //由于目前没有查看图片，每次选择图片都是覆盖更新，所以，只用到路径字段，其他字段预留
-//        if (imageItem != null && !CommonUtils.strIsEmpty(imageItem.sourcePath)) {
-//            //对图片做压缩处理
-//            Bitmap bitmap = compress.getimage(imageItem.sourcePath);
-//            if (null != bitmap) {
-//                try {
-//                    compress.compressAndGenImage(bitmap, imageItem.sourcePath, AppConfig.compressedImage + imageItem.picName, 100);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//            //压缩后的图片文件
-//            File file = new File(AppConfig.compressedImage + imageItem.picName);
-//            List<SendParamsBean> sendParamsBeans = new ArrayList<SendParamsBean>();
-//            sendParamsBeans.add(new SendParamsBean("userId", AppConfig.userInfoBean.getUserId(), false));
-//            sendParamsBeans.add(new SendParamsBean("headPic", file, true));
-//            RequestParams params = DRequestParamsUtils.getRequestParamsHasFile_Header(HttpConstants.updateHeadPic(), sendParamsBeans);
-//            DHttpUtils.post_String(this, true, params, new DCommonCallback<String>() {
-//                @Override
-//                public void onSuccess(String result) {
-//                    ResponseBean<UserInfoBean> bean = new Gson().fromJson(result, new TypeToken<ResponseBean<UserInfoBean>>() {
-//                    }.getType());
-//                    if (bean.getCode() == 1) {
-//                        AppConfig.userInfoBean = bean.getData();
-//                        EventBus.getDefault().post(bean.getData());
-//                        Glide.with(BaseInformationActivity.this)
-//                                .load(AppConfig.userInfoBean.getHeadPic())
-//                                .bitmapTransform(new CropCircleTransformation(BaseInformationActivity.this))
-//                                .into(headerView);
-//                    } else {
-//                        showShortText(bean.getErrmsg());
-//                    }
-//                }
-//            });
-//        }
-//    }
-//
-//    //从相册选择
-//    public void onEvent(SelectPhotoEvent event) {
-//        if (event != null && event.getItem() != null) {
-//            uploadImage(event.getItem());
-//        }
-//    }
-//
+    @OnClick(R.id.rl_header)
+    public void header(View view) {
+        takePhotoTime = System.currentTimeMillis();
+        showPhotoDialog(this, takePhotoTime);
+    }
+
+    public static void showPhotoDialog(final Activity activity, final long takePhotoTime) {
+        new ActionSheetDialog(activity)
+                .builder()
+                .setCancelable(true)
+                .setCanceledOnTouchOutside(true)
+                .addSheetItem("拍照", ActionSheetDialog.SheetItemColor.Blue,
+                        new ActionSheetDialog.OnSheetItemClickListener() {
+                            @Override
+                            public void onClick(int which) {
+                                File file = new File(FinalValues.CAMERA_PIC_PATH);
+                                if (!file.exists()) {
+                                    file.mkdirs();
+                                }
+                                File file2 = new File(FinalValues.CAMERA_PIC_PATH, takePhotoTime + ".jpg");
+                                try {
+                                    file2.createNewFile();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file2));
+                                activity.startActivityForResult(intent, 2);
+                            }
+                        })
+                .addSheetItem("从手机相册选择", ActionSheetDialog.SheetItemColor.Blue,
+                        new ActionSheetDialog.OnSheetItemClickListener() {
+                            @Override
+                            public void onClick(int which) {
+                                Intent intent = new Intent(activity, PhotoAlbumListActivity.class);
+                                activity.startActivity(intent);
+                            }
+                        }).show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //判断请求码
+        switch (requestCode) {
+            case 2://拍照
+                //设置文件保存路径这里放在跟目录下
+                File mFile = new File(FinalValues.CAMERA_PIC_PATH + takePhotoTime + ".jpg");
+                if (mFile.length() != 0) {
+                    ImageItem item = new ImageItem();
+                    item.imageId = takePhotoTime + "";
+                    item.picName = takePhotoTime + ".jpg";
+                    item.size = String.valueOf(mFile.length());
+                    item.sourcePath = FinalValues.CAMERA_PIC_PATH + takePhotoTime + ".jpg";
+                    uploadImage(item);
+                }
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    //根据当前操作的照片进行赋值
+    private void uploadImage(final ImageItem imageItem) {
+        //由于目前没有查看图片，每次选择图片都是覆盖更新，所以，只用到路径字段，其他字段预留
+        if (imageItem != null && !StringUtils.strIsEmpty(imageItem.sourcePath)) {
+            //对图片做压缩处理
+            Bitmap bitmap = compress.getimage(imageItem.sourcePath);
+            if (null != bitmap) {
+                try {
+                    compress.compressAndGenImage(bitmap, imageItem.sourcePath, FinalValues.compressedImage + imageItem.picName, 100);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            //压缩后的图片文件
+            File file = new File(FinalValues.compressedImage + imageItem.picName);
+            SubscriberOnNextListener listener = new SubscriberOnNextListener<UserModel>() {
+                @Override
+                public void onNext(UserModel model) {
+                    StaticValues.userModel = model;
+                    EventBus.getDefault().post(model);
+                    Glide.with(AccountManageActivity.this)
+                            .load(StaticValues.userModel.headPic)
+                            .bitmapTransform(new CropCircleTransformation(AccountManageActivity.this))
+                            .error(R.mipmap.icon_comment_head)
+                            .into(headerView);
+                }
+            };
+            HttpMethods.getInstance().updateHeadPic(new ProgressSubscriber<UserModel>(listener, this), file);
+        }
+    }
+
+    //从相册选择
+    public void onEvent(SelectPhotoEvent event) {
+        if (event != null && event.getItem() != null) {
+            uploadImage(event.getItem());
+        }
+    }
+
+    @OnClick(R.id.rlvv_area)
+    public void area() {
+        if (StaticValues.userModel != null) {
+            dialog.setData(mProvinceList, StaticValues.userModel.province, StaticValues.userModel.city, StaticValues.userModel.area);
+        } else {
+            dialog.setData(mProvinceList);
+        }
+        dialog.show(new AddressThreeWheelViewDialog.ConfirmAction() {
+            @Override
+            public void doAction(final LocationJson root, final LocationJson child, final LocationJson child2) {
+                Map<String, String> map = new HashMap<>();
+                map.put("province", root.getName());
+                map.put("city", child.getName());
+                map.put("area", child2.getName());
+                SubscriberOnNextListener<UserModel> listener = new SubscriberOnNextListener<UserModel>() {
+                    @Override
+                    public void onNext(UserModel model) {
+                        StaticValues.userModel = model;
+                        EventBus.getDefault().post(model);
+                        areaView.setValue(StaticValues.userModel.province + "-" + StaticValues.userModel.city + "-" + StaticValues.userModel.area);
+                    }
+                };
+                HttpMethods.getInstance().updateUserData(new ProgressSubscriber<UserModel>(listener, AccountManageActivity.this), map);
+            }
+        });
+    }
+
 //    @Override
 //    public void onClick(View view) {
 //        Intent intent = null;
@@ -217,37 +254,7 @@ public class AccountManageActivity extends BaseActivity {
 //                startActivity(intent);
 //                break;
 //            case R.id.rlvv_area:
-//                if (AppConfig.userInfoBean != null) {
-//                    dialog.setData(mProvinceList, AppConfig.userInfoBean.getProvince(), AppConfig.userInfoBean.getCity(), AppConfig.userInfoBean.getArea());
-//                } else {
-//                    dialog.setData(mProvinceList);
-//                }
-//                dialog.show(new AddressThreeWheelViewDialog.ConfirmAction() {
-//                    @Override
-//                    public void doAction(final LocationJson root, final LocationJson child, final LocationJson child2) {
-//                        Map<String, String> map = new HashMap<>();
-//                        map.put("userId", AppConfig.userInfoBean.getUserId());
-//                        map.put("province", root.getName());
-//                        map.put("city", child.getName());
-//                        map.put("area", child2.getName());
-//                        RequestParams params = DRequestParamsUtils.getRequestParams_Header(HttpConstants.getUpdateUserUrl(), map);
-//                        DHttpUtils.post_String(BaseInformationActivity.this, true, params, new DCommonCallback<String>() {
-//                            @Override
-//                            public void onSuccess(String result) {
-//                                ResponseBean<UserInfoBean> bean = new Gson().fromJson(result, new TypeToken<ResponseBean<UserInfoBean>>() {
-//                                }.getType());
-//                                if (bean.getCode() == 1) {
-//                                    AppConfig.userInfoBean = bean.getData();
-//                                    EventBus.getDefault().post(bean.getData());
-//                                    areaView.setValue(AppConfig.userInfoBean.getProvince() + "-" + AppConfig.userInfoBean.getCity() + "-" + AppConfig.userInfoBean.getArea());
-//                                    getSchool(root.getName(), child.getName(), child2.getName());
-//                                } else {
-//                                    showShortText(bean.getErrmsg());
-//                                }
-//                            }
-//                        });
-//                    }
-//                });
+
 //                break;
 //            case R.id.rlvv_address:
 //                if (AppConfig.userInfoBean.getUserType() == 1) {
@@ -261,26 +268,6 @@ public class AccountManageActivity extends BaseActivity {
 //                }
 //                break;
 //        }
-//    }
-//
-//    private void getSchool(String province, String city, String county) {
-//        Map<String, String> map = new HashMap<>();
-//        map.put("province", province);
-//        map.put("city", city);
-//        map.put("area", county);
-//        RequestParams params = DRequestParamsUtils.getRequestParams(HttpConstants.getSchools(), map);
-//        DHttpUtils.post_String(BaseInformationActivity.this, false, params, new DCommonCallback<String>() {
-//            @Override
-//            public void onSuccess(String result) {
-//                ResponseBean<List<SchoolBean>> responseBean = new Gson().fromJson(result, new TypeToken<ResponseBean<List<SchoolBean>>>() {
-//                }.getType());
-//                if (responseBean.getCode() == 1) {
-//                    schoolList = responseBean.getData();
-//                } else {
-//                    showShortText(responseBean.getErrmsg());
-//                }
-//            }
-//        });
 //    }
 //
 //    private void chooseSex() {
@@ -353,5 +340,11 @@ public class AccountManageActivity extends BaseActivity {
         if (user != null) {
             init();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }
