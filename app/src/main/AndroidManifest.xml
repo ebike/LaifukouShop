@@ -129,6 +129,13 @@
         <activity
             android:name=".activity.PhotoSingleSelectionActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.UpdateSexActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.UpdateFieldActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.FeedbackTypeActivity"></activity>
     </application>
 
 </manifest>

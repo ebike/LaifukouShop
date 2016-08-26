@@ -84,16 +84,20 @@ public class AccountManageActivity extends BaseActivity {
                     .into(headerView);
             userNameView.setValue(StaticValues.userModel.loginName);
             nameView.setValue(StaticValues.userModel.name);
-            if (StaticValues.userModel.sex == 0) {
+            if (StaticValues.userModel.sex == 1) {
                 sexView.setValue("男");
-            } else if (StaticValues.userModel.sex == 1) {
+            } else if (StaticValues.userModel.sex == 2) {
                 sexView.setValue("女");
             } else {
                 sexView.setValue("保密");
             }
             phoneView.setValue(StaticValues.userModel.phone);
             idCardView.setValue(StaticValues.userModel.idCard);
-            areaView.setValue(StaticValues.userModel.province + "-" + StaticValues.userModel.city + "-" + StaticValues.userModel.area);
+            if (!StringUtils.strIsEmpty(StaticValues.userModel.province)) {
+                areaView.setValue(StaticValues.userModel.province + "-" + StaticValues.userModel.city + "-" + StaticValues.userModel.area);
+            } else {
+                areaView.setValue("");
+            }
             addressView.setValue(StaticValues.userModel.address);
         }
         dialog = new AddressThreeWheelViewDialog(this);
@@ -232,109 +236,27 @@ public class AccountManageActivity extends BaseActivity {
         });
     }
 
-//    @Override
-//    public void onClick(View view) {
-//        Intent intent = null;
-//        switch (view.getId()) {
-//            case R.id.rlvv_name:
-//                intent = new Intent(this, UpdateTextValueActivity.class);
-//                intent.putExtra("fieldName_CH", getString(R.string.name));
-//                intent.putExtra("fieldValue", AppConfig.userInfoBean.getUserName());
-//                intent.putExtra("fieldName", "userName");
-//                startActivity(intent);
-//                break;
-//            case R.id.rlvv_sex:
-//                chooseSex();
-//                break;
-//            case R.id.rlvv_id_card:
-//                intent = new Intent(this, UpdateTextValueActivity.class);
-//                intent.putExtra("fieldName_CH", "身份证号");
-//                intent.putExtra("fieldValue", AppConfig.userInfoBean.getIdNum());
-//                intent.putExtra("fieldName", "idNum");
-//                startActivity(intent);
-//                break;
-//            case R.id.rlvv_area:
+    @OnClick(R.id.rlvv_sex)
+    public void sex() {
+        startActivity(new Intent(this, UpdateSexActivity.class));
+    }
 
-//                break;
-//            case R.id.rlvv_address:
-//                if (AppConfig.userInfoBean.getUserType() == 1) {
-//                    chooseSchool();
-//                } else {
-//                    intent = new Intent(this, UpdateTextValueActivity.class);
-//                    intent.putExtra("fieldName_CH", getString(R.string.detailed_address));
-//                    intent.putExtra("fieldValue", AppConfig.userInfoBean.getAddress());
-//                    intent.putExtra("fieldName", "address");
-//                    startActivity(intent);
-//                }
-//                break;
-//        }
-//    }
-//
-//    private void chooseSex() {
-//        View view = LayoutInflater.from(this).inflate(R.layout.view_sex, null, false);
-//        TextView manView = (TextView) view.findViewById(R.id.tv_man);
-//        TextView womanView = (TextView) view.findViewById(R.id.tv_woman);
-//        TextView otherView = (TextView) view.findViewById(R.id.tv_other);
-//        Drawable drawable = getResources().getDrawable(R.mipmap.icon_sel);
-//        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-//        if (AppConfig.userInfoBean.getSex() == 0) {
-//            manView.setCompoundDrawables(null, null, drawable, null);
-//        } else if (AppConfig.userInfoBean.getSex() == 1) {
-//            womanView.setCompoundDrawables(null, null, drawable, null);
-//        } else if (AppConfig.userInfoBean.getSex() == 2) {
-//            otherView.setCompoundDrawables(null, null, drawable, null);
-//        }
-//        final CustomDialog dialog = CommonUtils.showCustomDialog1(this, "选择性别", view);
-//        manView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialog.cancel();
-//                updateSex("0");
-//            }
-//        });
-//        womanView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialog.cancel();
-//                updateSex("1");
-//            }
-//        });
-//        otherView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialog.cancel();
-//                updateSex("2");
-//            }
-//        });
-//    }
-//
-//    private void updateSex(final String sex) {
-//        Map<String, String> map = new HashMap<String, String>();
-//        map.put("userId", AppConfig.userInfoBean.getUserId());
-//        map.put("sex", sex);
-//        RequestParams params = DRequestParamsUtils.getRequestParams_Header(HttpConstants.getUpdateUserUrl(), map);
-//        DHttpUtils.post_String(this, true, params, new DCommonCallback<String>() {
-//            @Override
-//            public void onSuccess(String result) {
-//                ResponseBean<UserInfoBean> bean = new Gson().fromJson(result, new TypeToken<ResponseBean<UserInfoBean>>() {
-//                }.getType());
-//                if (bean.getCode() == 1) {
-//                    AppConfig.userInfoBean = bean.getData();
-//                    EventBus.getDefault().post(bean.getData());
-//                    if ("0".equals(sex)) {
-//                        sexView.setValue("男");
-//                    } else if ("1".equals(sex)) {
-//                        sexView.setValue("女");
-//                    } else {
-//                        sexView.setValue("保密");
-//                    }
-//                } else {
-//                    showShortText(bean.getErrmsg());
-//                }
-//
-//            }
-//        });
-//    }
+    @OnClick({R.id.rlvv_name, R.id.rlvv_id_card, R.id.rlvv_address})
+    public void updateField(View view) {
+        Intent intent = new Intent(this, UpdateFieldActivity.class);
+        switch (view.getId()) {
+            case R.id.rlvv_name:
+                intent.putExtra("title", "姓名");
+                break;
+            case R.id.rlvv_id_card:
+                intent.putExtra("title", "身份证号");
+                break;
+            case R.id.rlvv_address:
+                intent.putExtra("title", "详细地址");
+                break;
+        }
+        startActivity(intent);
+    }
 
     public void onEvent(UserModel user) {
         if (user != null) {

@@ -64,8 +64,8 @@ public class UpdatePasswordActivity extends BaseActivity implements TextWatcher 
     public void confirm() {
         password = passwordText.getText().toString().trim();
         password1 = passwordText1.getText().toString().trim();
-        if (StringUtils.strIsEmpty(password)) {
-            T.showShort(this, "请输入新密码");
+        if (StringUtils.strIsEmpty(password) || password.length() < 6 || password.length() > 16) {
+            T.showShort(this, "密码为6-16位字母或数字");
             return;
         }
         if (StringUtils.strIsEmpty(password1)) {

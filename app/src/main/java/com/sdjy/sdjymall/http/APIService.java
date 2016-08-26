@@ -20,6 +20,9 @@ import java.util.List;
 import java.util.Map;
 
 import okhttp3.RequestBody;
+import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
@@ -232,10 +235,33 @@ public interface APIService {
     );
 
     //修改用户资料接口
+    @FormUrlEncoded
     @POST("user/updateUserData.do")
     Observable<HttpResult<UserModel>> updateUserData(
             @Header("Authorization") String auth,
             @Query("userId") String userId,
-            @QueryMap Map<String, String> params
+            @FieldMap Map<String, String> params
+    );
+
+    //用户注册接口
+    @POST("user/regUser.do")
+    Observable<HttpResult<UserModel>> regUser(
+            @Query("phone") String phone,
+            @Query("password") String password,
+            @Query("clientId") String clientId,
+            @Query("platform") String platform
+    );
+
+    //获取问题反馈类型接口
+    @GET("feedback/getFeedbackType.do")
+    Observable<HttpResult<List<String>>> getFeedbackType();
+
+    //问题反馈接口
+    @FormUrlEncoded
+    @POST("feedback/saveFeedback.do")
+    Observable<HttpResult> saveFeedback(
+            @Field("feedType") String feedType,
+            @Field("content") String content,
+            @Field("contact") String contact
     );
 }

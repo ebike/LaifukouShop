@@ -72,10 +72,9 @@
         android:layout_height="wrap_content"
         app:row_label_value_bottom_line="2"
         app:row_label_value_can_click="true"
-        app:row_label_value_has_right_arrow="true"
+        app:row_label_value_has_right_arrow="false"
         app:row_label_value_label="用户名"
-        app:row_label_value_top_line="1"
-        app:row_label_value_value="点击去设置" />
+        app:row_label_value_top_line="1" />
 
     <com.sdjy.sdjymall.view.RowLabelValueView
         android:id="@+id/rlvv_name"

@@ -18,14 +18,6 @@ public class UserModel {
     public String phone;
     //QQ
     public String qq;
-    //头像地址
-    public String headPic;
-    //出生日期
-    public String birthday;
-    //注册日期
-    public String regTime;
-    //请求头部信息
-    public String userToken;
     //省
     public String province;
     //市
@@ -34,6 +26,14 @@ public class UserModel {
     public String area;
     //详细地址
     public String address;
+    //头像地址
+    public String headPic;
+    //出生日期
+    public String birthday;
+    //注册日期
+    public String regTime;
+    //请求头部信息
+    public String userToken;
 
     public UserModel() {
     }

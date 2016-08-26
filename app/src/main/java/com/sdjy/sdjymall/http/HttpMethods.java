@@ -339,4 +339,25 @@ public class HttpMethods {
                 .map(new HttpResultFunc<UserModel>());
         toSubscribe(observable, subscriber);
     }
+
+    //用户注册接口
+    public void regUser(Subscriber<UserModel> subscriber, String phone, String password) {
+        Observable observable = apiService.regUser(phone, password, StaticValues.imei, "android:" + android.os.Build.VERSION.RELEASE)
+                .map(new HttpResultFunc<UserModel>());
+        toSubscribe(observable, subscriber);
+    }
+
+    //获取问题反馈类型接口
+    public void getFeedbackType(Subscriber<List<String>> subscriber) {
+        Observable observable = apiService.getFeedbackType()
+                .map(new HttpResultFunc<List<String>>());
+        toSubscribe(observable, subscriber);
+    }
+
+    //问题反馈接口
+    public void saveFeedback(Subscriber subscriber, String feedType, String content, String contact) {
+        Observable observable = apiService.saveFeedback(feedType, content, contact)
+                .map(new HttpResultFunc2());
+        toSubscribe(observable, subscriber);
+    }
 }

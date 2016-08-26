@@ -13,6 +13,7 @@ import com.sdjy.sdjymall.activity.base.BaseActivity;
 import com.sdjy.sdjymall.common.util.SPUtils;
 import com.sdjy.sdjymall.common.util.T;
 import com.sdjy.sdjymall.constants.StaticValues;
+import com.sdjy.sdjymall.event.FinishEvent;
 import com.sdjy.sdjymall.http.CommonMethods;
 import com.sdjy.sdjymall.http.HttpMethods;
 import com.sdjy.sdjymall.model.UserModel;
@@ -48,6 +49,7 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
     @Override
     public void loadLoyout() {
         setContentView(R.layout.activity_login);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -134,5 +136,17 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
         } else {
             loginButton.setAlpha(0.7f);
         }
+    }
+
+    public void onEvent(FinishEvent event) {
+        if (event.simpleName.equals(this.getClass().getSimpleName())) {
+            finish();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

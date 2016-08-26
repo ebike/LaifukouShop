@@ -12,15 +12,21 @@ import android.widget.TextView;
 import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.activity.base.BaseActivity;
 import com.sdjy.sdjymall.common.util.T;
+import com.sdjy.sdjymall.constants.StaticValues;
+import com.sdjy.sdjymall.event.FinishEvent;
 import com.sdjy.sdjymall.http.HttpMethods;
+import com.sdjy.sdjymall.model.UserModel;
 import com.sdjy.sdjymall.model.ValidateCodeModel;
 import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
 import com.sdjy.sdjymall.util.CommonUtils;
 import com.sdjy.sdjymall.util.StringUtils;
 
+import java.util.Date;
+
 import butterknife.Bind;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 public class RegisterActivity extends BaseActivity implements TextWatcher {
 
@@ -53,6 +59,7 @@ public class RegisterActivity extends BaseActivity implements TextWatcher {
     private String phone;
     private String password;
     private String validateCode;
+    private String validatePhone;
     private ValidateCodeModel validateCodeModel;
 
     @Override
@@ -83,6 +90,7 @@ public class RegisterActivity extends BaseActivity implements TextWatcher {
             @Override
             public void onNext(ValidateCodeModel model) {
                 validateCodeModel = model;
+                validatePhone = phone;
                 T.showShort(RegisterActivity.this, "验证码已发送至手机");
                 handler = new Handler();
                 runnable = new Runnable() {
@@ -123,7 +131,24 @@ public class RegisterActivity extends BaseActivity implements TextWatcher {
             T.showShort(this, "密码为6-16位字母或数字");
             return;
         }
-
+        if (validateCodeModel != null
+                && new Date().getTime() < validateCodeModel.expireTime
+                && phone.equals(validatePhone)
+                && validateCodeModel.code.equals(validateCode)) {
+            SubscriberOnNextListener listener = new SubscriberOnNextListener<UserModel>() {
+                @Override
+                public void onNext(UserModel model) {
+                    T.showShort(RegisterActivity.this, "注册成功");
+                    StaticValues.userModel = model;
+                    EventBus.getDefault().post(model);
+                    EventBus.getDefault().post(new FinishEvent(LoginActivity.class.getSimpleName()));
+                    RegisterActivity.this.finish();
+                }
+            };
+            HttpMethods.getInstance().regUser(new ProgressSubscriber<UserModel>(listener, this), phone, CommonUtils.MD5(password));
+        } else {
+            T.showShort(this, "验证码不正确");
+        }
     }
 
     @Override

@@ -51,12 +51,13 @@
             android:text="反馈类型" />
 
         <TextView
+            android:id="@+id/tv_type"
             style="@style/gray6_14"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:drawablePadding="8dp"
             android:drawableRight="@mipmap/navigation"
-            android:text="功能意见" />
+            android:text="请选择" />
 
     </RelativeLayout>
 
@@ -71,6 +72,7 @@
         android:paddingTop="12dp">
 
         <EditText
+            android:id="@+id/et_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -82,12 +84,14 @@
             android:textSize="14sp" />
 
         <TextView
+            android:id="@+id/tv_max_num"
             style="@style/gray9_14"
             android:layout_gravity="bottom|right"
             android:text="0/200" />
     </FrameLayout>
 
     <EditText
+        android:id="@+id/et_phone_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp"

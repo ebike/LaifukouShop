@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.security.MessageDigest;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CommonUtils {
 
@@ -101,5 +103,16 @@ public class CommonUtils {
             flag = false;
         }
         return flag;
+    }
+
+    /**
+     * @param mail 邮件
+     * @return
+     */
+    public static Boolean checkEmail(String mail) {
+        Pattern pattern = Pattern.compile("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$");
+        Matcher matcher = pattern.matcher(mail);
+        boolean isMatched = matcher.matches();
+        return isMatched;
     }
 }
