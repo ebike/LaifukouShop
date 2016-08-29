@@ -87,6 +87,22 @@ public class GoodsFocusFragment extends BaseListFragment {
                 startActivity(intent);
             }
         });
+        adapter.setLongClickListener(new GoodsFocusAdapter.LongClickListener() {
+            @Override
+            public void onLongClick() {
+//                DialogUtils.showDialog(getActivity(), "取消关注", new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        HttpMethods.getInstance().cancelCollect(new ProgressSubscriber(new SubscriberOnNextListener() {
+//                            @Override
+//                            public void onNext(Object o) {
+//                                T.showShort(getActivity(), "取消关注");
+//                            }
+//                        }, getActivity()), StaticValues.userModel.userId,);
+//                    }
+//                });
+            }
+        });
     }
 
     @Override

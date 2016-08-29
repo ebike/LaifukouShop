@@ -24,6 +24,8 @@ import com.sdjy.sdjymall.view.ViewHolder;
  */
 public class GoodsFocusAdapter extends TAdapter<GoodsBrowsingModel> {
 
+    private LongClickListener longClickListener;
+
     public GoodsFocusAdapter(Context mContext) {
         super(mContext);
     }
@@ -59,8 +61,25 @@ public class GoodsFocusAdapter extends TAdapter<GoodsBrowsingModel> {
                     }, mContext), StaticValues.userModel.userId, model.goodsId, model.goodsPrices.get(0).id, 1);
                 }
             });
+            convertView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    if(longClickListener != null){
+                        longClickListener.onLongClick();
+                    }
+                    return true;
+                }
+            });
         }
 
         return convertView;
+    }
+
+    public interface LongClickListener{
+        void onLongClick();
+    }
+
+    public void setLongClickListener(LongClickListener longClickListener) {
+        this.longClickListener = longClickListener;
     }
 }
