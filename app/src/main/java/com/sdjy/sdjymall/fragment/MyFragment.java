@@ -11,6 +11,7 @@ import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.activity.AccountManageActivity;
 import com.sdjy.sdjymall.activity.BrowsingHistoryActivity;
 import com.sdjy.sdjymall.activity.FeedbackActivity;
+import com.sdjy.sdjymall.activity.GoodsShopFocusActivity;
 import com.sdjy.sdjymall.activity.LoginActivity;
 import com.sdjy.sdjymall.activity.MessageActivity;
 import com.sdjy.sdjymall.activity.SettingsActivity;
@@ -145,29 +146,18 @@ public class MyFragment extends LazyFragment {
 
     }
 
-    @OnClick(R.id.ll_account_balance)
-    public void accountBalance() {
-
-    }
-
-    @OnClick(R.id.ll_gold_coins)
-    public void goldCoins() {
-
-    }
-
-    @OnClick(R.id.ll_silver_coins)
-    public void silverCoins() {
-
-    }
-
     @OnClick(R.id.tv_goods_focus)
     public void goodsFocus() {
-
+        Intent intent = new Intent(getActivity(), GoodsShopFocusActivity.class);
+        intent.putExtra("currentFragment", 0);
+        startActivity(intent);
     }
 
     @OnClick(R.id.tv_shop_focus)
     public void shopFocus() {
-
+        Intent intent = new Intent(getActivity(), GoodsShopFocusActivity.class);
+        intent.putExtra("currentFragment", 1);
+        startActivity(intent);
     }
 
     @OnClick(R.id.tv_browsing_history)

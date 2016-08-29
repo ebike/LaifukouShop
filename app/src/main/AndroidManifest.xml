@@ -136,7 +136,8 @@
             android:name=".activity.UpdateFieldActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.FeedbackTypeActivity" />
-        <activity android:name=".activity.BrowsingHistoryActivity"></activity>
+        <activity android:name=".activity.BrowsingHistoryActivity" />
+        <activity android:name=".activity.GoodsShopFocusActivity"></activity>
     </application>
 
 </manifest>

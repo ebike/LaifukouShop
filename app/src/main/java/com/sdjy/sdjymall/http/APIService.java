@@ -300,4 +300,11 @@ public interface APIService {
             @Query("userId") String userId,
             @Query("id") String id
     );
+
+    //获取关注商品记录接口
+    @POST("user/collectGoods.do")
+    Observable<HttpResult<CommonListModel<List<GoodsBrowsingModel>>>> collectGoods(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId
+    );
 }

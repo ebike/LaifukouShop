@@ -6,7 +6,9 @@ import java.util.List;
 /**
  * 浏览记录
  */
-public class GoodsBrowsingModel implements Serializable{
+public class GoodsBrowsingModel implements Serializable {
+
+    public String oid;
     //商品ID
     public String goodsId;
     //商品名称
@@ -17,6 +19,10 @@ public class GoodsBrowsingModel implements Serializable{
     public int priceType;
     //状态 1、正常销售 2、待审核 3、审核未通过 4、下架 5、删除
     public int state;
+    //库存
+    public int stock;
+    //关注时间
+    public String collectTime;
     //浏览时间
     public String browseTime;
     //是否选中

@@ -398,4 +398,11 @@ public class HttpMethods {
                 .map(new HttpResultFunc2());
         toSubscribe(observable, subscriber);
     }
+
+    //获取关注商品记录接口
+    public void collectGoods(Subscriber<CommonListModel<List<GoodsBrowsingModel>>> subscriber) {
+        Observable observable = apiService.collectGoods(StaticValues.userModel.userToken, StaticValues.userModel.userId)
+                .map(new HttpResultFunc<CommonListModel<List<GoodsBrowsingModel>>>());
+        toSubscribe(observable, subscriber);
+    }
 }
