@@ -123,7 +123,10 @@ public class GoodsInfoActivity extends BaseActivity {
                     goodsFocusView.setCompoundDrawables(null, drawable, null, null);
                 }
 
-                if (goodsInfoModel.stock <= 0) {
+                if (goodsInfoModel.state != 1) {
+                    intoCarView.setBackgroundColor(getResources().getColor(R.color.yellow1));
+                    intoCarView.setText("商品已下架");
+                } else if (goodsInfoModel.stock <= 0) {
                     intoCarView.setBackgroundColor(getResources().getColor(R.color.yellow1));
                     intoCarView.setText("暂时缺货");
                 } else {
@@ -211,6 +214,10 @@ public class GoodsInfoActivity extends BaseActivity {
 
     @OnClick(R.id.tv_into_car)
     public void intoCar() {
+        if (goodsInfoModel.state != 1 || goodsInfoModel.stock <= 0) {
+            return;
+        }
+
         final ImageView imageView = new ImageView(this);
         Glide.with(this)
                 .load(goodsInfoModel.goodsPics.get(0))

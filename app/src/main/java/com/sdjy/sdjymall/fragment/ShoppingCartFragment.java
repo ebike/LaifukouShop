@@ -27,6 +27,7 @@ import com.sdjy.sdjymall.util.CartUtils;
 import com.sdjy.sdjymall.view.PullListFragmentHandler;
 import com.sdjy.sdjymall.view.pullrefresh.PullToRefreshListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -109,7 +110,7 @@ public class ShoppingCartFragment extends BaseListFragment {
                             bottomLayout.setVisibility(View.VISIBLE);
                         }
                     } else {
-                        carShopList.clear();
+                        carShopList = new ArrayList<>();
                         listView.setBackgroundColor(getResources().getColor(R.color.transparent));
                         editView.setVisibility(View.GONE);
                         bottomLayout.setVisibility(View.GONE);

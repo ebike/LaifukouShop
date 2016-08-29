@@ -135,7 +135,8 @@
         <activity
             android:name=".activity.UpdateFieldActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.FeedbackTypeActivity"></activity>
+        <activity android:name=".activity.FeedbackTypeActivity" />
+        <activity android:name=".activity.BrowsingHistoryActivity"></activity>
     </application>
 
 </manifest>

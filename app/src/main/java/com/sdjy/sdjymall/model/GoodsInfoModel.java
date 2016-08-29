@@ -29,6 +29,9 @@ public class GoodsInfoModel {
     public String praiseRate;
     //库存
     public int stock;
+    //状态 1、正常销售 2、待审核 3、审核未通过 4、下架 5、删除
+    public int state;
+
     public List<String> goodsPics;
     //是否包邮 1包邮2不包邮
     public int includePost;

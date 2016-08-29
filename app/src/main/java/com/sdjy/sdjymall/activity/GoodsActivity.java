@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.activity.base.BaseListActivity;
 import com.sdjy.sdjymall.adapter.GoodsAdapter;
+import com.sdjy.sdjymall.constants.StaticValues;
 import com.sdjy.sdjymall.http.HttpMethods;
 import com.sdjy.sdjymall.model.CommonListModel;
 import com.sdjy.sdjymall.model.GoodsModel;
@@ -18,6 +19,7 @@ import com.sdjy.sdjymall.util.StringUtils;
 import com.sdjy.sdjymall.view.PullListActivityHandler;
 import com.sdjy.sdjymall.view.pullrefresh.PullToRefreshListView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +44,7 @@ public class GoodsActivity extends BaseListActivity {
     private PullListActivityHandler handler;
     private GoodsAdapter adapter;
     private List<GoodsModel> goodsList;
+    private String key;
     private String userId;
     private String shopId;
     private String goodsName;
@@ -57,9 +60,16 @@ public class GoodsActivity extends BaseListActivity {
 
     @Override
     public void init() {
+        key = getIntent().getStringExtra("key");
         pageSorts = getIntent().getStringExtra("pageSorts");
         sortId = getIntent().getStringExtra("sortId");
 
+        if (StaticValues.userModel != null) {
+            params.put("userId", StaticValues.userModel.userId);
+        }
+        if (!StringUtils.strIsEmpty(key)) {
+            params.put("key", key);
+        }
         if (!StringUtils.strIsEmpty(pageSorts)) {
             params.put("pageSorts", pageSorts);
         }
@@ -82,7 +92,7 @@ public class GoodsActivity extends BaseListActivity {
                 }
 
                 if (goodsList == null || goodsList.size() == 0) {
-                    goodsList.clear();
+                    goodsList = new ArrayList<>();
                     handler.setEmptyViewVisible(View.VISIBLE);
                 } else {
                     handler.setEmptyViewVisible(View.GONE);

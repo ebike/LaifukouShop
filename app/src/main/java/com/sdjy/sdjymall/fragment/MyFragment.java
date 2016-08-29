@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.activity.AccountManageActivity;
+import com.sdjy.sdjymall.activity.BrowsingHistoryActivity;
 import com.sdjy.sdjymall.activity.FeedbackActivity;
 import com.sdjy.sdjymall.activity.LoginActivity;
 import com.sdjy.sdjymall.activity.MessageActivity;
@@ -85,7 +86,7 @@ public class MyFragment extends LazyFragment {
         init();
     }
 
-    public void onEvent(LogoutEvent event){
+    public void onEvent(LogoutEvent event) {
         init();
     }
 
@@ -171,7 +172,7 @@ public class MyFragment extends LazyFragment {
 
     @OnClick(R.id.tv_browsing_history)
     public void browsingHistory() {
-
+        startActivity(new Intent(getActivity(), BrowsingHistoryActivity.class));
     }
 
     @OnClick(R.id.tv_feedback)

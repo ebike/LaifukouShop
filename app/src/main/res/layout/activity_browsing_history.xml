@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_top" />
+
+    <com.sdjy.sdjymall.view.pullrefresh.PullToRefreshListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/main_bg"
+        android:cacheColorHint="@null"
+        android:divider="@color/main_line"
+        android:dividerHeight="0dp"
+        android:fadingEdge="none"
+        android:fastScrollEnabled="false"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:listSelector="@null"
+        android:scrollbars="none"
+        android:scrollingCache="false"
+        android:smoothScrollbar="true" />
+
+    <View style="@style/main_line" />
+
+    <RelativeLayout
+        android:id="@+id/rl_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/white"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_choose_all"
+            style="@style/gray6_14"
+            android:drawableLeft="@mipmap/icon_circle_nosel"
+            android:drawablePadding="6dp"
+            android:gravity="center_vertical"
+            android:paddingBottom="16dp"
+            android:paddingLeft="12dp"
+            android:paddingTop="16dp"
+            android:text="全选" />
+
+        <TextView
+            android:id="@+id/tv_delete"
+            style="@style/white_14"
+            android:layout_width="103dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@color/red"
+            android:gravity="center"
+            android:text="删除" />
+    </RelativeLayout>
+
+</LinearLayout>

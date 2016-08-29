@@ -3,12 +3,15 @@ package com.sdjy.sdjymall.http;
 import com.sdjy.sdjymall.model.CarShopModel;
 import com.sdjy.sdjymall.model.CommonDataModel;
 import com.sdjy.sdjymall.model.CommonListModel;
+import com.sdjy.sdjymall.model.GoodsBrowsingModel;
 import com.sdjy.sdjymall.model.GoodsEvaluateCountModel;
 import com.sdjy.sdjymall.model.GoodsEvaluateModel;
 import com.sdjy.sdjymall.model.GoodsInfoModel;
 import com.sdjy.sdjymall.model.GoodsModel;
+import com.sdjy.sdjymall.model.HistorySearchModel;
 import com.sdjy.sdjymall.model.HomePageDataModel;
 import com.sdjy.sdjymall.model.HomeScrollImageModel;
+import com.sdjy.sdjymall.model.HotSearchWordModel;
 import com.sdjy.sdjymall.model.HttpResult;
 import com.sdjy.sdjymall.model.ShopModel;
 import com.sdjy.sdjymall.model.TeamGoodsModel;
@@ -263,5 +266,38 @@ public interface APIService {
             @Field("feedType") String feedType,
             @Field("content") String content,
             @Field("contact") String contact
+    );
+
+    //获取浏览记录接口
+    @POST("user/userBrowse.do")
+    Observable<HttpResult<List<GoodsBrowsingModel>>> userBrowse(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId
+    );
+
+    //获取搜索热词接口
+    @GET("search/hotSearchWord.do")
+    Observable<HttpResult<List<HotSearchWordModel>>> hotSearchWord();
+
+    //获取搜索历史记录接口
+    @POST("search/searchHis.do")
+    Observable<HttpResult<List<HistorySearchModel>>> searchHis(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId
+    );
+
+    //清空用户历史记录接口
+    @POST("search/clearSearchHis.do")
+    Observable<HttpResult> clearSearchHis(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId
+    );
+
+    //删除指定搜索历史接口
+    @POST("search/delSearchWord.do")
+    Observable<HttpResult> delSearchWord(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @Query("id") String id
     );
 }

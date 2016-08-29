@@ -6,12 +6,15 @@ import com.sdjy.sdjymall.constants.StaticValues;
 import com.sdjy.sdjymall.model.CarShopModel;
 import com.sdjy.sdjymall.model.CommonDataModel;
 import com.sdjy.sdjymall.model.CommonListModel;
+import com.sdjy.sdjymall.model.GoodsBrowsingModel;
 import com.sdjy.sdjymall.model.GoodsEvaluateCountModel;
 import com.sdjy.sdjymall.model.GoodsEvaluateModel;
 import com.sdjy.sdjymall.model.GoodsInfoModel;
 import com.sdjy.sdjymall.model.GoodsModel;
+import com.sdjy.sdjymall.model.HistorySearchModel;
 import com.sdjy.sdjymall.model.HomePageDataModel;
 import com.sdjy.sdjymall.model.HomeScrollImageModel;
+import com.sdjy.sdjymall.model.HotSearchWordModel;
 import com.sdjy.sdjymall.model.HttpResult;
 import com.sdjy.sdjymall.model.ShopModel;
 import com.sdjy.sdjymall.model.TeamGoodsModel;
@@ -357,6 +360,41 @@ public class HttpMethods {
     //问题反馈接口
     public void saveFeedback(Subscriber subscriber, String feedType, String content, String contact) {
         Observable observable = apiService.saveFeedback(feedType, content, contact)
+                .map(new HttpResultFunc2());
+        toSubscribe(observable, subscriber);
+    }
+
+    //获取浏览记录接口
+    public void userBrowse(Subscriber<List<GoodsBrowsingModel>> subscriber) {
+        Observable observable = apiService.userBrowse(StaticValues.userModel.userToken, StaticValues.userModel.userId)
+                .map(new HttpResultFunc<List<GoodsBrowsingModel>>());
+        toSubscribe(observable, subscriber);
+    }
+
+    //获取搜索热词接口
+    public void hotSearchWord(Subscriber<List<HotSearchWordModel>> subscriber) {
+        Observable observable = apiService.hotSearchWord()
+                .map(new HttpResultFunc<List<HotSearchWordModel>>());
+        toSubscribe(observable, subscriber);
+    }
+
+    //获取搜索历史记录接口
+    public void searchHis(Subscriber<List<HistorySearchModel>> subscriber) {
+        Observable observable = apiService.searchHis(StaticValues.userModel.userToken, StaticValues.userModel.userId)
+                .map(new HttpResultFunc<List<HistorySearchModel>>());
+        toSubscribe(observable, subscriber);
+    }
+
+    //清空用户历史记录接口
+    public void clearSearchHis(Subscriber subscriber) {
+        Observable observable = apiService.clearSearchHis(StaticValues.userModel.userToken, StaticValues.userModel.userId)
+                .map(new HttpResultFunc2());
+        toSubscribe(observable, subscriber);
+    }
+
+    //删除指定搜索历史接口
+    public void delSearchWord(Subscriber subscriber, String id) {
+        Observable observable = apiService.delSearchWord(StaticValues.userModel.userToken, StaticValues.userModel.userId, id)
                 .map(new HttpResultFunc2());
         toSubscribe(observable, subscriber);
     }
