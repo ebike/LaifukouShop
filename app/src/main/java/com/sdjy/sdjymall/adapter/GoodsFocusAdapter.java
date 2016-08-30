@@ -64,8 +64,8 @@ public class GoodsFocusAdapter extends TAdapter<GoodsBrowsingModel> {
             convertView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    if(longClickListener != null){
-                        longClickListener.onLongClick();
+                    if (longClickListener != null) {
+                        longClickListener.onLongClick(model);
                     }
                     return true;
                 }
@@ -75,8 +75,8 @@ public class GoodsFocusAdapter extends TAdapter<GoodsBrowsingModel> {
         return convertView;
     }
 
-    public interface LongClickListener{
-        void onLongClick();
+    public interface LongClickListener {
+        void onLongClick(GoodsBrowsingModel model);
     }
 
     public void setLongClickListener(LongClickListener longClickListener) {

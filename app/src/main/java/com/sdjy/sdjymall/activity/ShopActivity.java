@@ -17,6 +17,7 @@ import com.sdjy.sdjymall.subscribers.SubscriberNextErrorListener;
 import com.sdjy.sdjymall.view.PullListActivityHandler;
 import com.sdjy.sdjymall.view.pullrefresh.PullToRefreshGridView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -80,7 +81,7 @@ public class ShopActivity extends BaseListActivity {
                 }
 
                 if (shopList == null || shopList.size() == 0) {
-                    shopList.clear();
+                    shopList = new ArrayList<>();
                     handler.setEmptyViewVisible(View.VISIBLE);
                 } else {
                     handler.setEmptyViewVisible(View.GONE);

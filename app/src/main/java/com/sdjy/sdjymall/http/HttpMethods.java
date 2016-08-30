@@ -3,6 +3,7 @@ package com.sdjy.sdjymall.http;
 
 import com.sdjy.sdjymall.constants.FinalValues;
 import com.sdjy.sdjymall.constants.StaticValues;
+import com.sdjy.sdjymall.model.AddressModel;
 import com.sdjy.sdjymall.model.CarShopModel;
 import com.sdjy.sdjymall.model.CommonDataModel;
 import com.sdjy.sdjymall.model.CommonListModel;
@@ -172,8 +173,8 @@ public class HttpMethods {
     }
 
     //获取商品详细信息接口
-    public void findGoods(Subscriber<GoodsInfoModel> subscriber, String id) {
-        Observable observable = apiService.findGoods(id)
+    public void findGoods(Subscriber<GoodsInfoModel> subscriber, String id, Map<String, String> params) {
+        Observable observable = apiService.findGoods(id, params)
                 .map(new HttpResultFunc<GoodsInfoModel>());
         toSubscribe(observable, subscriber);
     }
@@ -403,6 +404,41 @@ public class HttpMethods {
     public void collectGoods(Subscriber<CommonListModel<List<GoodsBrowsingModel>>> subscriber) {
         Observable observable = apiService.collectGoods(StaticValues.userModel.userToken, StaticValues.userModel.userId)
                 .map(new HttpResultFunc<CommonListModel<List<GoodsBrowsingModel>>>());
+        toSubscribe(observable, subscriber);
+    }
+
+    //获取关注商家记录接口
+    public void collectShops(Subscriber<CommonListModel<List<ShopModel>>> subscriber) {
+        Observable observable = apiService.collectShops(StaticValues.userModel.userToken, StaticValues.userModel.userId)
+                .map(new HttpResultFunc<CommonListModel<List<ShopModel>>>());
+        toSubscribe(observable, subscriber);
+    }
+
+    //批量删除浏览记录接口
+    public void delUserBrowse(Subscriber subscriber, String ids) {
+        Observable observable = apiService.delUserBrowse(StaticValues.userModel.userToken, StaticValues.userModel.userId, ids)
+                .map(new HttpResultFunc());
+        toSubscribe(observable, subscriber);
+    }
+
+    //查询用户所在的所有团队接口
+    public void findUserTeams(Subscriber<CommonListModel<List<String>>> subscriber, int page) {
+        Observable observable = apiService.findUserTeams(StaticValues.userModel.userToken, StaticValues.userModel.userId, page)
+                .map(new HttpResultFunc<CommonListModel<List<String>>>());
+        toSubscribe(observable, subscriber);
+    }
+
+    //查看用户推荐的所有人接口
+    public void findRefereeUser(Subscriber<CommonListModel<List<String>>> subscriber, int page) {
+        Observable observable = apiService.findRefereeUser(StaticValues.userModel.userToken, StaticValues.userModel.userId, page)
+                .map(new HttpResultFunc<CommonListModel<List<String>>>());
+        toSubscribe(observable, subscriber);
+    }
+
+    //获取收货地址接口
+    public void addressList(Subscriber<List<AddressModel>> subscriber) {
+        Observable observable = apiService.addressList(StaticValues.userModel.userToken, StaticValues.userModel.userId)
+                .map(new HttpResultFunc<List<AddressModel>>());
         toSubscribe(observable, subscriber);
     }
 }

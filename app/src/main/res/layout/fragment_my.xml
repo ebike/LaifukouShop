@@ -118,7 +118,7 @@
                 android:drawablePadding="8dp"
                 android:drawableTop="@mipmap/icon_order_topay"
                 android:gravity="center"
-                android:text="代付款"
+                android:text="待付款"
                 android:textColor="@color/black1" />
 
             <TextView
@@ -129,7 +129,7 @@
                 android:drawablePadding="8dp"
                 android:drawableTop="@mipmap/icon_order_tosend"
                 android:gravity="center"
-                android:text="代发货"
+                android:text="待发货"
                 android:textColor="@color/black1" />
 
             <TextView
@@ -140,7 +140,7 @@
                 android:drawablePadding="8dp"
                 android:drawableTop="@mipmap/icon_order_toget"
                 android:gravity="center"
-                android:text="代收货"
+                android:text="待收货"
                 android:textColor="@color/black1" />
 
             <TextView
@@ -151,7 +151,7 @@
                 android:drawablePadding="8dp"
                 android:drawableTop="@mipmap/icon_order_tocomment"
                 android:gravity="center"
-                android:text="代评论"
+                android:text="待评论"
                 android:textColor="@color/black1" />
 
             <TextView

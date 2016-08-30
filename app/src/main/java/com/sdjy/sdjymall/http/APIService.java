@@ -1,5 +1,6 @@
 package com.sdjy.sdjymall.http;
 
+import com.sdjy.sdjymall.model.AddressModel;
 import com.sdjy.sdjymall.model.CarShopModel;
 import com.sdjy.sdjymall.model.CommonDataModel;
 import com.sdjy.sdjymall.model.CommonListModel;
@@ -72,7 +73,8 @@ public interface APIService {
     //获取商品详细信息接口
     @GET("goods/findGoods.do")
     Observable<HttpResult<GoodsInfoModel>> findGoods(
-            @Query("id") String id
+            @Query("id") String id,
+            @QueryMap Map<String, String> params
     );
 
     //获取商家详细信息接口
@@ -304,6 +306,44 @@ public interface APIService {
     //获取关注商品记录接口
     @POST("user/collectGoods.do")
     Observable<HttpResult<CommonListModel<List<GoodsBrowsingModel>>>> collectGoods(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId
+    );
+
+    //获取关注商家记录接口
+    @POST("user/collectShops.do")
+    Observable<HttpResult<CommonListModel<List<ShopModel>>>> collectShops(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId
+    );
+
+    //批量删除浏览记录接口
+    @POST("user/delUserBrowse.do")
+    Observable<HttpResult> delUserBrowse(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @Query("ids") String ids
+    );
+
+    //查询用户所在的所有团队接口
+    @POST("team/findUserTeams.do")
+    Observable<HttpResult<CommonListModel<List<String>>>> findUserTeams(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @Query("page") int page
+    );
+
+    //查看用户推荐的所有人接口
+    @POST("team/findRefereeUser.do")
+    Observable<HttpResult<CommonListModel<List<String>>>> findRefereeUser(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @Query("page") int page
+    );
+
+    //获取收货地址接口
+    @POST("address/addressList.do")
+    Observable<HttpResult<List<AddressModel>>> addressList(
             @Header("Authorization") String auth,
             @Query("userId") String userId
     );

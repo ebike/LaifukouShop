@@ -18,6 +18,7 @@ import com.sdjy.sdjymall.util.StringUtils;
 import com.sdjy.sdjymall.view.PullListFragmentHandler;
 import com.sdjy.sdjymall.view.pullrefresh.PullToRefreshListView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -86,7 +87,7 @@ public class GoodsEvaluateFragment extends BaseListFragment {
                 }
 
                 if (evaluateList == null || evaluateList.size() == 0) {
-                    evaluateList.clear();
+                    evaluateList = new ArrayList<>();
                     handler.setEmptyViewVisible(View.VISIBLE);
                 } else {
                     handler.setEmptyViewVisible(View.GONE);

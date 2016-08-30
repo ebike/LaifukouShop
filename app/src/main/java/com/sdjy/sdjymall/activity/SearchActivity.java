@@ -14,6 +14,7 @@ import com.sdjy.sdjymall.adapter.HistorySearchAdapter;
 import com.sdjy.sdjymall.common.util.DensityUtils;
 import com.sdjy.sdjymall.common.util.DialogUtils;
 import com.sdjy.sdjymall.common.util.T;
+import com.sdjy.sdjymall.constants.StaticValues;
 import com.sdjy.sdjymall.http.HttpMethods;
 import com.sdjy.sdjymall.model.HistorySearchModel;
 import com.sdjy.sdjymall.model.HotSearchWordModel;
@@ -23,6 +24,7 @@ import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
 import com.sdjy.sdjymall.util.StringUtils;
 import com.sdjy.sdjymall.view.ScrollListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -103,14 +105,16 @@ public class SearchActivity extends BaseActivity {
         };
         HttpMethods.getInstance().hotSearchWord(new ProgressSubscriber<List<HotSearchWordModel>>(hotListener, this));
 
-        SubscriberOnNextListener<List<HistorySearchModel>> historyListener = new SubscriberOnNextListener<List<HistorySearchModel>>() {
-            @Override
-            public void onNext(List<HistorySearchModel> historySearchModels) {
-                historySearchList = historySearchModels;
-                adapter.setList(historySearchList);
-            }
-        };
-        HttpMethods.getInstance().searchHis(new ProgressSubscriber<List<HistorySearchModel>>(historyListener, this));
+        if (StaticValues.userModel != null) {
+            SubscriberOnNextListener<List<HistorySearchModel>> historyListener = new SubscriberOnNextListener<List<HistorySearchModel>>() {
+                @Override
+                public void onNext(List<HistorySearchModel> historySearchModels) {
+                    historySearchList = historySearchModels;
+                    adapter.setList(historySearchList);
+                }
+            };
+            HttpMethods.getInstance().searchHis(new ProgressSubscriber<List<HistorySearchModel>>(historyListener, this));
+        }
     }
 
     @OnClick(R.id.iv_back)
@@ -120,14 +124,16 @@ public class SearchActivity extends BaseActivity {
 
     @OnClick(R.id.tv_clear)
     public void clear() {
-        HttpMethods.getInstance().clearSearchHis(new ProgressSubscriber(new SubscriberOnNextListener<HttpResult>() {
-            @Override
-            public void onNext(HttpResult httpResult) {
-                T.showShort(SearchActivity.this, httpResult.message);
-                historySearchList.clear();
-                adapter.setList(historySearchList);
-            }
-        }, this));
+        if (StaticValues.userModel != null) {
+            HttpMethods.getInstance().clearSearchHis(new ProgressSubscriber(new SubscriberOnNextListener<HttpResult>() {
+                @Override
+                public void onNext(HttpResult httpResult) {
+                    T.showShort(SearchActivity.this, httpResult.message);
+                    historySearchList = new ArrayList<>();
+                    adapter.setList(historySearchList);
+                }
+            }, this));
+        }
     }
 
     @OnClick(R.id.tv_search)

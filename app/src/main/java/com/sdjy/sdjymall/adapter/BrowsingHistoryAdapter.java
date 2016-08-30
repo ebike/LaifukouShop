@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.model.GoodsBrowsingModel;
+import com.sdjy.sdjymall.util.GoodsUtils;
 import com.sdjy.sdjymall.view.ViewHolder;
 
 /**
@@ -18,6 +19,7 @@ import com.sdjy.sdjymall.view.ViewHolder;
 public class BrowsingHistoryAdapter extends TAdapter<GoodsBrowsingModel> {
 
     private ChangeSelectedCallback callback;
+    private LongClickListener longClickListener;
     private boolean isEdit;
 
     public BrowsingHistoryAdapter(Context mContext) {
@@ -61,14 +63,17 @@ public class BrowsingHistoryAdapter extends TAdapter<GoodsBrowsingModel> {
                     .error(R.mipmap.img_goods_default)
                     .into(picView);
             nameView.setText(model.goodsName);
-            if (model.priceType == 1) {
-                priceView.setText("￥" + model.priceType);
-            } else if (model.priceType == 2) {
-                priceView.setText("￥" + model.priceType + " + 金币 " + model.priceType);
-            } else if (model.priceType == 3) {
-                priceView.setText("币 " + model.priceType);
-            }
+            priceView.setText(GoodsUtils.getPrice(model.priceType,model.goodsPrices.get(0)));
             timeView.setText(model.browseTime);
+            convertView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    if (longClickListener != null) {
+                        longClickListener.onLongClick(model);
+                    }
+                    return true;
+                }
+            });
         }
         return convertView;
     }
@@ -89,4 +94,11 @@ public class BrowsingHistoryAdapter extends TAdapter<GoodsBrowsingModel> {
         this.callback = callback;
     }
 
+    public interface LongClickListener {
+        void onLongClick(GoodsBrowsingModel model);
+    }
+
+    public void setLongClickListener(LongClickListener longClickListener) {
+        this.longClickListener = longClickListener;
+    }
 }

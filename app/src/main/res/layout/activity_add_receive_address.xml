@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_top" />
+
+    <EditText
+        android:id="@+id/et_consignee"
+        style="@style/gray_18"
+        android:layout_width="match_parent"
+        android:background="@null"
+        android:hint="收货人"
+        android:inputType="text"
+        android:padding="16dp"
+        android:textColorHint="@color/text_gray" />
+
+    <View
+        style="@style/main_line"
+        android:layout_marginLeft="16dp" />
+
+    <EditText
+        android:id="@+id/et_phone"
+        style="@style/gray_18"
+        android:layout_width="match_parent"
+        android:background="@null"
+        android:digits="@string/digits_number"
+        android:hint="手机号码"
+        android:inputType="number"
+        android:padding="16dp"
+        android:textColorHint="@color/text_gray" />
+
+    <View
+        style="@style/main_line"
+        android:layout_marginLeft="16dp" />
+
+    <RelativeLayout
+        android:id="@+id/rl_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            style="@style/gray_18"
+            android:text="所在地区" />
+
+        <TextView
+            android:id="@+id/tv_area"
+            style="@style/gray_18"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:drawablePadding="8dp"
+            android:drawableRight="@mipmap/navigation" />
+
+    </RelativeLayout>
+
+    <View
+        style="@style/main_line"
+        android:layout_marginLeft="16dp" />
+
+    <EditText
+        android:id="@+id/et_address"
+        style="@style/gray_18"
+        android:layout_width="match_parent"
+        android:background="@null"
+        android:hint="详细地址"
+        android:inputType="text"
+        android:padding="16dp"
+        android:textColorHint="@color/text_gray" />
+
+    <View style="@style/main_line" />
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="31dp"
+        android:alpha="0.7"
+        android:background="@drawable/button_red"
+        android:text="保存"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+</LinearLayout>

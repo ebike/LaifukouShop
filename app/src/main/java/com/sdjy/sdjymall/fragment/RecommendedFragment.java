@@ -18,6 +18,7 @@ import com.sdjy.sdjymall.subscribers.SubscriberNextErrorListener;
 import com.sdjy.sdjymall.view.PullListFragmentHandler;
 import com.sdjy.sdjymall.view.pullrefresh.PullToRefreshListView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,7 +75,7 @@ public class RecommendedFragment extends BaseListFragment {
                 }
 
                 if (goodsList == null || goodsList.size() == 0) {
-                    goodsList.clear();
+                    goodsList = new ArrayList<>();
                     handler.setEmptyViewVisible(View.VISIBLE);
                 } else {
                     handler.setEmptyViewVisible(View.GONE);

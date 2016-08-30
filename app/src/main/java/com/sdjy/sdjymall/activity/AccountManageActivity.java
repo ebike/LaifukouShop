@@ -258,6 +258,16 @@ public class AccountManageActivity extends BaseActivity {
         startActivity(intent);
     }
 
+    @OnClick(R.id.rlvv_receive_address)
+    public void receiveAddress() {
+        startActivity(new Intent(this, ReceiveAddressActivity.class));
+    }
+
+    @OnClick(R.id.rlvv_create_team)
+    public void createTeam() {
+        startActivity(new Intent(this, CreateTeamInfoActivity.class));
+    }
+
     public void onEvent(UserModel user) {
         if (user != null) {
             init();

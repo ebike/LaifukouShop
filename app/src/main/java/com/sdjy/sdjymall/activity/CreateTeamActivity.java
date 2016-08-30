@@ -17,6 +17,7 @@ import com.sdjy.sdjymall.subscribers.SubscriberNextErrorListener;
 import com.sdjy.sdjymall.view.PullListActivityHandler;
 import com.sdjy.sdjymall.view.pullrefresh.PullToRefreshListView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,7 +70,7 @@ public class CreateTeamActivity extends BaseListActivity {
                 }
 
                 if (teamGoodsList == null || teamGoodsList.size() == 0) {
-                    teamGoodsList.clear();
+                    teamGoodsList = new ArrayList<>();
                     handler.setEmptyViewVisible(View.VISIBLE);
                 } else {
                     handler.setEmptyViewVisible(View.GONE);

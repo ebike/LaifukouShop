@@ -33,7 +33,9 @@ import com.sdjy.sdjymall.util.AnimUtils;
 import com.sdjy.sdjymall.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -135,7 +137,11 @@ public class GoodsInfoActivity extends BaseActivity {
                 }
             }
         };
-        HttpMethods.getInstance().findGoods(new ProgressSubscriber<GoodsInfoModel>(nextListener, this), goodsId);
+        Map<String, String> params = new HashMap<>();
+        if (StaticValues.userModel != null) {
+            params.put("userId", StaticValues.userModel.userId);
+        }
+        HttpMethods.getInstance().findGoods(new ProgressSubscriber<GoodsInfoModel>(nextListener, this), goodsId, params);
     }
 
     @OnClick({R.id.rl_goods, R.id.rl_detail, R.id.rl_evaluate})

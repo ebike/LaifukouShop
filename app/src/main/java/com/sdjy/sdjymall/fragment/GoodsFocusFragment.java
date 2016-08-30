@@ -8,15 +8,21 @@ import android.widget.AdapterView;
 import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.activity.GoodsInfoActivity;
 import com.sdjy.sdjymall.adapter.GoodsFocusAdapter;
+import com.sdjy.sdjymall.common.util.DialogUtils;
+import com.sdjy.sdjymall.common.util.T;
+import com.sdjy.sdjymall.constants.StaticValues;
 import com.sdjy.sdjymall.fragment.base.BaseListFragment;
 import com.sdjy.sdjymall.http.HttpMethods;
 import com.sdjy.sdjymall.model.CommonListModel;
 import com.sdjy.sdjymall.model.GoodsBrowsingModel;
 import com.sdjy.sdjymall.subscribers.NoProgressSubscriber;
+import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.SubscriberNextErrorListener;
+import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
 import com.sdjy.sdjymall.view.PullListFragmentHandler;
 import com.sdjy.sdjymall.view.pullrefresh.PullToRefreshListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -54,7 +60,7 @@ public class GoodsFocusFragment extends BaseListFragment {
                 }
 
                 if (browsingModelList == null || browsingModelList.size() == 0) {
-                    browsingModelList.clear();
+                    browsingModelList = new ArrayList<>();
                     handler.setEmptyViewVisible(View.VISIBLE);
                 } else {
                     handler.setEmptyViewVisible(View.GONE);
@@ -89,18 +95,19 @@ public class GoodsFocusFragment extends BaseListFragment {
         });
         adapter.setLongClickListener(new GoodsFocusAdapter.LongClickListener() {
             @Override
-            public void onLongClick() {
-//                DialogUtils.showDialog(getActivity(), "取消关注", new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        HttpMethods.getInstance().cancelCollect(new ProgressSubscriber(new SubscriberOnNextListener() {
-//                            @Override
-//                            public void onNext(Object o) {
-//                                T.showShort(getActivity(), "取消关注");
-//                            }
-//                        }, getActivity()), StaticValues.userModel.userId,);
-//                    }
-//                });
+            public void onLongClick(final GoodsBrowsingModel model) {
+                DialogUtils.showDialog(getActivity(), "取消关注", "确定", "取消", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        HttpMethods.getInstance().cancelCollect(new ProgressSubscriber(new SubscriberOnNextListener() {
+                            @Override
+                            public void onNext(Object o) {
+                                T.showShort(getActivity(), "取消关注");
+                                listView.doPullRefreshing(true, DELAY_MILLIS);
+                            }
+                        }, getActivity()), StaticValues.userModel.userId, model.oid);
+                    }
+                });
             }
         });
     }

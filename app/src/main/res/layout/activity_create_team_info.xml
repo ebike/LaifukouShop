@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_top" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/red"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp">
+
+        <ImageView
+            android:id="@+id/iv_header"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
+            android:layout_marginRight="32dp"
+            android:src="@mipmap/icon_default_head" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/white_18" />
+
+            <TextView
+                android:id="@+id/tv_grade"
+                style="@style/white_12"
+                android:layout_marginTop="11dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <com.sdjy.sdjymall.view.RowLabelValueView
+        android:id="@+id/rlvv_bank"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:row_label_value_bottom_line="2"
+        app:row_label_value_can_click="true"
+        app:row_label_value_has_right_arrow="true"
+        app:row_label_value_label="银行卡信息" />
+
+    <com.sdjy.sdjymall.view.RowLabelValueView
+        android:id="@+id/rlvv_team"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:row_label_value_bottom_line="2"
+        app:row_label_value_can_click="true"
+        app:row_label_value_has_right_arrow="true"
+        app:row_label_value_label="我所在团队" />
+
+    <com.sdjy.sdjymall.view.RowLabelValueView
+        android:id="@+id/rlvv_recommend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:row_label_value_bottom_line="1"
+        app:row_label_value_can_click="true"
+        app:row_label_value_has_right_arrow="true"
+        app:row_label_value_label="我推荐的人" />
+
+</LinearLayout>

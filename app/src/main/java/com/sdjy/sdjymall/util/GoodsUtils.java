@@ -21,6 +21,17 @@ public class GoodsUtils {
         return flag;
     }
 
+    public static boolean hasSelected(List<GoodsBrowsingModel> list) {
+        boolean flag = false;
+        for (GoodsBrowsingModel browsingModel : list) {
+            if (browsingModel.isSelected) {
+                flag = true;
+                break;
+            }
+        }
+        return flag;
+    }
+
     public static String getPrice(int priceType, GoodsPricesModel pricesModel) {
         String price = "";
         switch (priceType) {

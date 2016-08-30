@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/line"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/icon_menu_cart_hover" />
+            android:src="@mipmap/icon_collect_cart" />
 
     </RelativeLayout>
 

@@ -1,5 +1,6 @@
 package com.sdjy.sdjymall.activity;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,9 +10,13 @@ import android.widget.TextView;
 import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.activity.base.BaseListActivity;
 import com.sdjy.sdjymall.adapter.BrowsingHistoryAdapter;
+import com.sdjy.sdjymall.common.util.DialogUtils;
+import com.sdjy.sdjymall.common.util.T;
+import com.sdjy.sdjymall.constants.StaticValues;
 import com.sdjy.sdjymall.http.HttpMethods;
 import com.sdjy.sdjymall.model.GoodsBrowsingModel;
 import com.sdjy.sdjymall.subscribers.NoProgressSubscriber;
+import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
 import com.sdjy.sdjymall.util.GoodsUtils;
 import com.sdjy.sdjymall.view.PullListActivityHandler;
@@ -54,8 +59,12 @@ public class BrowsingHistoryActivity extends BaseListActivity {
         listener = new SubscriberOnNextListener<List<GoodsBrowsingModel>>() {
             @Override
             public void onNext(List<GoodsBrowsingModel> goodsBrowsingModels) {
-                browsingModelList = goodsBrowsingModels;
-                adapter.setList(goodsBrowsingModels);
+                if (goodsBrowsingModels != null && goodsBrowsingModels.size() > 0) {
+                    browsingModelList = goodsBrowsingModels;
+                    adapter.setList(goodsBrowsingModels);
+                } else {
+                    rightView.setVisibility(View.GONE);
+                }
                 handler.sendEmptyMessage(PULL_TO_REFRESH_COMPLETE);
             }
         };
@@ -93,14 +102,39 @@ public class BrowsingHistoryActivity extends BaseListActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                GoodsBrowsingModel model = (GoodsBrowsingModel) parent.getItemAtPosition(position);
+                Intent intent = new Intent(BrowsingHistoryActivity.this, GoodsInfoActivity.class);
+                intent.putExtra("GoodsId", model.goodsId);
+                startActivity(intent);
+            }
+        });
+        adapter.setLongClickListener(new BrowsingHistoryAdapter.LongClickListener() {
+            @Override
+            public void onLongClick(final GoodsBrowsingModel model) {
+                DialogUtils.showDialog(BrowsingHistoryActivity.this, "删除该条浏览记录", "删除", "取消", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        HttpMethods.getInstance().delUserBrowse(new ProgressSubscriber(new SubscriberOnNextListener() {
+                            @Override
+                            public void onNext(Object o) {
+                                T.showShort(BrowsingHistoryActivity.this, "删除成功");
+                                listView.doPullRefreshing(true, DELAY_MILLIS);
+                            }
+                        }, BrowsingHistoryActivity.this), model.oid);
+                    }
+                });
             }
         });
     }
 
     @Override
     public void requestDatas() {
-        HttpMethods.getInstance().userBrowse(new NoProgressSubscriber<List<GoodsBrowsingModel>>(listener, this));
+        if (StaticValues.userModel != null) {
+            HttpMethods.getInstance().userBrowse(new NoProgressSubscriber<List<GoodsBrowsingModel>>(listener, this));
+        } else {
+            rightView.setVisibility(View.GONE);
+            handler.sendEmptyMessage(PULL_TO_REFRESH_COMPLETE);
+        }
     }
 
     @OnClick(R.id.iv_back)
@@ -144,7 +178,25 @@ public class BrowsingHistoryActivity extends BaseListActivity {
 
     @OnClick(R.id.tv_delete)
     public void delete() {
-
+        boolean hasSelected = GoodsUtils.hasSelected(browsingModelList);
+        if (hasSelected) {
+            StringBuffer ids = new StringBuffer();
+            for (GoodsBrowsingModel browsingModel : browsingModelList) {
+                if (browsingModel.isSelected) {
+                    ids.append(browsingModel.oid).append(";");
+                    break;
+                }
+            }
+            ids.deleteCharAt(ids.length() - 1);
+            HttpMethods.getInstance().delUserBrowse(new ProgressSubscriber(new SubscriberOnNextListener() {
+                @Override
+                public void onNext(Object o) {
+                    T.showShort(BrowsingHistoryActivity.this, "删除成功");
+                    listView.doPullRefreshing(true, DELAY_MILLIS);
+                }
+            }, BrowsingHistoryActivity.this), ids.toString());
+        } else {
+            T.showShort(this, "您还没有选择商品哦！");
+        }
     }
-
 }

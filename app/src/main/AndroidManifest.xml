@@ -137,7 +137,12 @@
             android:screenOrientation="portrait" />
         <activity android:name=".activity.FeedbackTypeActivity" />
         <activity android:name=".activity.BrowsingHistoryActivity" />
-        <activity android:name=".activity.GoodsShopFocusActivity"></activity>
+        <activity android:name=".activity.GoodsShopFocusActivity" />
+        <activity android:name=".activity.CreateTeamInfoActivity" />
+        <activity android:name=".activity.MyRecommendActivity" />
+        <activity android:name=".activity.MyTeamActivity" />
+        <activity android:name=".activity.ReceiveAddressActivity" />
+        <activity android:name=".activity.AddReceiveAddressActivity"></activity>
     </application>
 
 </manifest>
