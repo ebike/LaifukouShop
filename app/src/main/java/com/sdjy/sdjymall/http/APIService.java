@@ -1,6 +1,7 @@
 package com.sdjy.sdjymall.http;
 
 import com.sdjy.sdjymall.model.AddressModel;
+import com.sdjy.sdjymall.model.BankInfoModel;
 import com.sdjy.sdjymall.model.CarShopModel;
 import com.sdjy.sdjymall.model.CommonDataModel;
 import com.sdjy.sdjymall.model.CommonListModel;
@@ -363,5 +364,12 @@ public interface APIService {
             @Header("Authorization") String auth,
             @Query("userId") String userId,
             @Query("id") String id
+    );
+
+    //获取银行号卡信息
+    @POST("team/findBankinfo.do")
+    Observable<HttpResult<BankInfoModel>> findBankinfo(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId
     );
 }

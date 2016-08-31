@@ -49,7 +49,7 @@ public class CreateTeamInfoActivity extends BaseActivity {
 
     @OnClick(R.id.rlvv_bank)
     public void bank() {
-
+        startActivity(new Intent(this, BankInfoActivity.class));
     }
 
     @OnClick(R.id.rlvv_team)

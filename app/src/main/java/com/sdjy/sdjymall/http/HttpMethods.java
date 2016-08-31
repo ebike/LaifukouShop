@@ -4,6 +4,7 @@ package com.sdjy.sdjymall.http;
 import com.sdjy.sdjymall.constants.FinalValues;
 import com.sdjy.sdjymall.constants.StaticValues;
 import com.sdjy.sdjymall.model.AddressModel;
+import com.sdjy.sdjymall.model.BankInfoModel;
 import com.sdjy.sdjymall.model.CarShopModel;
 import com.sdjy.sdjymall.model.CommonDataModel;
 import com.sdjy.sdjymall.model.CommonListModel;
@@ -453,6 +454,13 @@ public class HttpMethods {
     public void delAddress(Subscriber subscriber, String id) {
         Observable observable = apiService.delAddress(StaticValues.userModel.userToken, StaticValues.userModel.userId, id)
                 .map(new HttpResultFunc());
+        toSubscribe(observable, subscriber);
+    }
+
+    //获取银行号卡信息
+    public void findBankinfo(Subscriber<BankInfoModel> subscriber) {
+        Observable observable = apiService.findBankinfo(StaticValues.userModel.userToken, StaticValues.userModel.userId)
+                .map(new HttpResultFunc<BankInfoModel>());
         toSubscribe(observable, subscriber);
     }
 }

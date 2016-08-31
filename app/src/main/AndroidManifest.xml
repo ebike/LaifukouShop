@@ -142,7 +142,8 @@
         <activity android:name=".activity.MyRecommendActivity" />
         <activity android:name=".activity.MyTeamActivity" />
         <activity android:name=".activity.ReceiveAddressActivity" />
-        <activity android:name=".activity.AddReceiveAddressActivity"></activity>
+        <activity android:name=".activity.AddReceiveAddressActivity" />
+        <activity android:name=".activity.BankInfoActivity"></activity>
     </application>
 
 </manifest>
