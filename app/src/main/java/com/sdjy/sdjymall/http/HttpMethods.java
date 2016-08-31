@@ -20,6 +20,7 @@ import com.sdjy.sdjymall.model.HotSearchWordModel;
 import com.sdjy.sdjymall.model.HttpResult;
 import com.sdjy.sdjymall.model.ShopModel;
 import com.sdjy.sdjymall.model.TeamGoodsModel;
+import com.sdjy.sdjymall.model.TeamModel;
 import com.sdjy.sdjymall.model.UserCashBalanceModel;
 import com.sdjy.sdjymall.model.UserModel;
 import com.sdjy.sdjymall.model.ValidateCodeModel;
@@ -461,6 +462,34 @@ public class HttpMethods {
     public void findBankinfo(Subscriber<BankInfoModel> subscriber) {
         Observable observable = apiService.findBankinfo(StaticValues.userModel.userToken, StaticValues.userModel.userId)
                 .map(new HttpResultFunc<BankInfoModel>());
+        toSubscribe(observable, subscriber);
+    }
+
+    //修改银行卡信息接口
+    public void updateBankInfo(Subscriber subscriber, Map<String, String> params) {
+        Observable observable = apiService.updateBankInfo(StaticValues.userModel.userToken, StaticValues.userModel.userId, params)
+                .map(new HttpResultFunc());
+        toSubscribe(observable, subscriber);
+    }
+
+    //获取推荐人所在团队接口
+    public void findRefereeUserTeam(Subscriber<TeamModel> subscriber, String goodsId, String phone) {
+        Observable observable = apiService.findRefereeUserTeam(StaticValues.userModel.userToken, StaticValues.userModel.userId, goodsId, phone)
+                .map(new HttpResultFunc<TeamModel>());
+        toSubscribe(observable, subscriber);
+    }
+
+    //加入团队接口
+    public void joinTeam(Subscriber subscriber, String refereeId, String goodsId) {
+        Observable observable = apiService.joinTeam(StaticValues.userModel.userToken, StaticValues.userModel.userId, refereeId, goodsId)
+                .map(new HttpResultFunc());
+        toSubscribe(observable, subscriber);
+    }
+
+    //创建团队接口
+    public void createTeam(Subscriber subscriber, String teamName, String goodsId) {
+        Observable observable = apiService.createTeam(StaticValues.userModel.userToken, StaticValues.userModel.userId, teamName, goodsId)
+                .map(new HttpResultFunc());
         toSubscribe(observable, subscriber);
     }
 }

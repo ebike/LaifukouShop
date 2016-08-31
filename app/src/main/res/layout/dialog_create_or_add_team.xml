@@ -2,6 +2,160 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_add_team"
+            style="@style/white_14"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/red1"
+            android:gravity="center"
+            android:text="加入团队" />
+
+        <TextView
+            android:id="@+id/tv_create_team"
+            style="@style/red_14"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="创建团队" />
+
+    </LinearLayout>
+
+    <View
+        style="@style/main_line"
+        android:background="@color/red1" />
+
+    <LinearLayout
+        android:id="@+id/ll_add_team"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="13dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/gray_18"
+                android:layout_weight="1"
+                android:text="推荐人" />
+
+            <EditText
+                android:id="@+id/et_phone"
+                style="@style/gray_18"
+                android:background="@null"
+                android:digits="@string/digits_number"
+                android:hint="请输入推荐人手机号码"
+                android:inputType="number"
+                android:maxLength="11"
+                android:textColorHint="@color/gray9" />
+
+        </LinearLayout>
+
+        <View
+            style="@style/main_line"
+            android:layout_marginLeft="16dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="13dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/gray_18"
+                android:layout_weight="1"
+                android:text="所在团队" />
+
+            <TextView
+                android:id="@+id/tv_team_name"
+                style="@style/gray_18" />
+
+        </LinearLayout>
+
+        <View
+            style="@style/main_line"
+            android:layout_marginLeft="16dp" />
+
+        <Button
+            android:id="@+id/btn_add"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="27dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="27dp"
+            android:background="@drawable/button_red"
+            android:text="确定加入"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_create_team"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="13dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/gray_18"
+                android:layout_weight="1"
+                android:text="团队名称" />
+
+            <EditText
+                android:id="@+id/et_team_name"
+                style="@style/gray_18"
+                android:background="@null"
+                android:digits="@string/digits_number"
+                android:hint="给团队起个名吧"
+                android:inputType="number"
+                android:maxLength="11"
+                android:textColorHint="@color/gray9" />
+
+        </LinearLayout>
+
+        <View
+            style="@style/main_line"
+            android:layout_marginLeft="16dp" />
+
+        <Button
+            android:id="@+id/btn_create"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="27dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="27dp"
+            android:background="@drawable/button_red"
+            android:text="确定创建"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </LinearLayout>
 </LinearLayout>

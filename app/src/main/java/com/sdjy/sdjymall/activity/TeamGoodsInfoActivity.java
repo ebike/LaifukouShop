@@ -9,13 +9,16 @@ import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.activity.base.BaseActivity;
 import com.sdjy.sdjymall.common.adapter.ViewPagerFragmentAdapter;
 import com.sdjy.sdjymall.common.model.TabIndicator;
+import com.sdjy.sdjymall.common.util.T;
 import com.sdjy.sdjymall.common.util.ViewPagerUtil;
+import com.sdjy.sdjymall.constants.StaticValues;
 import com.sdjy.sdjymall.fragment.GoodsDetailFragment;
 import com.sdjy.sdjymall.fragment.TeamGoodsGoodsFragment;
 import com.sdjy.sdjymall.http.HttpMethods;
 import com.sdjy.sdjymall.model.TeamGoodsModel;
 import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
+import com.sdjy.sdjymall.view.CreateOrAddTeamDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +41,7 @@ public class TeamGoodsInfoActivity extends BaseActivity {
     private int currentFragment;
     private TeamGoodsModel teamGoodsModel;
     private String id;
+    private CreateOrAddTeamDialog dialog;
 
     @Override
     public void loadLoyout() {
@@ -116,8 +120,18 @@ public class TeamGoodsInfoActivity extends BaseActivity {
     }
 
     @OnClick(R.id.tv_join)
-    public void join(){
-
+    public void join() {
+        if (StaticValues.userModel != null) {
+            if (dialog == null) {
+                dialog = new CreateOrAddTeamDialog(this, teamGoodsModel.id)
+                        .builder()
+                        .setCancelable(true)
+                        .setCanceledOnTouchOutside(true);
+            }
+            dialog.show();
+        } else {
+            T.showShort(this, "请先登录，再参与团队");
+        }
     }
 
 }

@@ -33,5 +33,17 @@
         android:textSize="14sp"
         android:visibility="gone" />
 
+    <EditText
+        android:id="@+id/et_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:digits="@string/digits_number"
+        android:inputType="number"
+        android:padding="12dp"
+        android:textColor="@color/text_gray"
+        android:textSize="14sp"
+        android:visibility="gone" />
+
     <View style="@style/main_line" />
 </LinearLayout>

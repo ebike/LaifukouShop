@@ -17,6 +17,7 @@ import com.sdjy.sdjymall.model.HotSearchWordModel;
 import com.sdjy.sdjymall.model.HttpResult;
 import com.sdjy.sdjymall.model.ShopModel;
 import com.sdjy.sdjymall.model.TeamGoodsModel;
+import com.sdjy.sdjymall.model.TeamModel;
 import com.sdjy.sdjymall.model.UserCashBalanceModel;
 import com.sdjy.sdjymall.model.UserModel;
 import com.sdjy.sdjymall.model.ValidateCodeModel;
@@ -366,10 +367,47 @@ public interface APIService {
             @Query("id") String id
     );
 
-    //获取银行号卡信息
-    @POST("team/findBankinfo.do")
+    //获取银行卡信息接口
+    @POST("team/findBankInfo.do")
     Observable<HttpResult<BankInfoModel>> findBankinfo(
             @Header("Authorization") String auth,
             @Query("userId") String userId
     );
+
+    //修改银行卡信息接口
+    @FormUrlEncoded
+    @POST("team/updateBankInfo.do")
+    Observable<HttpResult> updateBankInfo(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @FieldMap Map<String, String> params
+    );
+
+    //获取推荐人所在团队接口
+    @POST("team/findRefereeUserTeam.do")
+    Observable<HttpResult<TeamModel>> findRefereeUserTeam(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @Query("goodsId") String goodsId,
+            @Query("phone") String phone
+    );
+
+    //加入团队接口
+    @POST("team/joinTeam.do")
+    Observable<HttpResult> joinTeam(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @Query("refereeId") String refereeId,
+            @Query("goodsId") String goodsId
+    );
+
+    //创建团队接口
+    @POST("team/createTeam.do")
+    Observable<HttpResult> createTeam(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @Query("teamName") String teamName,
+            @Query("goodsId") String goodsId
+    );
+
 }

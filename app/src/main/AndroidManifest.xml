@@ -134,16 +134,35 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.UpdateFieldActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible" />
+        <activity
+            android:name=".activity.FeedbackTypeActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.FeedbackTypeActivity" />
-        <activity android:name=".activity.BrowsingHistoryActivity" />
-        <activity android:name=".activity.GoodsShopFocusActivity" />
-        <activity android:name=".activity.CreateTeamInfoActivity" />
-        <activity android:name=".activity.MyRecommendActivity" />
-        <activity android:name=".activity.MyTeamActivity" />
-        <activity android:name=".activity.ReceiveAddressActivity" />
-        <activity android:name=".activity.AddReceiveAddressActivity" />
-        <activity android:name=".activity.BankInfoActivity"></activity>
+        <activity
+            android:name=".activity.BrowsingHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.GoodsShopFocusActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CreateTeamInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MyRecommendActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MyTeamActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ReceiveAddressActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AddReceiveAddressActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.BankInfoActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

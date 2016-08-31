@@ -1,10 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <include layout="@layout/view_top" />
 
+    <com.sdjy.sdjymall.view.RowLabelValueView
+        android:id="@+id/rlvv_account_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:row_label_value_bottom_line="2"
+        app:row_label_value_can_click="true"
+        app:row_label_value_has_right_arrow="true"
+        app:row_label_value_label="开户姓名" />
 
+    <com.sdjy.sdjymall.view.RowLabelValueView
+        android:id="@+id/rlvv_bank_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:row_label_value_bottom_line="2"
+        app:row_label_value_can_click="true"
+        app:row_label_value_has_right_arrow="true"
+        app:row_label_value_label="银行卡号" />
+
+    <com.sdjy.sdjymall.view.RowLabelValueView
+        android:id="@+id/rlvv_open_bank"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:row_label_value_bottom_line="1"
+        app:row_label_value_can_click="true"
+        app:row_label_value_has_right_arrow="true"
+        app:row_label_value_label="开户银行" />
 </LinearLayout>

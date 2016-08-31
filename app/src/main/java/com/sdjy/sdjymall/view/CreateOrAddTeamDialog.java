@@ -2,21 +2,27 @@ package com.sdjy.sdjymall.view;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sdjy.sdjymall.R;
-import com.sdjy.sdjymall.model.GoodsPricesModel;
-import com.zhy.view.flowlayout.FlowLayout;
-import com.zhy.view.flowlayout.TagAdapter;
-import com.zhy.view.flowlayout.TagFlowLayout;
-
-import java.util.List;
+import com.sdjy.sdjymall.common.util.T;
+import com.sdjy.sdjymall.http.HttpMethods;
+import com.sdjy.sdjymall.model.TeamModel;
+import com.sdjy.sdjymall.subscribers.NoProgressSubscriber;
+import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
+import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
+import com.sdjy.sdjymall.util.CommonUtils;
+import com.sdjy.sdjymall.util.StringUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -27,29 +33,35 @@ import butterknife.OnClick;
  */
 public class CreateOrAddTeamDialog {
 
-    @Bind(R.id.tag_flow)
-    TagFlowLayout flowLayout;
-    @Bind(R.id.tv_count)
-    TextView countView;
+    @Bind(R.id.tv_add_team)
+    TextView addTeamView;
+    @Bind(R.id.tv_create_team)
+    TextView createTeamView;
+    @Bind(R.id.ll_add_team)
+    LinearLayout addTeamLayout;
+    @Bind(R.id.ll_create_team)
+    LinearLayout createTeamLayout;
+    @Bind(R.id.et_phone)
+    EditText phoneText;
+    @Bind(R.id.tv_team_name)
+    TextView teamNameView;
+    @Bind(R.id.et_team_name)
+    EditText teamNameText;
 
     private Context context;
     private LayoutInflater inflate;
     private Display display;
     private Dialog dialog;
-    private List<GoodsPricesModel> goodsPricesList;
-    private ChooseStandardCallback callback;
-    private ChangeCountCallback countCallback;
-    private View.OnClickListener intoCarCallback;
-    private int selectedPos = 0;
-    private int count = 1;
+    private String goodsId;
+    private TeamModel teamModel;
 
-    public CreateOrAddTeamDialog(Context context, List<GoodsPricesModel> goodsPricesList) {
+    public CreateOrAddTeamDialog(Context context, String goodsId) {
         this.context = context;
         inflate = LayoutInflater.from(context);
         WindowManager windowManager = (WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE);
         display = windowManager.getDefaultDisplay();
-        this.goodsPricesList = goodsPricesList;
+        this.goodsId = goodsId;
     }
 
     public CreateOrAddTeamDialog builder() {
@@ -58,36 +70,33 @@ public class CreateOrAddTeamDialog {
                 R.layout.dialog_create_or_add_team, null);
         ButterKnife.bind(this, view);
 
-        TagAdapter adapter = new TagAdapter<GoodsPricesModel>(goodsPricesList) {
+        phoneText.addTextChangedListener(new TextWatcher() {
             @Override
-            public View getView(FlowLayout parent, int position, GoodsPricesModel pricesModel) {
-                TextView tv = (TextView) inflate.inflate(R.layout.view_standard,
-                        flowLayout, false);
-                tv.setText(pricesModel.standard);
-                return tv;
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
 
             @Override
-            public boolean setSelected(int position, GoodsPricesModel pricesModel) {
-                return position == selectedPos;
-            }
-        };
-        flowLayout.setAdapter(adapter);
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-        flowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
+            }
+
             @Override
-            public boolean onTagClick(View view, int position, FlowLayout parent) {
-                if (selectedPos != position) {
-                    selectedPos = position;
-                    if (callback != null) {
-                        callback.callback(goodsPricesList.get(position));
-                    }
+            public void afterTextChanged(Editable s) {
+                String phone = phoneText.getText().toString();
+                if (!StringUtils.strIsEmpty(phone)
+                        && phone.length() == 11
+                        && CommonUtils.isPhoneNumber(phone)) {
+                    HttpMethods.getInstance().findRefereeUserTeam(new NoProgressSubscriber<TeamModel>(new SubscriberOnNextListener<TeamModel>() {
+                        @Override
+                        public void onNext(TeamModel model) {
+                            teamModel = model;
+                            teamNameView.setText(teamModel.teamName);
+                        }
+                    }, context), goodsId, phone);
                 }
-                return true;
             }
         });
-
-        countView.setText(count + "");
 
         //创建dialog
         dialog = new Dialog(context, R.style.ActionSheetDialogStyle);
@@ -116,51 +125,52 @@ public class CreateOrAddTeamDialog {
         dialog.show();
     }
 
-    @OnClick(R.id.tv_minus)
-    public void minus() {
-        if (count > 1) {
-            count--;
-            countView.setText(count + "");
-            if (countCallback != null) {
-                countCallback.changed(count);
-            }
+    @OnClick(R.id.tv_add_team)
+    public void addTeam() {
+        addTeamView.setBackgroundColor(context.getResources().getColor(R.color.red1));
+        createTeamView.setBackgroundColor(context.getResources().getColor(R.color.white));
+        addTeamLayout.setVisibility(View.VISIBLE);
+        createTeamLayout.setVisibility(View.GONE);
+    }
+
+    @OnClick(R.id.tv_create_team)
+    public void createTeam() {
+        addTeamView.setBackgroundColor(context.getResources().getColor(R.color.white));
+        createTeamView.setBackgroundColor(context.getResources().getColor(R.color.red1));
+        addTeamLayout.setVisibility(View.GONE);
+        createTeamLayout.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.btn_add)
+    public void add() {
+        String phone = phoneText.getText().toString();
+        if (!StringUtils.strIsEmpty(phone)
+                && phone.length() == 11
+                && CommonUtils.isPhoneNumber(phone)
+                && teamModel != null) {
+            HttpMethods.getInstance().joinTeam(new ProgressSubscriber(new SubscriberOnNextListener() {
+                @Override
+                public void onNext(Object o) {
+
+                }
+            }, context), teamModel.refereeId, goodsId);
+        } else {
+            T.showShort(context, "您输入的手机号有误");
         }
     }
 
-    @OnClick(R.id.tv_plus)
-    public void plus() {
-        count++;
-        countView.setText(count + "");
-        if (countCallback != null) {
-            countCallback.changed(count);
+    @OnClick(R.id.btn_create)
+    public void create() {
+        String teamName = teamNameText.getText().toString();
+        if (!StringUtils.strIsEmpty(teamName)) {
+            HttpMethods.getInstance().createTeam(new ProgressSubscriber(new SubscriberOnNextListener() {
+                @Override
+                public void onNext(Object o) {
+
+                }
+            }, context), teamName, goodsId);
+        } else {
+            T.showShort(context, "请给团队起个名吧");
         }
-    }
-
-    @OnClick(R.id.tv_into_car)
-    public void intoCar(View v) {
-        dialog.dismiss();
-        if (intoCarCallback != null) {
-            intoCarCallback.onClick(v);
-        }
-    }
-
-    public interface ChooseStandardCallback {
-        void callback(GoodsPricesModel selectedPricesModel);
-    }
-
-    public void setCallback(ChooseStandardCallback callback) {
-        this.callback = callback;
-    }
-
-    public interface ChangeCountCallback {
-        void changed(int count);
-    }
-
-    public void setCountCallback(ChangeCountCallback countCallback) {
-        this.countCallback = countCallback;
-    }
-
-    public void setIntoCarCallback(View.OnClickListener intoCarCallback) {
-        this.intoCarCallback = intoCarCallback;
     }
 }
