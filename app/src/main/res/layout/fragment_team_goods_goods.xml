@@ -12,9 +12,10 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/ll_grade"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/gray9"
+            android:background="@mipmap/bg_team_5"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_heightPercent="100%w"

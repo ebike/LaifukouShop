@@ -1,6 +1,7 @@
 package com.sdjy.sdjymall.view.pullrefresh;
 
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -106,6 +107,11 @@ public class PullToRefreshListView extends PullToRefreshBase<ListView> implement
 
     public void setDriverLine() {
         mListView.setDivider(null);
+    }
+
+    public void setDriverLine(int color, int height) {
+        mListView.setDivider(new ColorDrawable(getResources().getColor(color)));
+        mListView.setDividerHeight(height);
     }
 
     private void setFooterDivider() {

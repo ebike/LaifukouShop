@@ -32,6 +32,10 @@ public class UserModel {
     public String birthday;
     //注册日期
     public String regTime;
+    //用户类别：1普通用户；2互助创业用户
+    public int userType;
+    //互助创业用户级别
+    public String userGrade;
     //请求头部信息
     public String userToken;
 

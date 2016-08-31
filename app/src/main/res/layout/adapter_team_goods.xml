@@ -6,9 +6,10 @@
     android:padding="12dp">
 
     <LinearLayout
+        android:id="@+id/ll_grade"
         android:layout_width="96dp"
         android:layout_height="96dp"
-        android:background="@color/red1"
+        android:background="@mipmap/bg_team_5"
         android:gravity="center"
         android:orientation="vertical">
 

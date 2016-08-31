@@ -441,4 +441,18 @@ public class HttpMethods {
                 .map(new HttpResultFunc<List<AddressModel>>());
         toSubscribe(observable, subscriber);
     }
+
+    //添加、更新、设为默认的接口
+    public void saveOrUpdateAddress(Subscriber subscriber, Map<String, String> params) {
+        Observable observable = apiService.saveOrUpdateAddress(StaticValues.userModel.userToken, StaticValues.userModel.userId, params)
+                .map(new HttpResultFunc());
+        toSubscribe(observable, subscriber);
+    }
+
+    //删除收货地址接口
+    public void delAddress(Subscriber subscriber, String id) {
+        Observable observable = apiService.delAddress(StaticValues.userModel.userToken, StaticValues.userModel.userId, id)
+                .map(new HttpResultFunc());
+        toSubscribe(observable, subscriber);
+    }
 }

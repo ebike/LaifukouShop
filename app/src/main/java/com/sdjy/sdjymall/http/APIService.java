@@ -347,4 +347,21 @@ public interface APIService {
             @Header("Authorization") String auth,
             @Query("userId") String userId
     );
+
+    //添加、更新、设为默认的接口
+    @FormUrlEncoded
+    @POST("address/saveOrUpdateAddress.do")
+    Observable<HttpResult> saveOrUpdateAddress(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @FieldMap Map<String, String> params
+    );
+
+    //删除收货地址接口
+    @POST("address/delAddress.do")
+    Observable<HttpResult> delAddress(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @Query("id") String id
+    );
 }

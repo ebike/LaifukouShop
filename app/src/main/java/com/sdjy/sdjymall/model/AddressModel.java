@@ -1,9 +1,11 @@
 package com.sdjy.sdjymall.model;
 
+import java.io.Serializable;
+
 /**
  * 收货地址
  */
-public class AddressModel {
+public class AddressModel implements Serializable{
 
     public String id;
     //用户ID

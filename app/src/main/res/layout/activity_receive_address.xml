@@ -14,8 +14,6 @@
         android:layout_weight="1"
         android:background="@color/main_bg"
         android:cacheColorHint="@null"
-        android:divider="@color/main_line"
-        android:dividerHeight="0dp"
         android:fadingEdge="none"
         android:fastScrollEnabled="false"
         android:footerDividersEnabled="false"
@@ -28,23 +26,22 @@
     <View style="@style/main_line" />
 
     <LinearLayout
+        android:id="@+id/ll_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="horizontal"
-        android:paddingBottom="27dp"
+        android:paddingBottom="16dp"
         android:paddingLeft="36dp"
         android:paddingRight="36dp"
-        android:paddingTop="27dp">
+        android:paddingTop="16dp">
 
         <Button
             android:id="@+id/btn_add"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_below="@id/rl_password"
             android:layout_marginLeft="32dp"
             android:layout_marginRight="32dp"
-            android:layout_marginTop="20dp"
             android:background="@drawable/button_red"
             android:text="新建地址"
             android:textColor="@color/white"

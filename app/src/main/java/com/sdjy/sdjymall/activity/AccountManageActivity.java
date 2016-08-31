@@ -59,6 +59,8 @@ public class AccountManageActivity extends BaseActivity {
     RowLabelValueView areaView;
     @Bind(R.id.rlvv_address)
     RowLabelValueView addressView;
+    @Bind(R.id.rlvv_create_team)
+    RowLabelValueView createTeamView;
 
     private AddressThreeWheelViewDialog dialog;
     private ProvinceInfoDao provinceDao;
@@ -99,6 +101,11 @@ public class AccountManageActivity extends BaseActivity {
                 areaView.setValue("");
             }
             addressView.setValue(StaticValues.userModel.address);
+            if (StaticValues.userModel.userType == 2) {
+                createTeamView.setVisibility(View.VISIBLE);
+            } else {
+                createTeamView.setVisibility(View.GONE);
+            }
         }
         dialog = new AddressThreeWheelViewDialog(this);
         provinceDao = new ProvinceInfoDao(this);

@@ -39,7 +39,7 @@ public class CreateTeamInfoActivity extends BaseActivity {
                 .error(R.mipmap.icon_default_head)
                 .into(headerView);
         nameView.setText(StaticValues.userModel.loginName);
-        gradeView.setText("等级：");
+        gradeView.setText("等级：" + StaticValues.userModel.userGrade);
     }
 
     @OnClick(R.id.iv_back)
@@ -54,11 +54,11 @@ public class CreateTeamInfoActivity extends BaseActivity {
 
     @OnClick(R.id.rlvv_team)
     public void team() {
-        startActivity(new Intent(this,MyTeamActivity.class));
+        startActivity(new Intent(this, MyTeamActivity.class));
     }
 
     @OnClick(R.id.rlvv_recommend)
     public void recommend() {
-        startActivity(new Intent(this,MyRecommendActivity.class));
+        startActivity(new Intent(this, MyRecommendActivity.class));
     }
 }

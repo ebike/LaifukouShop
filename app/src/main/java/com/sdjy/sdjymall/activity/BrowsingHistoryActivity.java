@@ -17,11 +17,13 @@ import com.sdjy.sdjymall.http.HttpMethods;
 import com.sdjy.sdjymall.model.GoodsBrowsingModel;
 import com.sdjy.sdjymall.subscribers.NoProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
+import com.sdjy.sdjymall.subscribers.SubscriberNextErrorListener;
 import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
 import com.sdjy.sdjymall.util.GoodsUtils;
 import com.sdjy.sdjymall.view.PullListActivityHandler;
 import com.sdjy.sdjymall.view.pullrefresh.PullToRefreshListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -43,7 +45,7 @@ public class BrowsingHistoryActivity extends BaseListActivity {
     private PullListActivityHandler handler;
     private BrowsingHistoryAdapter adapter;
     private List<GoodsBrowsingModel> browsingModelList;
-    private SubscriberOnNextListener listener;
+    private SubscriberNextErrorListener listener;
 
     @Override
     public void loadLoyout() {
@@ -56,15 +58,25 @@ public class BrowsingHistoryActivity extends BaseListActivity {
         rightView.setVisibility(View.VISIBLE);
         rightView.setText("编辑");
 
-        listener = new SubscriberOnNextListener<List<GoodsBrowsingModel>>() {
+        listener = new SubscriberNextErrorListener<List<GoodsBrowsingModel>>() {
             @Override
             public void onNext(List<GoodsBrowsingModel> goodsBrowsingModels) {
-                if (goodsBrowsingModels != null && goodsBrowsingModels.size() > 0) {
-                    browsingModelList = goodsBrowsingModels;
-                    adapter.setList(goodsBrowsingModels);
-                } else {
+                browsingModelList = goodsBrowsingModels;
+                if (browsingModelList == null || browsingModelList.size() == 0) {
+                    browsingModelList = new ArrayList<>();
+                    handler.setEmptyViewVisible(View.VISIBLE);
                     rightView.setVisibility(View.GONE);
+                    bottomLayout.setVisibility(View.GONE);
+                } else {
+                    handler.setEmptyViewVisible(View.GONE);
                 }
+                adapter.setList(browsingModelList);
+                handler.sendEmptyMessage(PULL_TO_REFRESH_COMPLETE);
+            }
+
+            @Override
+            public void onError() {
+                handler.setEmptyViewVisible(View.VISIBLE);
                 handler.sendEmptyMessage(PULL_TO_REFRESH_COMPLETE);
             }
         };
@@ -184,7 +196,6 @@ public class BrowsingHistoryActivity extends BaseListActivity {
             for (GoodsBrowsingModel browsingModel : browsingModelList) {
                 if (browsingModel.isSelected) {
                     ids.append(browsingModel.oid).append(";");
-                    break;
                 }
             }
             ids.deleteCharAt(ids.length() - 1);
