@@ -501,4 +501,11 @@ public class HttpMethods {
                 .map(new HttpResultFunc<List<ShopHotGroupModel>>());
         toSubscribe(observable, subscriber);
     }
+
+    //根据分类获取商品接口
+    public void findGoodsByGroup(Subscriber<CommonListModel<List<GoodsModel>>> subscriber, String shopId, String groupId, int page) {
+        Observable observable = apiService.findGoodsByGroup(shopId, groupId, page)
+                .map(new HttpResultFunc<CommonListModel<List<GoodsModel>>>());
+        toSubscribe(observable, subscriber);
+    }
 }

@@ -14,6 +14,7 @@ import com.sdjy.sdjymall.model.CommonListModel;
 import com.sdjy.sdjymall.model.GoodsModel;
 import com.sdjy.sdjymall.subscribers.NoProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.SubscriberNextErrorListener;
+import com.sdjy.sdjymall.util.StringUtils;
 import com.sdjy.sdjymall.view.RecyclerViewFragmentHandler;
 
 import java.util.ArrayList;
@@ -47,7 +48,6 @@ public class ShopGoodsFragment extends BaseListFragment {
         setContentView(R.layout.fragment_shop_goods);
 
         params.put("shopId", shopId);
-        params.put("pageSorts", pageSorts);
 
         mHandler = new RecyclerViewFragmentHandler(this, iRecyclerView);
         iRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -94,6 +94,9 @@ public class ShopGoodsFragment extends BaseListFragment {
 
     @Override
     public void requestDatas() {
+        params.put("pageSorts", !StringUtils.strIsEmpty(pageSorts) ? pageSorts : "");
+        params.put("sortTerm", !StringUtils.strIsEmpty(sortTerm) ? sortTerm : "");
+        params.put("sortOrder", !StringUtils.strIsEmpty(sortOrder) ? sortOrder : "");
         HttpMethods.getInstance().searchGoods(new NoProgressSubscriber<CommonListModel<List<GoodsModel>>>(nextErrorListener, getActivity()), params, mPage);
     }
 

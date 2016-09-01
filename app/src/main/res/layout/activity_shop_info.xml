@@ -243,25 +243,6 @@
                 android:visibility="gone">
 
                 <TextView
-                    android:id="@+id/tv_recommend"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp"
-                    android:text="推荐"
-                    android:textColor="@color/red3"
-                    android:textSize="13sp" />
-
-                <View
-                    android:layout_width="1px"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@color/main_line" />
-
-                <TextView
                     android:id="@+id/tv_sales"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -270,7 +251,7 @@
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
                     android:text="销量"
-                    android:textColor="@color/text_gray"
+                    android:textColor="@color/red3"
                     android:textSize="13sp" />
 
                 <View
@@ -316,6 +297,25 @@
                             android:src="@mipmap/icon_down_arrow_gray" />
                     </LinearLayout>
                 </LinearLayout>
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/main_line" />
+
+                <TextView
+                    android:id="@+id/tv_recommend"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:text="推荐"
+                    android:textColor="@color/text_gray"
+                    android:textSize="13sp" />
             </LinearLayout>
         </android.support.design.widget.AppBarLayout>
 

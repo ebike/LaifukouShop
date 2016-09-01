@@ -41,6 +41,7 @@ public class SearchActivity extends BaseActivity {
 
     private List<HistorySearchModel> historySearchList;
     private HistorySearchAdapter adapter;
+    private String key;
 
     @Override
     public void loadLoyout() {
@@ -49,6 +50,12 @@ public class SearchActivity extends BaseActivity {
 
     @Override
     public void init() {
+        key = getIntent().getStringExtra("key");
+
+        if (!StringUtils.strIsEmpty(key)) {
+            searchText.setText(key);
+        }
+
         adapter = new HistorySearchAdapter(this);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

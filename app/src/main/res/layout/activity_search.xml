@@ -30,6 +30,7 @@
             android:drawableLeft="@mipmap/icon_head_search"
             android:drawablePadding="4dp"
             android:hint="商品名称"
+            android:gravity="center_vertical"
             android:padding="8dp"
             android:singleLine="true"
             android:textColor="@color/white"

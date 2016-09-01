@@ -136,11 +136,6 @@ public class MyFragment extends LazyFragment {
 
     }
 
-    @OnClick(R.id.tv_refund_after_sales)
-    public void refundAfterSales() {
-
-    }
-
     @OnClick(R.id.rl_amount)
     public void amount() {
 

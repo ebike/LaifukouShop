@@ -419,4 +419,12 @@ public interface APIService {
             @Query("shopId") String shopId
     );
 
+    //根据分类获取商品接口
+    @GET("goods/findGoodsByGroup.do")
+    Observable<HttpResult<CommonListModel<List<GoodsModel>>>> findGoodsByGroup(
+            @Query("shopId") String shopId,
+            @Query("groupId") String groupId,
+            @Query("page") int page
+    );
+
 }

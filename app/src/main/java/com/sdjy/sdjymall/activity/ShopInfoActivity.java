@@ -128,7 +128,7 @@ public class ShopInfoActivity extends BaseActivity {
             public void onNext(List<ShopHotGroupModel> shopHotGroupModels) {
                 if (shopHotGroupModels != null) {
                     hotGroupList = shopHotGroupModels;
-                    for (ShopHotGroupModel model : hotGroupList) {
+                    for (final ShopHotGroupModel model : hotGroupList) {
                         TextView textView = new TextView(ShopInfoActivity.this);
                         textView.setTextAppearance(ShopInfoActivity.this, R.style.gray_16);
                         textView.setText(model.groupName);
@@ -139,7 +139,11 @@ public class ShopInfoActivity extends BaseActivity {
                         textView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-
+                                popupWindow.dismiss();
+                                Intent intent = new Intent(ShopInfoActivity.this, ShopHotGroupGoodsActivity.class);
+                                intent.putExtra("shopId", shopId);
+                                intent.putExtra("groupId", model.groupId);
+                                startActivity(intent);
                             }
                         });
                         listView.addView(textView);
@@ -159,7 +163,7 @@ public class ShopInfoActivity extends BaseActivity {
         fragmentList.add(shopHomeFragment);
         ShopGoodsFragment allFragment = new ShopGoodsFragment();
         allFragment.setShopId(shopId);
-        allFragment.setPageSorts("13");
+        allFragment.setSortTerm("2");
         fragmentList.add(allFragment);
         ShopGoodsFragment hotFragment = new ShopGoodsFragment();
         hotFragment.setShopId(shopId);

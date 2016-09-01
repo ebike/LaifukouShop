@@ -153,17 +153,6 @@
                 android:gravity="center"
                 android:text="待评论"
                 android:textColor="@color/black1" />
-
-            <TextView
-                android:id="@+id/tv_refund_after_sales"
-                style="@style/black_12"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:drawablePadding="8dp"
-                android:drawableTop="@mipmap/icon_order_tochange"
-                android:gravity="center"
-                android:text="退款/售后"
-                android:textColor="@color/black1" />
         </LinearLayout>
     </LinearLayout>
 
