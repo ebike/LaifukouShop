@@ -44,7 +44,7 @@ public class PullListFragmentHandler extends Handler {
             }
         });
         emptyView = new EmptyViewForList(fragment.getActivity());
-        emptyView.setContent("无数据");
+        emptyView.setContent("暂无数据");
         emptyView.setVisibility(View.GONE);
         ((ViewGroup) pullToRefreshListView.getRefreshableView().getParent()).addView(emptyView);
     }

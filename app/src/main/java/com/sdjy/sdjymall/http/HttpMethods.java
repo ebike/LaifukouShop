@@ -18,6 +18,8 @@ import com.sdjy.sdjymall.model.HomePageDataModel;
 import com.sdjy.sdjymall.model.HomeScrollImageModel;
 import com.sdjy.sdjymall.model.HotSearchWordModel;
 import com.sdjy.sdjymall.model.HttpResult;
+import com.sdjy.sdjymall.model.RefereeUserModel;
+import com.sdjy.sdjymall.model.ShopHotGroupModel;
 import com.sdjy.sdjymall.model.ShopModel;
 import com.sdjy.sdjymall.model.TeamGoodsModel;
 import com.sdjy.sdjymall.model.TeamModel;
@@ -322,8 +324,8 @@ public class HttpMethods {
     }
 
     //查看创业套餐详细信息接口
-    public void findTeamGoods(Subscriber<TeamGoodsModel> subscriber, String id) {
-        Observable observable = apiService.findTeamGoods(id)
+    public void findTeamGoods(Subscriber<TeamGoodsModel> subscriber, String id, Map<String, String> params) {
+        Observable observable = apiService.findTeamGoods(id, params)
                 .map(new HttpResultFunc<TeamGoodsModel>());
         toSubscribe(observable, subscriber);
     }
@@ -424,16 +426,16 @@ public class HttpMethods {
     }
 
     //查询用户所在的所有团队接口
-    public void findUserTeams(Subscriber<CommonListModel<List<String>>> subscriber, int page) {
+    public void findUserTeams(Subscriber<CommonListModel<List<TeamModel>>> subscriber, int page) {
         Observable observable = apiService.findUserTeams(StaticValues.userModel.userToken, StaticValues.userModel.userId, page)
-                .map(new HttpResultFunc<CommonListModel<List<String>>>());
+                .map(new HttpResultFunc<CommonListModel<List<TeamModel>>>());
         toSubscribe(observable, subscriber);
     }
 
     //查看用户推荐的所有人接口
-    public void findRefereeUser(Subscriber<CommonListModel<List<String>>> subscriber, int page) {
+    public void findRefereeUser(Subscriber<CommonListModel<List<RefereeUserModel>>> subscriber, int page) {
         Observable observable = apiService.findRefereeUser(StaticValues.userModel.userToken, StaticValues.userModel.userId, page)
-                .map(new HttpResultFunc<CommonListModel<List<String>>>());
+                .map(new HttpResultFunc<CommonListModel<List<RefereeUserModel>>>());
         toSubscribe(observable, subscriber);
     }
 
@@ -472,9 +474,9 @@ public class HttpMethods {
         toSubscribe(observable, subscriber);
     }
 
-    //获取推荐人所在团队接口
-    public void findRefereeUserTeam(Subscriber<TeamModel> subscriber, String goodsId, String phone) {
-        Observable observable = apiService.findRefereeUserTeam(StaticValues.userModel.userToken, StaticValues.userModel.userId, goodsId, phone)
+    //验证推荐人接口
+    public void checkRefereeUser(Subscriber<TeamModel> subscriber, String goodsId, String phone) {
+        Observable observable = apiService.checkRefereeUser(StaticValues.userModel.userToken, StaticValues.userModel.userId, goodsId, phone)
                 .map(new HttpResultFunc<TeamModel>());
         toSubscribe(observable, subscriber);
     }
@@ -490,6 +492,13 @@ public class HttpMethods {
     public void createTeam(Subscriber subscriber, String teamName, String goodsId) {
         Observable observable = apiService.createTeam(StaticValues.userModel.userToken, StaticValues.userModel.userId, teamName, goodsId)
                 .map(new HttpResultFunc());
+        toSubscribe(observable, subscriber);
+    }
+
+    //获取商家热门分类接口
+    public void findShopHotGroup(Subscriber<List<ShopHotGroupModel>> subscriber, String shopId) {
+        Observable observable = apiService.findShopHotGroup(shopId)
+                .map(new HttpResultFunc<List<ShopHotGroupModel>>());
         toSubscribe(observable, subscriber);
     }
 }

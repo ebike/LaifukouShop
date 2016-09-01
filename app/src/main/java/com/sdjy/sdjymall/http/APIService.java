@@ -15,6 +15,8 @@ import com.sdjy.sdjymall.model.HomePageDataModel;
 import com.sdjy.sdjymall.model.HomeScrollImageModel;
 import com.sdjy.sdjymall.model.HotSearchWordModel;
 import com.sdjy.sdjymall.model.HttpResult;
+import com.sdjy.sdjymall.model.RefereeUserModel;
+import com.sdjy.sdjymall.model.ShopHotGroupModel;
 import com.sdjy.sdjymall.model.ShopModel;
 import com.sdjy.sdjymall.model.TeamGoodsModel;
 import com.sdjy.sdjymall.model.TeamModel;
@@ -229,7 +231,8 @@ public interface APIService {
     //查看创业套餐详细信息接口
     @GET("team/findTeamGoods.do")
     Observable<HttpResult<TeamGoodsModel>> findTeamGoods(
-            @Query("id") String id
+            @Query("id") String id,
+            @QueryMap Map<String,String> params
     );
 
     //修改用户头像接口
@@ -329,7 +332,7 @@ public interface APIService {
 
     //查询用户所在的所有团队接口
     @POST("team/findUserTeams.do")
-    Observable<HttpResult<CommonListModel<List<String>>>> findUserTeams(
+    Observable<HttpResult<CommonListModel<List<TeamModel>>>> findUserTeams(
             @Header("Authorization") String auth,
             @Query("userId") String userId,
             @Query("page") int page
@@ -337,7 +340,7 @@ public interface APIService {
 
     //查看用户推荐的所有人接口
     @POST("team/findRefereeUser.do")
-    Observable<HttpResult<CommonListModel<List<String>>>> findRefereeUser(
+    Observable<HttpResult<CommonListModel<List<RefereeUserModel>>>> findRefereeUser(
             @Header("Authorization") String auth,
             @Query("userId") String userId,
             @Query("page") int page
@@ -383,9 +386,9 @@ public interface APIService {
             @FieldMap Map<String, String> params
     );
 
-    //获取推荐人所在团队接口
-    @POST("team/findRefereeUserTeam.do")
-    Observable<HttpResult<TeamModel>> findRefereeUserTeam(
+    //验证推荐人接口
+    @POST("team/checkRefereeUser.do")
+    Observable<HttpResult<TeamModel>> checkRefereeUser(
             @Header("Authorization") String auth,
             @Query("userId") String userId,
             @Query("goodsId") String goodsId,
@@ -408,6 +411,12 @@ public interface APIService {
             @Query("userId") String userId,
             @Query("teamName") String teamName,
             @Query("goodsId") String goodsId
+    );
+
+    //获取商家热门分类接口
+    @GET("shop/findShopHotGroup.do")
+    Observable<HttpResult<List<ShopHotGroupModel>>> findShopHotGroup(
+            @Query("shopId") String shopId
     );
 
 }

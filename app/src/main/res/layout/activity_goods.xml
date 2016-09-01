@@ -22,16 +22,15 @@
 
         <TextView
             android:id="@+id/tv_search"
+            style="@style/white_14"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:background="@mipmap/bg_head_search"
             android:drawableLeft="@mipmap/icon_head_search"
             android:drawablePadding="4dp"
-            android:hint="商品名称"
+            android:gravity="center_vertical"
             android:padding="8dp"
             android:singleLine="true"
-            android:textColorHint="@color/white"
-            android:textSize="14sp" />
+            android:text="商品名称" />
 
     </LinearLayout>
 

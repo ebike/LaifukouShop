@@ -114,6 +114,11 @@ public class GoodsFocusFragment extends BaseListFragment {
 
     @Override
     public void requestDatas() {
-        HttpMethods.getInstance().collectGoods(new NoProgressSubscriber<CommonListModel<List<GoodsBrowsingModel>>>(listener, getActivity()));
+        if (StaticValues.userModel != null) {
+            HttpMethods.getInstance().collectGoods(new NoProgressSubscriber<CommonListModel<List<GoodsBrowsingModel>>>(listener, getActivity()));
+        } else {
+            handler.setEmptyViewVisible(View.VISIBLE);
+            handler.sendEmptyMessage(PULL_TO_REFRESH_COMPLETE);
+        }
     }
 }

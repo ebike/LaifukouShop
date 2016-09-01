@@ -145,6 +145,7 @@ public class BrowsingHistoryActivity extends BaseListActivity {
             HttpMethods.getInstance().userBrowse(new NoProgressSubscriber<List<GoodsBrowsingModel>>(listener, this));
         } else {
             rightView.setVisibility(View.GONE);
+            handler.setEmptyViewVisible(View.VISIBLE);
             handler.sendEmptyMessage(PULL_TO_REFRESH_COMPLETE);
         }
     }

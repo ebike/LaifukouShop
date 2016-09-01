@@ -39,6 +39,8 @@ public class GoodsActivity extends BaseListActivity {
     ImageView upArrowView;
     @Bind(R.id.iv_down_arrow)
     ImageView downArrowView;
+    @Bind(R.id.tv_search)
+    TextView searchView;
 
     private String pageSorts;
     private PullListActivityHandler handler;
@@ -69,6 +71,7 @@ public class GoodsActivity extends BaseListActivity {
         }
         if (!StringUtils.strIsEmpty(key)) {
             params.put("key", key);
+            searchView.setText(key);
         }
         if (!StringUtils.strIsEmpty(pageSorts)) {
             params.put("pageSorts", pageSorts);

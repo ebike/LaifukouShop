@@ -32,6 +32,8 @@ public class TeamGoodsModel {
     public String createTime;
 
     public boolean isJoin;
+    //1可加入；2已加入；3暂不可加入
+    public int joinState;
     //参与人数
     public int joinNum;
 

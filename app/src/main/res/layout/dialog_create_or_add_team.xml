@@ -51,7 +51,7 @@
 
             <TextView
                 style="@style/gray_18"
-                android:layout_weight="1"
+                android:layout_width="120dp"
                 android:text="推荐人" />
 
             <EditText
@@ -81,7 +81,7 @@
 
             <TextView
                 style="@style/gray_18"
-                android:layout_weight="1"
+                android:layout_width="120dp"
                 android:text="所在团队" />
 
             <TextView

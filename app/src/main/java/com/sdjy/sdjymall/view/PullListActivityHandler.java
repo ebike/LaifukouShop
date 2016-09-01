@@ -56,7 +56,7 @@ public class PullListActivityHandler extends Handler {
             }
         });
         emptyView = new EmptyViewForList(activity);
-        emptyView.setContent("无数据");
+        emptyView.setContent("暂无数据");
         emptyView.setVisibility(View.GONE);
         ((ViewGroup) pullToRefreshListView.getRefreshableView().getParent()).addView(emptyView);
     }

@@ -5,9 +5,12 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -15,6 +18,7 @@ import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.activity.base.BaseActivity;
 import com.sdjy.sdjymall.common.adapter.ViewPagerFragmentAdapter;
 import com.sdjy.sdjymall.common.model.TabIndicator;
+import com.sdjy.sdjymall.common.util.DensityUtils;
 import com.sdjy.sdjymall.common.util.DialogUtils;
 import com.sdjy.sdjymall.common.util.T;
 import com.sdjy.sdjymall.common.util.ViewPagerUtil;
@@ -22,10 +26,12 @@ import com.sdjy.sdjymall.constants.StaticValues;
 import com.sdjy.sdjymall.fragment.ShopGoodsFragment;
 import com.sdjy.sdjymall.fragment.ShopHomeFragment;
 import com.sdjy.sdjymall.http.HttpMethods;
+import com.sdjy.sdjymall.model.ShopHotGroupModel;
 import com.sdjy.sdjymall.model.ShopModel;
 import com.sdjy.sdjymall.subscribers.NoProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
+import com.sdjy.sdjymall.util.CommonUtils;
 import com.sdjy.sdjymall.util.StringUtils;
 
 import java.util.ArrayList;
@@ -81,6 +87,9 @@ public class ShopInfoActivity extends BaseActivity {
     private List<TabIndicator> tabIndicatorList;
     private ViewPagerFragmentAdapter viewPagerFragmentAdapter;
     private int currentFragment;
+    private PopupWindow popupWindow;
+    private View popupView;
+    private List<ShopHotGroupModel> hotGroupList;
 
     @Override
     public void loadLoyout() {
@@ -106,6 +115,40 @@ public class ShopInfoActivity extends BaseActivity {
         HttpMethods.getInstance().findShop(new ProgressSubscriber<ShopModel>(nextListener, this), params);
 
         initPagerView();
+
+        initHotGroup();
+    }
+
+    private void initHotGroup() {
+        popupView = LayoutInflater.from(ShopInfoActivity.this).inflate(R.layout.view_shop_hot_group, null);
+        final LinearLayout listView = (LinearLayout) popupView.findViewById(R.id.ll_root);
+
+        HttpMethods.getInstance().findShopHotGroup(new NoProgressSubscriber<List<ShopHotGroupModel>>(new SubscriberOnNextListener<List<ShopHotGroupModel>>() {
+            @Override
+            public void onNext(List<ShopHotGroupModel> shopHotGroupModels) {
+                if (shopHotGroupModels != null) {
+                    hotGroupList = shopHotGroupModels;
+                    for (ShopHotGroupModel model : hotGroupList) {
+                        TextView textView = new TextView(ShopInfoActivity.this);
+                        textView.setTextAppearance(ShopInfoActivity.this, R.style.gray_16);
+                        textView.setText(model.groupName);
+                        textView.setGravity(Gravity.CENTER_HORIZONTAL);
+                        int p16 = DensityUtils.dp2px(ShopInfoActivity.this, 16);
+                        int p9 = DensityUtils.dp2px(ShopInfoActivity.this, 9);
+                        textView.setPadding(p16, p9, p16, p9);
+                        textView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                            }
+                        });
+                        listView.addView(textView);
+                    }
+                    popupView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+                }
+
+            }
+        }, this), shopId);
     }
 
     private void initPagerView() {
@@ -304,8 +347,20 @@ public class ShopInfoActivity extends BaseActivity {
     }
 
     @OnClick(R.id.ll_hot_sorts)
-    public void hotSorts() {
-
+    public void hotSorts(View v) {
+        if (hotGroupList != null && hotGroupList.size() > 0) {
+            if (popupWindow == null) {
+                popupWindow = CommonUtils.createAbovePopupWindow(popupView);
+            }
+            int popupWidth = popupView.getMeasuredWidth();
+            int popupHeight = popupView.getMeasuredHeight();
+            int[] vLocation = new int[2];
+            v.getLocationOnScreen(vLocation);
+            popupWindow.showAtLocation(v, Gravity.NO_GRAVITY, (vLocation[0] + v.getWidth() / 2) - popupWidth / 2,
+                    vLocation[1] - popupHeight);
+        } else {
+            T.showShort(this, "暂无热门分类");
+        }
     }
 
     @OnClick(R.id.ll_cus_phone)

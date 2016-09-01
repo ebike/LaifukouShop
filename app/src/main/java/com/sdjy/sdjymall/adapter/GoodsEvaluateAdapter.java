@@ -12,6 +12,8 @@ import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.model.GoodsEvaluateModel;
 import com.sdjy.sdjymall.view.ViewHolder;
 
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
 /**
  * 商品评价
  */
@@ -40,6 +42,7 @@ public class GoodsEvaluateAdapter extends TAdapter<GoodsEvaluateModel> {
             Glide.with(mContext)
                     .load(model.headPic)
                     .error(R.mipmap.icon_comment_head)
+                    .bitmapTransform(new CropCircleTransformation(mContext))
                     .into(headView);
             nameView.setText(model.logiName);
             timaView.setText(model.commentTime);

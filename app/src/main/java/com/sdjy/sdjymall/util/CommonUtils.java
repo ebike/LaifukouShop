@@ -3,8 +3,12 @@ package com.sdjy.sdjymall.util;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupWindow;
+
+import com.sdjy.sdjymall.R;
 
 import java.security.MessageDigest;
 import java.util.regex.Matcher;
@@ -114,5 +118,14 @@ public class CommonUtils {
         Matcher matcher = pattern.matcher(mail);
         boolean isMatched = matcher.matches();
         return isMatched;
+    }
+
+    public static PopupWindow createAbovePopupWindow(View popupView) {
+        PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        popupWindow.setAnimationStyle(R.style.AbovePopupWindowAnimation);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
+        popupWindow.setFocusable(true);
+        popupWindow.setOutsideTouchable(true);
+        return popupWindow;
     }
 }

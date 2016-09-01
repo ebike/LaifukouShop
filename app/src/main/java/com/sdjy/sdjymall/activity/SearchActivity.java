@@ -143,6 +143,7 @@ public class SearchActivity extends BaseActivity {
             Intent intent = new Intent(SearchActivity.this, GoodsActivity.class);
             intent.putExtra("key", search);
             startActivity(intent);
+            finish();
         } else {
             T.showShort(this, "请输入要搜索的内容");
         }

@@ -12,6 +12,7 @@ import com.sdjy.sdjymall.common.model.TabIndicator;
 import com.sdjy.sdjymall.common.util.T;
 import com.sdjy.sdjymall.common.util.ViewPagerUtil;
 import com.sdjy.sdjymall.constants.StaticValues;
+import com.sdjy.sdjymall.event.RefreshEvent;
 import com.sdjy.sdjymall.fragment.GoodsDetailFragment;
 import com.sdjy.sdjymall.fragment.TeamGoodsGoodsFragment;
 import com.sdjy.sdjymall.http.HttpMethods;
@@ -21,10 +22,13 @@ import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
 import com.sdjy.sdjymall.view.CreateOrAddTeamDialog;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 public class TeamGoodsInfoActivity extends BaseActivity {
 
@@ -34,6 +38,8 @@ public class TeamGoodsInfoActivity extends BaseActivity {
     View[] views;
     @Bind(R.id.tv_amount)
     TextView amountView;
+    @Bind(R.id.tv_join)
+    TextView joinView;
 
     private List<Fragment> fragmentList;
     private List<TabIndicator> tabIndicatorList;
@@ -46,6 +52,7 @@ public class TeamGoodsInfoActivity extends BaseActivity {
     @Override
     public void loadLoyout() {
         setContentView(R.layout.activity_team_goods_info);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -57,6 +64,18 @@ public class TeamGoodsInfoActivity extends BaseActivity {
             public void onNext(TeamGoodsModel model) {
                 teamGoodsModel = model;
                 amountView.setText("￥" + teamGoodsModel.total);
+                switch (teamGoodsModel.joinState) {
+                    case 1:
+                        joinView.setText("立即参与");
+                        break;
+                    case 2:
+                        joinView.setText("已加入");
+                        break;
+                    case 3:
+                        joinView.setText("暂不可加入");
+                        break;
+                }
+
                 viewPager.setOffscreenPageLimit(2);
                 tabIndicatorList = ViewPagerUtil.getTabIndicator(2);
                 fragmentList = new ArrayList<>();
@@ -87,7 +106,11 @@ public class TeamGoodsInfoActivity extends BaseActivity {
                 });
             }
         };
-        HttpMethods.getInstance().findTeamGoods(new ProgressSubscriber<TeamGoodsModel>(listener, this), id);
+        Map<String, String> params = new HashMap<>();
+        if (StaticValues.userModel != null) {
+            params.put("userId", StaticValues.userModel.userId);
+        }
+        HttpMethods.getInstance().findTeamGoods(new ProgressSubscriber<TeamGoodsModel>(listener, this), id, params);
     }
 
     @OnClick({R.id.rl_goods, R.id.rl_detail})
@@ -122,16 +145,57 @@ public class TeamGoodsInfoActivity extends BaseActivity {
     @OnClick(R.id.tv_join)
     public void join() {
         if (StaticValues.userModel != null) {
-            if (dialog == null) {
-                dialog = new CreateOrAddTeamDialog(this, teamGoodsModel.id)
-                        .builder()
-                        .setCancelable(true)
-                        .setCanceledOnTouchOutside(true);
+            switch (teamGoodsModel.joinState) {
+                case 1:
+                    if (dialog == null) {
+                        dialog = new CreateOrAddTeamDialog(this, teamGoodsModel.id)
+                                .builder()
+                                .setCancelable(true)
+                                .setCanceledOnTouchOutside(true);
+                    }
+                    dialog.show();
+                    break;
+                case 2:
+                    T.showShort(this, "您已加入了该等级套餐的团队");
+                    break;
+                case 3:
+                    T.showShort(this, "请先加入上一级套餐的团队");
+                    break;
             }
-            dialog.show();
         } else {
             T.showShort(this, "请先登录，再参与团队");
         }
     }
 
+    public void onEvent(RefreshEvent event) {
+        if (event.simpleName.equals(this.getClass().getSimpleName())) {
+            Map<String, String> params = new HashMap<>();
+            if (StaticValues.userModel != null) {
+                params.put("userId", StaticValues.userModel.userId);
+            }
+            HttpMethods.getInstance().findTeamGoods(new ProgressSubscriber<TeamGoodsModel>(new SubscriberOnNextListener<TeamGoodsModel>() {
+                @Override
+                public void onNext(TeamGoodsModel model) {
+                    teamGoodsModel = model;
+                    switch (teamGoodsModel.joinState) {
+                        case 1:
+                            joinView.setText("立即参与");
+                            break;
+                        case 2:
+                            joinView.setText("已加入");
+                            break;
+                        case 3:
+                            joinView.setText("暂不可加入");
+                            break;
+                    }
+                }
+            }, this), id, params);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

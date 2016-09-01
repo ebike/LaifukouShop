@@ -2,6 +2,7 @@ package com.sdjy.sdjymall.view;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Display;
@@ -15,7 +16,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sdjy.sdjymall.R;
+import com.sdjy.sdjymall.activity.MyTeamActivity;
+import com.sdjy.sdjymall.activity.TeamGoodsInfoActivity;
 import com.sdjy.sdjymall.common.util.T;
+import com.sdjy.sdjymall.event.RefreshEvent;
 import com.sdjy.sdjymall.http.HttpMethods;
 import com.sdjy.sdjymall.model.TeamModel;
 import com.sdjy.sdjymall.subscribers.NoProgressSubscriber;
@@ -27,6 +31,7 @@ import com.sdjy.sdjymall.util.StringUtils;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 /**
  * 创建或加入团队
@@ -87,7 +92,7 @@ public class CreateOrAddTeamDialog {
                 if (!StringUtils.strIsEmpty(phone)
                         && phone.length() == 11
                         && CommonUtils.isPhoneNumber(phone)) {
-                    HttpMethods.getInstance().findRefereeUserTeam(new NoProgressSubscriber<TeamModel>(new SubscriberOnNextListener<TeamModel>() {
+                    HttpMethods.getInstance().checkRefereeUser(new NoProgressSubscriber<TeamModel>(new SubscriberOnNextListener<TeamModel>() {
                         @Override
                         public void onNext(TeamModel model) {
                             teamModel = model;
@@ -129,6 +134,8 @@ public class CreateOrAddTeamDialog {
     public void addTeam() {
         addTeamView.setBackgroundColor(context.getResources().getColor(R.color.red1));
         createTeamView.setBackgroundColor(context.getResources().getColor(R.color.white));
+        addTeamView.setTextColor(context.getResources().getColor(R.color.white));
+        createTeamView.setTextColor(context.getResources().getColor(R.color.red1));
         addTeamLayout.setVisibility(View.VISIBLE);
         createTeamLayout.setVisibility(View.GONE);
     }
@@ -137,6 +144,8 @@ public class CreateOrAddTeamDialog {
     public void createTeam() {
         addTeamView.setBackgroundColor(context.getResources().getColor(R.color.white));
         createTeamView.setBackgroundColor(context.getResources().getColor(R.color.red1));
+        addTeamView.setTextColor(context.getResources().getColor(R.color.red1));
+        createTeamView.setTextColor(context.getResources().getColor(R.color.white));
         addTeamLayout.setVisibility(View.GONE);
         createTeamLayout.setVisibility(View.VISIBLE);
     }
@@ -151,7 +160,10 @@ public class CreateOrAddTeamDialog {
             HttpMethods.getInstance().joinTeam(new ProgressSubscriber(new SubscriberOnNextListener() {
                 @Override
                 public void onNext(Object o) {
-
+                    dialog.dismiss();
+                    T.showShort(context, "加入成功");
+                    EventBus.getDefault().post(new RefreshEvent(TeamGoodsInfoActivity.class.getSimpleName()));
+                    context.startActivity(new Intent(context, MyTeamActivity.class));
                 }
             }, context), teamModel.refereeId, goodsId);
         } else {
@@ -166,7 +178,10 @@ public class CreateOrAddTeamDialog {
             HttpMethods.getInstance().createTeam(new ProgressSubscriber(new SubscriberOnNextListener() {
                 @Override
                 public void onNext(Object o) {
-
+                    dialog.dismiss();
+                    T.showShort(context, "创建成功");
+                    EventBus.getDefault().post(new RefreshEvent(TeamGoodsInfoActivity.class.getSimpleName()));
+                    context.startActivity(new Intent(context, MyTeamActivity.class));
                 }
             }, context), teamName, goodsId);
         } else {
