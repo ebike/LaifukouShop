@@ -9,8 +9,8 @@
     <LinearLayout
         android:id="@+id/ll_grade"
         android:layout_width="96dp"
-        android:layout_margin="12dp"
         android:layout_height="96dp"
+        android:layout_margin="12dp"
         android:background="@mipmap/bg_team_5"
         android:gravity="center"
         android:orientation="vertical">
@@ -29,8 +29,7 @@
         <TextView
             android:id="@+id/tv_team_name"
             style="@style/gray_16"
-            android:singleLine="true"
-            android:text="团队名称" />
+            android:singleLine="true" />
 
         <TextView
             android:id="@+id/tv_creator"

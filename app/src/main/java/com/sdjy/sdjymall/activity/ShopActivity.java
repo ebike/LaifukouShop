@@ -2,7 +2,6 @@ package com.sdjy.sdjymall.activity;
 
 import android.content.Intent;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sdjy.sdjymall.R;
@@ -25,10 +24,8 @@ import butterknife.OnClick;
 
 public class ShopActivity extends BaseListActivity {
 
-    @Bind(R.id.iv_back)
-    ImageView backView;
-    @Bind(R.id.tv_search)
-    TextView searchView;
+    @Bind(R.id.tv_title)
+    TextView titleView;
     @Bind(R.id.grid_view)
     PullToRefreshGridView gridView;
 
@@ -47,6 +44,7 @@ public class ShopActivity extends BaseListActivity {
     public void init() {
         shopName = getIntent().getStringExtra("shopName");
 
+        titleView.setText("联盟商家");
         handler = new PullListActivityHandler(this, gridView);
         gridView.setPullRefreshEnabled(false);
         gridView.setPullLoadEnabled(false);
@@ -101,11 +99,6 @@ public class ShopActivity extends BaseListActivity {
     @OnClick(R.id.iv_back)
     public void back() {
         finish();
-    }
-
-    @OnClick(R.id.tv_search)
-    public void search() {
-
     }
 
     @Override

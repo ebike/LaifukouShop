@@ -47,6 +47,8 @@ import butterknife.OnClick;
  */
 public class ShopInfoActivity extends BaseActivity {
 
+    @Bind(R.id.tv_title)
+    TextView titleView;
     @Bind(R.id.iv_logo)
     ImageView logoView;
     @Bind(R.id.tv_name)
@@ -104,6 +106,7 @@ public class ShopInfoActivity extends BaseActivity {
             @Override
             public void onNext(ShopModel model) {
                 shopModel = model;
+                titleView.setText(shopModel.shopName);
                 initView();
             }
         };
@@ -143,6 +146,7 @@ public class ShopInfoActivity extends BaseActivity {
                                 Intent intent = new Intent(ShopInfoActivity.this, ShopHotGroupGoodsActivity.class);
                                 intent.putExtra("shopId", shopId);
                                 intent.putExtra("groupId", model.groupId);
+                                intent.putExtra("groupName",model.groupName);
                                 startActivity(intent);
                             }
                         });
@@ -198,6 +202,7 @@ public class ShopInfoActivity extends BaseActivity {
         Glide.with(this)
                 .load(shopModel.logo)
                 .error(R.mipmap.icon_shop_logo)
+                .centerCrop()
                 .into(logoView);
         nameView.setText(shopModel.shopName);
         if (shopModel.shopType == 1) {

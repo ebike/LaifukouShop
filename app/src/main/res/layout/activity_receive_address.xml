@@ -43,7 +43,7 @@
             android:layout_marginLeft="32dp"
             android:layout_marginRight="32dp"
             android:background="@drawable/button_red"
-            android:text="新建地址"
+            android:text="+新建地址"
             android:textColor="@color/white"
             android:textSize="18sp" />
 

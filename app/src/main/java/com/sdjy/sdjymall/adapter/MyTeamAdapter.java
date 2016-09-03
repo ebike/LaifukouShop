@@ -57,9 +57,9 @@ public class MyTeamAdapter extends TAdapter<TeamModel> {
             }
             gradeView.setText(model.gradeStr);
             teamNameView.setText(model.teamName);
-            creatorView.setText(model.createUserName);
-            createTimeView.setText(model.joinTime);
-            totalView.setText(model.totalUser);
+            creatorView.setText("创建人：" + model.createUserName);
+            createTimeView.setText("创建时间：" + model.joinTime);
+            totalView.setText("总人数：" + model.totalUser + "人");
         }
 
         return convertView;

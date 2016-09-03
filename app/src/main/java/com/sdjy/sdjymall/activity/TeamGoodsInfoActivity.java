@@ -67,12 +67,15 @@ public class TeamGoodsInfoActivity extends BaseActivity {
                 switch (teamGoodsModel.joinState) {
                     case 1:
                         joinView.setText("立即参与");
+                        joinView.setBackgroundColor(getResources().getColor(R.color.red));
                         break;
                     case 2:
-                        joinView.setText("已加入");
+                        joinView.setText("已参与");
+                        joinView.setBackgroundColor(getResources().getColor(R.color.yellow1));
                         break;
                     case 3:
-                        joinView.setText("暂不可加入");
+                        joinView.setText("暂不可参与");
+                        joinView.setBackgroundColor(getResources().getColor(R.color.yellow1));
                         break;
                 }
 
@@ -145,25 +148,17 @@ public class TeamGoodsInfoActivity extends BaseActivity {
     @OnClick(R.id.tv_join)
     public void join() {
         if (StaticValues.userModel != null) {
-            switch (teamGoodsModel.joinState) {
-                case 1:
-                    if (dialog == null) {
-                        dialog = new CreateOrAddTeamDialog(this, teamGoodsModel.id)
-                                .builder()
-                                .setCancelable(true)
-                                .setCanceledOnTouchOutside(true);
-                    }
-                    dialog.show();
-                    break;
-                case 2:
-                    T.showShort(this, "您已加入了该等级套餐的团队");
-                    break;
-                case 3:
-                    T.showShort(this, "请先加入上一级套餐的团队");
-                    break;
+            if (teamGoodsModel.joinState == 1) {
+                if (dialog == null) {
+                    dialog = new CreateOrAddTeamDialog(this, teamGoodsModel.id)
+                            .builder()
+                            .setCancelable(true)
+                            .setCanceledOnTouchOutside(true);
+                }
+                dialog.show();
             }
         } else {
-            T.showShort(this, "请先登录，再参与团队");
+            T.showShort(this, "请先登录，再进行参与");
         }
     }
 
@@ -180,12 +175,15 @@ public class TeamGoodsInfoActivity extends BaseActivity {
                     switch (teamGoodsModel.joinState) {
                         case 1:
                             joinView.setText("立即参与");
+                            joinView.setBackgroundColor(getResources().getColor(R.color.red));
                             break;
                         case 2:
-                            joinView.setText("已加入");
+                            joinView.setText("已参与");
+                            joinView.setBackgroundColor(getResources().getColor(R.color.yellow1));
                             break;
                         case 3:
-                            joinView.setText("暂不可加入");
+                            joinView.setText("暂不可参与");
+                            joinView.setBackgroundColor(getResources().getColor(R.color.yellow1));
                             break;
                     }
                 }

@@ -3,6 +3,7 @@ package com.sdjy.sdjymall.activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.TextView;
 
 import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.activity.base.BaseListActivity;
@@ -23,6 +24,8 @@ import butterknife.OnClick;
 
 public class ShopHotGroupGoodsActivity extends BaseListActivity {
 
+    @Bind(R.id.tv_title)
+    TextView titleView;
     @Bind(R.id.list_view)
     PullToRefreshListView listView;
 
@@ -31,6 +34,7 @@ public class ShopHotGroupGoodsActivity extends BaseListActivity {
     private List<GoodsModel> goodsList;
     private String shopId;
     private String groupId;
+    private String groupName;
     private SubscriberNextErrorListener nextErrorListener;
 
     @Override
@@ -42,6 +46,9 @@ public class ShopHotGroupGoodsActivity extends BaseListActivity {
     public void init() {
         shopId = getIntent().getStringExtra("shopId");
         groupId = getIntent().getStringExtra("groupId");
+        groupName = getIntent().getStringExtra("groupName");
+
+        titleView.setText(groupName);
 
         nextErrorListener = new SubscriberNextErrorListener<CommonListModel<List<GoodsModel>>>() {
             @Override
@@ -96,13 +103,6 @@ public class ShopHotGroupGoodsActivity extends BaseListActivity {
     @OnClick(R.id.iv_back)
     public void back() {
         finish();
-    }
-
-    @OnClick(R.id.tv_search)
-    public void search() {
-        Intent intent = new Intent(this, SearchActivity.class);
-        intent.putExtra("shopId", shopId);
-        startActivity(intent);
     }
 
     @Override

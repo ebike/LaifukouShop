@@ -16,6 +16,7 @@ import com.sdjy.sdjymall.subscribers.NoProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.SubscriberNextErrorListener;
 import com.sdjy.sdjymall.util.StringUtils;
 import com.sdjy.sdjymall.view.RecyclerViewFragmentHandler;
+import com.sdjy.sdjymall.view.pullrefresh.EmptyViewForList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,6 +32,8 @@ public class ShopGoodsFragment extends BaseListFragment {
 
     @Bind(R.id.recycler_view)
     IRecyclerView iRecyclerView;
+    @Bind(R.id.empty_view)
+    EmptyViewForList emptyView;
 
     private RecyclerViewFragmentHandler mHandler;
     private GoodsRVAdapter adapter;

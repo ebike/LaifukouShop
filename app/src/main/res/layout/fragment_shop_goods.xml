@@ -4,10 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        style="@style/gray_16"
-        android:layout_gravity="center"
-        android:text="暂无数据" />
+
+    <com.sdjy.sdjymall.view.pullrefresh.EmptyViewForList
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="100dp"/>
 
     <com.aspsine.irecyclerview.IRecyclerView
         android:id="@+id/recycler_view"
