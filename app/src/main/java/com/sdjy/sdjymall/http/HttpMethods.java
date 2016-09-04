@@ -18,6 +18,8 @@ import com.sdjy.sdjymall.model.HomePageDataModel;
 import com.sdjy.sdjymall.model.HomeScrollImageModel;
 import com.sdjy.sdjymall.model.HotSearchWordModel;
 import com.sdjy.sdjymall.model.HttpResult;
+import com.sdjy.sdjymall.model.OrderInfoModel;
+import com.sdjy.sdjymall.model.OrderModel;
 import com.sdjy.sdjymall.model.RefereeUserModel;
 import com.sdjy.sdjymall.model.ShopHotGroupModel;
 import com.sdjy.sdjymall.model.ShopModel;
@@ -506,6 +508,20 @@ public class HttpMethods {
     public void findGoodsByGroup(Subscriber<CommonListModel<List<GoodsModel>>> subscriber, String shopId, String groupId, int page) {
         Observable observable = apiService.findGoodsByGroup(shopId, groupId, page)
                 .map(new HttpResultFunc<CommonListModel<List<GoodsModel>>>());
+        toSubscribe(observable, subscriber);
+    }
+
+    //查询订单接口
+    public void orderList(Subscriber<CommonListModel<List<OrderModel>>> subscriber, int page, String state) {
+        Observable observable = apiService.orderList(StaticValues.userModel.userToken, StaticValues.userModel.userId, page, state)
+                .map(new HttpResultFunc<CommonListModel<List<OrderModel>>>());
+        toSubscribe(observable, subscriber);
+    }
+
+    //查询订单详细信息接口
+    public void findOrder(Subscriber<OrderInfoModel> subscriber, String orderId) {
+        Observable observable = apiService.findOrder(StaticValues.userModel.userToken, StaticValues.userModel.userId, orderId)
+                .map(new HttpResultFunc<OrderInfoModel>());
         toSubscribe(observable, subscriber);
     }
 }

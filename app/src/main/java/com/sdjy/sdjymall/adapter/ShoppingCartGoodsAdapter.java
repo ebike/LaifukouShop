@@ -15,6 +15,7 @@ import com.sdjy.sdjymall.model.CarGoodsModel;
 import com.sdjy.sdjymall.model.HttpResult;
 import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
+import com.sdjy.sdjymall.util.GoodsUtils;
 import com.sdjy.sdjymall.view.ViewHolder;
 
 import io.realm.Realm;
@@ -69,13 +70,7 @@ public class ShoppingCartGoodsAdapter extends TAdapter<CarGoodsModel> {
             nameView.setText(model.getGoodsName());
             standardView.setText("规格：" + model.getStandard());
             countView.setText(model.getNum() + "");
-            if (model.getPriceType() == 1) {
-                priceView.setText("￥" + model.getPriceMoney());
-            } else if (model.getPriceType() == 2) {
-                priceView.setText("￥" + model.getPriceMoney() + " + 金币 " + model.getPriceGoldCoin());
-            } else if (model.getPriceType() == 3) {
-                priceView.setText("币 " + model.getPriceCoin());
-            }
+            priceView.setText(GoodsUtils.getPrice(model.getPriceType(), model));
             minusView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -91,7 +86,7 @@ public class ShoppingCartGoodsAdapter extends TAdapter<CarGoodsModel> {
             chooseView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(StaticValues.userModel == null){
+                    if (StaticValues.userModel == null) {
                         realm.beginTransaction();
                     }
                     if (inEdit) {
@@ -107,7 +102,7 @@ public class ShoppingCartGoodsAdapter extends TAdapter<CarGoodsModel> {
                             model.setSelected(true);
                         }
                     }
-                    if(StaticValues.userModel == null){
+                    if (StaticValues.userModel == null) {
                         realm.commitTransaction();
                     }
                     if (callback != null) {

@@ -128,4 +128,13 @@ public class CommonUtils {
         popupWindow.setOutsideTouchable(true);
         return popupWindow;
     }
+
+    public static PopupWindow createPopupWindow(View popupView) {
+        PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        popupWindow.setAnimationStyle(R.style.PopupWindowAnimation);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
+        popupWindow.setFocusable(true);
+        popupWindow.setOutsideTouchable(true);
+        return popupWindow;
+    }
 }

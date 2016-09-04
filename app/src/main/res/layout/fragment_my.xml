@@ -184,8 +184,6 @@
             <TextView
                 style="@style/gray_12"
                 android:layout_alignParentRight="true"
-                android:drawablePadding="4dp"
-                android:drawableRight="@mipmap/icon_right_arrow_gray"
                 android:text="查看资产流水" />
 
         </RelativeLayout>

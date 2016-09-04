@@ -15,6 +15,8 @@ import com.sdjy.sdjymall.model.HomePageDataModel;
 import com.sdjy.sdjymall.model.HomeScrollImageModel;
 import com.sdjy.sdjymall.model.HotSearchWordModel;
 import com.sdjy.sdjymall.model.HttpResult;
+import com.sdjy.sdjymall.model.OrderInfoModel;
+import com.sdjy.sdjymall.model.OrderModel;
 import com.sdjy.sdjymall.model.RefereeUserModel;
 import com.sdjy.sdjymall.model.ShopHotGroupModel;
 import com.sdjy.sdjymall.model.ShopModel;
@@ -232,7 +234,7 @@ public interface APIService {
     @GET("team/findTeamGoods.do")
     Observable<HttpResult<TeamGoodsModel>> findTeamGoods(
             @Query("id") String id,
-            @QueryMap Map<String,String> params
+            @QueryMap Map<String, String> params
     );
 
     //修改用户头像接口
@@ -425,6 +427,23 @@ public interface APIService {
             @Query("shopId") String shopId,
             @Query("groupId") String groupId,
             @Query("page") int page
+    );
+
+    //查询订单接口
+    @POST("order/orderList.do")
+    Observable<HttpResult<CommonListModel<List<OrderModel>>>> orderList(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @Query("page") int page,
+            @Query("state") String state
+    );
+
+    //查询订单详细信息接口
+    @POST("order/findOrder.do")
+    Observable<HttpResult<OrderInfoModel>> findOrder(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @Query("orderId") String orderId
     );
 
 }

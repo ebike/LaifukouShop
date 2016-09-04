@@ -14,6 +14,7 @@ import com.sdjy.sdjymall.activity.FeedbackActivity;
 import com.sdjy.sdjymall.activity.GoodsShopFocusActivity;
 import com.sdjy.sdjymall.activity.LoginActivity;
 import com.sdjy.sdjymall.activity.MessageActivity;
+import com.sdjy.sdjymall.activity.OrderActivity;
 import com.sdjy.sdjymall.activity.SettingsActivity;
 import com.sdjy.sdjymall.common.fragment.LazyFragment;
 import com.sdjy.sdjymall.constants.StaticValues;
@@ -113,31 +114,34 @@ public class MyFragment extends LazyFragment {
 
     @OnClick(R.id.rl_all_order)
     public void allOrder() {
-
+        Intent intent = new Intent(getActivity(), OrderActivity.class);
+        intent.putExtra("state", "");
+        startActivity(intent);
     }
 
     @OnClick(R.id.tv_payment)
     public void payment() {
-
+        Intent intent = new Intent(getActivity(), OrderActivity.class);
+        intent.putExtra("state", "1");
+        startActivity(intent);
     }
 
     @OnClick(R.id.tv_delivery)
     public void delivery() {
-
+        Intent intent = new Intent(getActivity(), OrderActivity.class);
+        intent.putExtra("state", "3");
+        startActivity(intent);
     }
 
     @OnClick(R.id.tv_take_delivery)
     public void takeDelivery() {
-
+        Intent intent = new Intent(getActivity(), OrderActivity.class);
+        intent.putExtra("state", "4");
+        startActivity(intent);
     }
 
     @OnClick(R.id.tv_comment)
     public void comment() {
-
-    }
-
-    @OnClick(R.id.rl_amount)
-    public void amount() {
 
     }
 

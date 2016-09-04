@@ -163,7 +163,9 @@
         <activity
             android:name=".activity.BankInfoActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.ShopHotGroupGoodsActivity"></activity>
+        <activity android:name=".activity.ShopHotGroupGoodsActivity" />
+        <activity android:name=".activity.OrderActivity" />
+        <activity android:name=".activity.OrderInfoActivity"></activity>
     </application>
 
 </manifest>

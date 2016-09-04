@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_all"
+        style="@style/gray_14"
+        android:layout_width="match_parent"
+        android:drawableRight="@mipmap/icon_sel_active"
+        android:padding="16dp"
+        android:text="全部订单" />
+
+    <View style="@style/main_line" />
+
+    <TextView
+        android:id="@+id/tv_payment"
+        style="@style/gray_14"
+        android:layout_width="match_parent"
+        android:padding="16dp"
+        android:text="待付款" />
+
+    <View style="@style/main_line" />
+
+    <TextView
+        android:id="@+id/tv_delivery"
+        style="@style/gray_14"
+        android:layout_width="match_parent"
+        android:padding="16dp"
+        android:text="待发货" />
+
+    <View style="@style/main_line" />
+
+    <TextView
+        android:id="@+id/tv_take_delivery"
+        style="@style/gray_14"
+        android:layout_width="match_parent"
+        android:padding="16dp"
+        android:text="待收货" />
+
+    <View style="@style/main_line" />
+
+</LinearLayout>
