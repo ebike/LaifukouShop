@@ -13,6 +13,7 @@ import com.sdjy.sdjymall.model.BankInfoModel;
 import com.sdjy.sdjymall.model.UserModel;
 import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
+import com.sdjy.sdjymall.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,24 +51,43 @@ public class UpdateFieldActivity extends BaseActivity {
         titleView.setText(title);
         rightView.setText("保存");
         rightView.setVisibility(View.VISIBLE);
+
         if ("姓名".equals(title)) {
             editText.setVisibility(View.VISIBLE);
             editText.setText(StaticValues.userModel.name);
+            if (!StringUtils.strIsEmpty(StaticValues.userModel.name)) {
+                editText.setSelection(StaticValues.userModel.name.length());
+            }
         } else if ("身份证号".equals(title)) {
             idCardText.setVisibility(View.VISIBLE);
             idCardText.setText(StaticValues.userModel.idCard);
+            if (!StringUtils.strIsEmpty(StaticValues.userModel.idCard)) {
+                idCardText.setSelection(StaticValues.userModel.idCard.length());
+            }
         } else if ("详细地址".equals(title)) {
             editText.setVisibility(View.VISIBLE);
             editText.setText(StaticValues.userModel.address);
+            if (!StringUtils.strIsEmpty(StaticValues.userModel.address)) {
+                editText.setSelection(StaticValues.userModel.address.length());
+            }
         } else if ("开户姓名".equals(title)) {
             editText.setVisibility(View.VISIBLE);
-            editText.setText(bankInfoModel != null ? bankInfoModel.accountName : "");
+            if (bankInfoModel != null && !StringUtils.strIsEmpty(bankInfoModel.accountName)) {
+                editText.setText(bankInfoModel.accountName);
+                editText.setSelection(bankInfoModel.accountName.length());
+            }
         } else if ("开户银行".equals(title)) {
             editText.setVisibility(View.VISIBLE);
-            editText.setText(bankInfoModel != null ? bankInfoModel.openBank : "");
+            if (bankInfoModel != null && !StringUtils.strIsEmpty(bankInfoModel.openBank)) {
+                editText.setText(bankInfoModel.openBank);
+                editText.setSelection(bankInfoModel.openBank.length());
+            }
         } else if ("银行卡号".equals(title)) {
             numberText.setVisibility(View.VISIBLE);
-            numberText.setText(bankInfoModel != null ? bankInfoModel.bankAccount : "");
+            if (bankInfoModel != null && !StringUtils.strIsEmpty(bankInfoModel.bankAccount)) {
+                numberText.setText(bankInfoModel.bankAccount);
+                numberText.setSelection(bankInfoModel.bankAccount.length());
+            }
         }
     }
 

@@ -3,7 +3,6 @@ package com.sdjy.sdjymall.fragment;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -40,8 +39,6 @@ import io.realm.Realm;
  */
 public class ShoppingCartFragment extends BaseListFragment {
 
-    @Bind(R.id.iv_message)
-    ImageView messageView;
     @Bind(R.id.tv_edit)
     TextView editView;
     @Bind(R.id.list_view)

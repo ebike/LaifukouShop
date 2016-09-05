@@ -12,13 +12,21 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.sdjy.sdjymall.R;
+import com.sdjy.sdjymall.activity.OrderActivity;
 import com.sdjy.sdjymall.activity.OrderInfoActivity;
 import com.sdjy.sdjymall.activity.ShopInfoActivity;
 import com.sdjy.sdjymall.common.util.DensityUtils;
 import com.sdjy.sdjymall.common.util.ScreenUtils;
+import com.sdjy.sdjymall.common.util.T;
+import com.sdjy.sdjymall.event.RefreshEvent;
+import com.sdjy.sdjymall.http.HttpMethods;
 import com.sdjy.sdjymall.model.OrderModel;
+import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
+import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
 import com.sdjy.sdjymall.util.GoodsUtils;
 import com.sdjy.sdjymall.view.ViewHolder;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * 订单列表
@@ -92,6 +100,43 @@ public class OrderAdapter extends TAdapter<OrderModel> {
             amountView.setText(GoodsUtils.formatPrice(model.money, model.goldCoin, model.coin));
             picsLayout.setOnClickListener(new OrderClick(model.orderId));
             convertView.setOnClickListener(new OrderClick(model.orderId));
+
+            cancelView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    HttpMethods.getInstance().updateOrderState(new ProgressSubscriber(new SubscriberOnNextListener() {
+                        @Override
+                        public void onNext(Object o) {
+                            T.showShort(mContext, "取消成功");
+                            EventBus.getDefault().post(new RefreshEvent(OrderActivity.class.getSimpleName()));
+                        }
+                    }, mContext), model.orderId, "6");
+                }
+            });
+            submitView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    HttpMethods.getInstance().updateOrderState(new ProgressSubscriber(new SubscriberOnNextListener() {
+                        @Override
+                        public void onNext(Object o) {
+                            T.showShort(mContext, "确认收货成功");
+                            EventBus.getDefault().post(new RefreshEvent(OrderActivity.class.getSimpleName()));
+                        }
+                    }, mContext), model.orderId, "9");
+                }
+            });
+            deleteView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    HttpMethods.getInstance().updateOrderState(new ProgressSubscriber(new SubscriberOnNextListener() {
+                        @Override
+                        public void onNext(Object o) {
+                            T.showShort(mContext, "删除成功");
+                            EventBus.getDefault().post(new RefreshEvent(OrderActivity.class.getSimpleName()));
+                        }
+                    }, mContext), model.orderId, "9");
+                }
+            });
         }
 
         return convertView;

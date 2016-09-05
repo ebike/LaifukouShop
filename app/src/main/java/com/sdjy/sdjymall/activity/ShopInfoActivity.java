@@ -232,6 +232,7 @@ public class ShopInfoActivity extends BaseActivity {
             cusPhoneView.setText("暂无客服");
         }
 
+        ((ShopHomeFragment)fragmentList.get(0)).setData(shopModel.describ);
         countViews[0].setText(shopModel.goodsNum);
         countViews[1].setText(shopModel.hotGoodsNum);
         countViews[2].setText(shopModel.newGoodsNum);

@@ -8,6 +8,8 @@ import android.widget.TextView;
 import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.activity.base.BaseActivity;
 import com.sdjy.sdjymall.adapter.OrderGoodsAdapter;
+import com.sdjy.sdjymall.common.util.T;
+import com.sdjy.sdjymall.event.RefreshEvent;
 import com.sdjy.sdjymall.http.HttpMethods;
 import com.sdjy.sdjymall.model.OrderInfoModel;
 import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
@@ -18,6 +20,7 @@ import com.sdjy.sdjymall.view.ScrollListView;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 public class OrderInfoActivity extends BaseActivity {
 
@@ -64,6 +67,8 @@ public class OrderInfoActivity extends BaseActivity {
     private OrderInfoModel orderInfoModel;
     private OrderGoodsAdapter adapter;
 
+    private SubscriberOnNextListener listener;
+
     @Override
     public void loadLoyout() {
         setContentView(R.layout.activity_order_info);
@@ -74,7 +79,7 @@ public class OrderInfoActivity extends BaseActivity {
         orderId = getIntent().getStringExtra("orderId");
         titleView.setText("订单详情");
 
-        HttpMethods.getInstance().findOrder(new ProgressSubscriber<OrderInfoModel>(new SubscriberOnNextListener<OrderInfoModel>() {
+        listener = new SubscriberOnNextListener<OrderInfoModel>() {
             @Override
             public void onNext(OrderInfoModel infoModel) {
                 orderInfoModel = infoModel;
@@ -140,7 +145,9 @@ public class OrderInfoActivity extends BaseActivity {
                     timeView.setText(orderInfoModel.orderTime);
                 }
             }
-        }, this), orderId);
+        };
+
+        HttpMethods.getInstance().findOrder(new ProgressSubscriber<OrderInfoModel>(listener, this), orderId);
     }
 
     @OnClick(R.id.iv_back)
@@ -150,7 +157,14 @@ public class OrderInfoActivity extends BaseActivity {
 
     @OnClick(R.id.tv_cancel)
     public void cancel() {
-
+        HttpMethods.getInstance().updateOrderState(new ProgressSubscriber(new SubscriberOnNextListener() {
+            @Override
+            public void onNext(Object o) {
+                T.showShort(OrderInfoActivity.this, "取消成功");
+                OrderInfoActivity.this.finish();
+                EventBus.getDefault().post(new RefreshEvent(OrderActivity.class.getSimpleName()));
+            }
+        }, this), orderId, "6");
     }
 
     @OnClick(R.id.tv_pay)
@@ -160,11 +174,26 @@ public class OrderInfoActivity extends BaseActivity {
 
     @OnClick(R.id.tv_submit)
     public void submit() {
-
+        HttpMethods.getInstance().updateOrderState(new ProgressSubscriber(new SubscriberOnNextListener() {
+            @Override
+            public void onNext(Object o) {
+                T.showShort(OrderInfoActivity.this, "确认收货成功");
+                HttpMethods.getInstance().findOrder(new ProgressSubscriber<OrderInfoModel>(listener, OrderInfoActivity.this), orderId);
+                EventBus.getDefault().post(new RefreshEvent(OrderActivity.class.getSimpleName()));
+            }
+        }, this), orderId, "5");
     }
 
     @OnClick(R.id.tv_delete)
     public void delete() {
-
+        HttpMethods.getInstance().updateOrderState(new ProgressSubscriber(new SubscriberOnNextListener() {
+            @Override
+            public void onNext(Object o) {
+                T.showShort(OrderInfoActivity.this, "删除成功");
+                OrderInfoActivity.this.finish();
+                EventBus.getDefault().post(new RefreshEvent(OrderActivity.class.getSimpleName()));
+            }
+        }, this), orderId, "9");
     }
+
 }

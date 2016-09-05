@@ -455,4 +455,13 @@ public interface APIService {
             @Query("page") int page
     );
 
+    //更新订单状态接口
+    @POST("order/updateOrderState.do")
+    Observable<HttpResult> updateOrderState(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @Query("orderId") String orderId,
+            @Query("state") String state
+    );
+
 }

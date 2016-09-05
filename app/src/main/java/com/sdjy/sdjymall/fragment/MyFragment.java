@@ -13,7 +13,6 @@ import com.sdjy.sdjymall.activity.BrowsingHistoryActivity;
 import com.sdjy.sdjymall.activity.FeedbackActivity;
 import com.sdjy.sdjymall.activity.GoodsShopFocusActivity;
 import com.sdjy.sdjymall.activity.LoginActivity;
-import com.sdjy.sdjymall.activity.MessageActivity;
 import com.sdjy.sdjymall.activity.OrderActivity;
 import com.sdjy.sdjymall.activity.OrderNoCommentActivity;
 import com.sdjy.sdjymall.activity.SettingsActivity;
@@ -105,12 +104,6 @@ public class MyFragment extends LazyFragment {
     @OnClick(R.id.iv_setting)
     public void setting() {
         startActivity(new Intent(getActivity(), SettingsActivity.class));
-    }
-
-    @OnClick(R.id.iv_message)
-    public void message() {
-        Intent intent = new Intent(getActivity(), MessageActivity.class);
-        startActivity(intent);
     }
 
     @OnClick(R.id.rl_all_order)

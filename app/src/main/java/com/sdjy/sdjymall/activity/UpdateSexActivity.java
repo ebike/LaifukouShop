@@ -50,15 +50,15 @@ public class UpdateSexActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.rl_man:
                 sex = "1";
-                change(1);
+                change(0);
                 break;
             case R.id.rl_woman:
                 sex = "2";
-                change(2);
+                change(1);
                 break;
             case R.id.rl_other:
                 sex = "3";
-                change(3);
+                change(2);
                 break;
         }
         Map<String, String> params = new HashMap<>();

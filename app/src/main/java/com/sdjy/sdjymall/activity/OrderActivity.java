@@ -11,6 +11,7 @@ import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.activity.base.BaseListActivity;
 import com.sdjy.sdjymall.adapter.OrderAdapter;
 import com.sdjy.sdjymall.constants.StaticValues;
+import com.sdjy.sdjymall.event.RefreshEvent;
 import com.sdjy.sdjymall.http.HttpMethods;
 import com.sdjy.sdjymall.model.CommonListModel;
 import com.sdjy.sdjymall.model.OrderModel;
@@ -25,6 +26,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 public class OrderActivity extends BaseListActivity {
 
@@ -46,6 +48,7 @@ public class OrderActivity extends BaseListActivity {
     @Override
     public void loadLoyout() {
         setContentView(R.layout.activity_order);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -176,5 +179,17 @@ public class OrderActivity extends BaseListActivity {
         Drawable drawable = getResources().getDrawable(R.mipmap.icon_order_arrow_up);
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
         stateView.setCompoundDrawables(null, null, drawable, null);
+    }
+
+    public void onEvent(RefreshEvent event) {
+        if (event.simpleName.equals(this.getClass().getSimpleName())) {
+            listView.doPullRefreshing(true, DELAY_MILLIS);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

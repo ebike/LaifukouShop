@@ -20,6 +20,8 @@ public class ShopModel {
     public String qq;
     //客服电话
     public String cusPhone;
+    //商家首页html内容
+    public String describ;
     //商家类型：1自营商家；2联盟商家
     public int shopType;
     //关注记录id：存在表示商家已被关注

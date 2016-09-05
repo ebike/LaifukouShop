@@ -23,11 +23,11 @@
 
             <TextView
                 android:id="@+id/tv_grade"
-                style="@style/gray6_16"
+                style="@style/white_16"
                 android:textSize="48sp" />
 
             <TextView
-                style="@style/gray6_16"
+                style="@style/white_16"
                 android:text="套餐"
                 android:textSize="48sp" />
         </LinearLayout>

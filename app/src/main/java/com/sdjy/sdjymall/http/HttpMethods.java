@@ -532,4 +532,11 @@ public class HttpMethods {
                 .map(new HttpResultFunc<CommonListModel<List<GoodsItemModel>>>());
         toSubscribe(observable, subscriber);
     }
+
+    //更新订单状态接口
+    public void updateOrderState(Subscriber subscriber, String orderId, String state) {
+        Observable observable = apiService.updateOrderState(StaticValues.userModel.userToken, StaticValues.userModel.userId, orderId, state)
+                .map(new HttpResultFunc());
+        toSubscribe(observable, subscriber);
+    }
 }
