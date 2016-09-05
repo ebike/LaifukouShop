@@ -15,6 +15,7 @@ import com.sdjy.sdjymall.activity.GoodsShopFocusActivity;
 import com.sdjy.sdjymall.activity.LoginActivity;
 import com.sdjy.sdjymall.activity.MessageActivity;
 import com.sdjy.sdjymall.activity.OrderActivity;
+import com.sdjy.sdjymall.activity.OrderNoCommentActivity;
 import com.sdjy.sdjymall.activity.SettingsActivity;
 import com.sdjy.sdjymall.common.fragment.LazyFragment;
 import com.sdjy.sdjymall.constants.StaticValues;
@@ -142,7 +143,7 @@ public class MyFragment extends LazyFragment {
 
     @OnClick(R.id.tv_comment)
     public void comment() {
-
+        startActivity(new Intent(getActivity(), OrderNoCommentActivity.class));
     }
 
     @OnClick(R.id.tv_goods_focus)

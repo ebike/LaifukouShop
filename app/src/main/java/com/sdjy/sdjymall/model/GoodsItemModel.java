@@ -5,6 +5,7 @@ package com.sdjy.sdjymall.model;
  */
 public class GoodsItemModel {
 
+    public String orderItemId;
     public String goodsId;
     public String goodsName;
     public String pic;

@@ -12,6 +12,7 @@ import com.sdjy.sdjymall.model.GoodsBrowsingModel;
 import com.sdjy.sdjymall.model.GoodsEvaluateCountModel;
 import com.sdjy.sdjymall.model.GoodsEvaluateModel;
 import com.sdjy.sdjymall.model.GoodsInfoModel;
+import com.sdjy.sdjymall.model.GoodsItemModel;
 import com.sdjy.sdjymall.model.GoodsModel;
 import com.sdjy.sdjymall.model.HistorySearchModel;
 import com.sdjy.sdjymall.model.HomePageDataModel;
@@ -522,6 +523,13 @@ public class HttpMethods {
     public void findOrder(Subscriber<OrderInfoModel> subscriber, String orderId) {
         Observable observable = apiService.findOrder(StaticValues.userModel.userToken, StaticValues.userModel.userId, orderId)
                 .map(new HttpResultFunc<OrderInfoModel>());
+        toSubscribe(observable, subscriber);
+    }
+
+    //查询订单接口
+    public void waitCommentOrder(Subscriber<CommonListModel<List<GoodsItemModel>>> subscriber, int page) {
+        Observable observable = apiService.waitCommentOrder(StaticValues.userModel.userToken, StaticValues.userModel.userId, page)
+                .map(new HttpResultFunc<CommonListModel<List<GoodsItemModel>>>());
         toSubscribe(observable, subscriber);
     }
 }

@@ -165,7 +165,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".activity.ShopHotGroupGoodsActivity" />
         <activity android:name=".activity.OrderActivity" />
-        <activity android:name=".activity.OrderInfoActivity"></activity>
+        <activity android:name=".activity.OrderInfoActivity" />
+        <activity android:name=".activity.OrderNoCommentActivity"></activity>
     </application>
 
 </manifest>

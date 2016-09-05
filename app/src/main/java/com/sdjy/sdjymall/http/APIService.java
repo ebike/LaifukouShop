@@ -9,6 +9,7 @@ import com.sdjy.sdjymall.model.GoodsBrowsingModel;
 import com.sdjy.sdjymall.model.GoodsEvaluateCountModel;
 import com.sdjy.sdjymall.model.GoodsEvaluateModel;
 import com.sdjy.sdjymall.model.GoodsInfoModel;
+import com.sdjy.sdjymall.model.GoodsItemModel;
 import com.sdjy.sdjymall.model.GoodsModel;
 import com.sdjy.sdjymall.model.HistorySearchModel;
 import com.sdjy.sdjymall.model.HomePageDataModel;
@@ -444,6 +445,14 @@ public interface APIService {
             @Header("Authorization") String auth,
             @Query("userId") String userId,
             @Query("orderId") String orderId
+    );
+
+    //查询订单接口
+    @POST("order/waitCommentOrder.do")
+    Observable<HttpResult<CommonListModel<List<GoodsItemModel>>>> waitCommentOrder(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @Query("page") int page
     );
 
 }

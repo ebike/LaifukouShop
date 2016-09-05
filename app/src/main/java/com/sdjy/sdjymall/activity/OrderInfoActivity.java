@@ -1,6 +1,8 @@
 package com.sdjy.sdjymall.activity;
 
 import android.graphics.drawable.Drawable;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sdjy.sdjymall.R;
@@ -47,6 +49,16 @@ public class OrderInfoActivity extends BaseActivity {
     TextView totalView;
     @Bind(R.id.tv_time)
     TextView timeView;
+    @Bind(R.id.ll_bottom)
+    LinearLayout bottomLayout;
+    @Bind(R.id.tv_cancel)
+    TextView cancelView;
+    @Bind(R.id.tv_pay)
+    TextView payView;
+    @Bind(R.id.tv_submit)
+    TextView submitView;
+    @Bind(R.id.tv_delete)
+    TextView deleteView;
 
     private String orderId;
     private OrderInfoModel orderInfoModel;
@@ -71,18 +83,30 @@ public class OrderInfoActivity extends BaseActivity {
                     switch (orderInfoModel.state) {
                         case 1:
                             stateView.setText("待付款");
-                            break;
-                        case 3:
-                            stateView.setText("待发货");
+                            bottomLayout.setVisibility(View.VISIBLE);
+                            cancelView.setVisibility(View.VISIBLE);
+                            payView.setVisibility(View.VISIBLE);
+                            submitView.setVisibility(View.GONE);
+                            deleteView.setVisibility(View.GONE);
                             break;
                         case 4:
                             stateView.setText("待收货");
+                            bottomLayout.setVisibility(View.GONE);
+                            cancelView.setVisibility(View.GONE);
+                            payView.setVisibility(View.GONE);
+                            submitView.setVisibility(View.VISIBLE);
+                            deleteView.setVisibility(View.GONE);
                             break;
                         case 5:
                             stateView.setText("已完成");
+                            bottomLayout.setVisibility(View.GONE);
+                            cancelView.setVisibility(View.GONE);
+                            payView.setVisibility(View.GONE);
+                            submitView.setVisibility(View.GONE);
+                            deleteView.setVisibility(View.VISIBLE);
                             break;
-                        case 6:
-                            stateView.setText("已取消");
+                        default:
+                            bottomLayout.setVisibility(View.GONE);
                             break;
                     }
                     expressView.setText(orderInfoModel.express);
@@ -122,5 +146,25 @@ public class OrderInfoActivity extends BaseActivity {
     @OnClick(R.id.iv_back)
     public void back() {
         finish();
+    }
+
+    @OnClick(R.id.tv_cancel)
+    public void cancel() {
+
+    }
+
+    @OnClick(R.id.tv_pay)
+    public void pay() {
+
+    }
+
+    @OnClick(R.id.tv_submit)
+    public void submit() {
+
+    }
+
+    @OnClick(R.id.tv_delete)
+    public void delete() {
+
     }
 }
