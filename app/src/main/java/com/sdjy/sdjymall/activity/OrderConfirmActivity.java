@@ -93,7 +93,7 @@ public class OrderConfirmActivity extends BaseActivity {
             if (!StringUtils.strIsEmpty(orderConfirmModel.postMoney)) {
                 total += Double.valueOf(orderConfirmModel.postMoney);
             }
-            realAmountView.setText(total + "");
+            realAmountView.setText("实付款：￥" + total);
         }
     }
 

@@ -10,6 +10,8 @@ public class CarGoodsModel extends RealmObject {
     //商品ID
     @PrimaryKey
     private String id;
+    //购物车ID
+    private String oid;
     //商品名称
     private String goodsName;
     //商品图片
@@ -150,5 +152,13 @@ public class CarGoodsModel extends RealmObject {
 
     public void setSelectedInEdit(boolean selectedInEdit) {
         isSelectedInEdit = selectedInEdit;
+    }
+
+    public String getOid() {
+        return oid;
+    }
+
+    public void setOid(String oid) {
+        this.oid = oid;
     }
 }

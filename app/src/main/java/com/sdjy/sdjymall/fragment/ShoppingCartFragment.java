@@ -253,7 +253,7 @@ public class ShoppingCartFragment extends BaseListFragment {
                 for (CarShopModel shopModel : carShopList) {
                     for (CarGoodsModel goodsModel : shopModel.getGoods()) {
                         if (goodsModel.isSelected()) {
-                            ids.append(goodsModel.getId()).append(";");
+                            ids.append(goodsModel.getOid()).append(";");
                         }
                     }
                 }
