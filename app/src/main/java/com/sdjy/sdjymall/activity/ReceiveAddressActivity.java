@@ -2,6 +2,7 @@ package com.sdjy.sdjymall.activity;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -37,6 +38,7 @@ public class ReceiveAddressActivity extends BaseListActivity {
     private ReceiveAddressAdapter adapter;
     private List<AddressModel> addressList;
     private SubscriberNextErrorListener listener;
+    private boolean isChoose;
 
     @Override
     public void loadLoyout() {
@@ -46,6 +48,8 @@ public class ReceiveAddressActivity extends BaseListActivity {
 
     @Override
     public void init() {
+        //选择收货地址
+        isChoose = getIntent().getBooleanExtra("isChoose",false);
         titleView.setText("收货地址");
 
         listener = new SubscriberNextErrorListener<List<AddressModel>>() {
@@ -82,6 +86,16 @@ public class ReceiveAddressActivity extends BaseListActivity {
         adapter = new ReceiveAddressAdapter(this);
         listView.setAdapter(adapter);
         listView.doPullRefreshing(true, DELAY_MILLIS);
+        if(isChoose){
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    AddressModel model = (AddressModel) adapterView.getItemAtPosition(i);
+                    EventBus.getDefault().post(model);
+                    ReceiveAddressActivity.this.finish();
+                }
+            });
+        }
     }
 
     @Override

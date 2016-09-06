@@ -1,5 +1,6 @@
 package com.sdjy.sdjymall.fragment;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sdjy.sdjymall.R;
+import com.sdjy.sdjymall.activity.OrderConfirmActivity;
 import com.sdjy.sdjymall.adapter.ShoppingCartAdapter;
 import com.sdjy.sdjymall.common.util.T;
 import com.sdjy.sdjymall.constants.StaticValues;
@@ -101,9 +103,9 @@ public class ShoppingCartFragment extends BaseListFragment {
                         listView.setBackgroundColor(getResources().getColor(R.color.main_bg));
                         carShopList = carShopModels;
                         editView.setVisibility(View.VISIBLE);
-                        if(inEdit){
+                        if (inEdit) {
                             bottomEditLayout.setVisibility(View.VISIBLE);
-                        }else{
+                        } else {
                             bottomLayout.setVisibility(View.VISIBLE);
                         }
                     } else {
@@ -132,9 +134,9 @@ public class ShoppingCartFragment extends BaseListFragment {
             if (carShopList != null && carShopList.size() > 0) {
                 listView.setBackgroundColor(getResources().getColor(R.color.main_bg));
                 editView.setVisibility(View.VISIBLE);
-                if(inEdit){
+                if (inEdit) {
                     bottomEditLayout.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     bottomLayout.setVisibility(View.VISIBLE);
                 }
                 updateBottom();
@@ -244,7 +246,27 @@ public class ShoppingCartFragment extends BaseListFragment {
 
     @OnClick(R.id.tv_checkout)
     public void checkout() {
-        T.showShort(getActivity(), "结算咯");
+        boolean hasSelected = CartUtils.hasSelected(carShopList);
+        if (hasSelected) {
+            if (StaticValues.userModel != null) {
+                StringBuffer ids = new StringBuffer();
+                for (CarShopModel shopModel : carShopList) {
+                    for (CarGoodsModel goodsModel : shopModel.getGoods()) {
+                        if (goodsModel.isSelected()) {
+                            ids.append(goodsModel.getId()).append(";");
+                        }
+                    }
+                }
+                ids.deleteCharAt(ids.length() - 1);
+                Intent intent = new Intent(getActivity(), OrderConfirmActivity.class);
+                intent.putExtra("ids", ids.toString());
+                startActivity(intent);
+            } else {
+                T.showShort(getActivity(), "请您先登录");
+            }
+        } else {
+            T.showShort(getActivity(), "您还没有选择商品哦！");
+        }
     }
 
     @OnClick(R.id.tv_delete)

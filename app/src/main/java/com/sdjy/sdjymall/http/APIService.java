@@ -16,6 +16,7 @@ import com.sdjy.sdjymall.model.HomePageDataModel;
 import com.sdjy.sdjymall.model.HomeScrollImageModel;
 import com.sdjy.sdjymall.model.HotSearchWordModel;
 import com.sdjy.sdjymall.model.HttpResult;
+import com.sdjy.sdjymall.model.OrderConfirmModel;
 import com.sdjy.sdjymall.model.OrderInfoModel;
 import com.sdjy.sdjymall.model.OrderModel;
 import com.sdjy.sdjymall.model.RefereeUserModel;
@@ -462,6 +463,34 @@ public interface APIService {
             @Query("userId") String userId,
             @Query("orderId") String orderId,
             @Query("state") String state
+    );
+
+    //商品评论接口
+    @POST("order/commentGoods.do")
+    Observable<HttpResult> commentGoods(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @Query("orderItemId") String orderItemId,
+            @Query("goodsId") String goodsId,
+            @Query("score") int score,
+            @Query("content") String content
+    );
+
+    //提交订单确认接口
+    @POST("order/confirmOrder.do")
+    Observable<HttpResult<OrderConfirmModel>> confirmOrder(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @Query("ids") String ids
+    );
+
+    //提交订单接口
+    @POST("order/submitOrder.do")
+    Observable<HttpResult<OrderInfoModel>> submitOrder(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @Query("ids") String ids,
+            @Query("addressId") String addressId
     );
 
 }

@@ -1,9 +1,11 @@
 package com.sdjy.sdjymall.model;
 
+import java.io.Serializable;
+
 /**
  * 商品项
  */
-public class GoodsItemModel {
+public class GoodsItemModel implements Serializable{
 
     public String orderItemId;
     public String goodsId;

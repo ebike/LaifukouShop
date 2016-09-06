@@ -1,6 +1,7 @@
 package com.sdjy.sdjymall.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.sdjy.sdjymall.R;
+import com.sdjy.sdjymall.activity.GoodsEvaluationActivity;
 import com.sdjy.sdjymall.model.GoodsItemModel;
 import com.sdjy.sdjymall.view.ViewHolder;
 
@@ -43,7 +45,9 @@ public class OrderNoCommentAdapter extends TAdapter<GoodsItemModel> {
             evaluateView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    Intent intent = new Intent(mContext, GoodsEvaluationActivity.class);
+                    intent.putExtra("GoodsItemModel", model);
+                    mContext.startActivity(intent);
                 }
             });
         }

@@ -19,6 +19,7 @@ import com.sdjy.sdjymall.model.HomePageDataModel;
 import com.sdjy.sdjymall.model.HomeScrollImageModel;
 import com.sdjy.sdjymall.model.HotSearchWordModel;
 import com.sdjy.sdjymall.model.HttpResult;
+import com.sdjy.sdjymall.model.OrderConfirmModel;
 import com.sdjy.sdjymall.model.OrderInfoModel;
 import com.sdjy.sdjymall.model.OrderModel;
 import com.sdjy.sdjymall.model.RefereeUserModel;
@@ -129,6 +130,18 @@ public class HttpMethods {
             } else {
                 throw new RuntimeException(httpResult.message);
             }
+        }
+    }
+
+    /**
+     * 用来统一处理Http的resultCode
+     * 直接返回
+     */
+    public class HttpResultFunc3<T> implements Func1<HttpResult<T>, HttpResult<T>> {
+
+        @Override
+        public HttpResult<T> call(HttpResult<T> httpResult) {
+            return httpResult;
         }
     }
 
@@ -537,6 +550,27 @@ public class HttpMethods {
     public void updateOrderState(Subscriber subscriber, String orderId, String state) {
         Observable observable = apiService.updateOrderState(StaticValues.userModel.userToken, StaticValues.userModel.userId, orderId, state)
                 .map(new HttpResultFunc());
+        toSubscribe(observable, subscriber);
+    }
+
+    //商品评论接口
+    public void commentGoods(Subscriber subscriber, String orderItemId, String goodsId, int score, String content) {
+        Observable observable = apiService.commentGoods(StaticValues.userModel.userToken, StaticValues.userModel.userId, orderItemId, goodsId, score, content)
+                .map(new HttpResultFunc());
+        toSubscribe(observable, subscriber);
+    }
+
+    //提交订单确认接口
+    public void confirmOrder(Subscriber<OrderConfirmModel> subscriber, String ids) {
+        Observable observable = apiService.confirmOrder(StaticValues.userModel.userToken, StaticValues.userModel.userId, ids)
+                .map(new HttpResultFunc<OrderConfirmModel>());
+        toSubscribe(observable, subscriber);
+    }
+
+    //提交订单接口
+    public void submitOrder(Subscriber<OrderInfoModel> subscriber, String ids, String addressId) {
+        Observable observable = apiService.submitOrder(StaticValues.userModel.userToken, StaticValues.userModel.userId, ids, addressId)
+                .map(new HttpResultFunc3<OrderInfoModel>());
         toSubscribe(observable, subscriber);
     }
 }

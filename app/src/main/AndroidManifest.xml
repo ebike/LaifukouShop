@@ -166,7 +166,9 @@
         <activity android:name=".activity.ShopHotGroupGoodsActivity" />
         <activity android:name=".activity.OrderActivity" />
         <activity android:name=".activity.OrderInfoActivity" />
-        <activity android:name=".activity.OrderNoCommentActivity"></activity>
+        <activity android:name=".activity.OrderNoCommentActivity" />
+        <activity android:name=".activity.GoodsEvaluationActivity" />
+        <activity android:name=".activity.OrderConfirmActivity"></activity>
     </application>
 
 </manifest>

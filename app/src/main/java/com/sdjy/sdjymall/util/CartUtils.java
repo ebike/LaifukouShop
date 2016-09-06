@@ -40,6 +40,19 @@ public class CartUtils {
         return flag;
     }
 
+    public static boolean hasSelected(List<CarShopModel> carShopList) {
+        boolean flag = false;
+        for (CarShopModel shopModel : carShopList) {
+            for (CarGoodsModel goodsModel : shopModel.getGoods()) {
+                if (goodsModel.isSelected()) {
+                    flag = true;
+                    break;
+                }
+            }
+        }
+        return flag;
+    }
+
     /**
      * 购物车是否全部选中(编辑状态下)
      *
