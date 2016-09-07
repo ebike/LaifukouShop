@@ -2,6 +2,13 @@
 <items version="2" >
 
     <item
+        jar="F:\github\LaifukouShop\app\build\intermediates\exploded-aar\com.hedgehog.ratingbar\app\1.1.2\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="1d44591ba0874a48bc2c8c32f636697d6997e232">
+        <dex dex="F:\github\LaifukouShop\app\build\intermediates\pre-dexed\release\com.hedgehog.ratingbar-app-1.1.2_c02f3e1e9dc340fd2d6685e2c8a3c6629fa645b8.jar" />
+    </item>
+    <item
         jar="F:\github\LaifukouShop\app\libs\alipaySdk-20160825.jar"
         jumboMode="false"
         revision="23.0.1"
