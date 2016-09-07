@@ -39,6 +39,19 @@
                 android:layout_toRightOf="@+id/tv_consignee" />
 
             <TextView
+                android:id="@+id/tv_is_default"
+                style="@style/white_10"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@+id/tv_phone"
+                android:background="@drawable/bg_red1"
+                android:paddingBottom="2dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="2dp"
+                android:text="默认"
+                android:visibility="gone" />
+
+            <TextView
                 android:id="@+id/tv_address"
                 style="@style/gray9_14"
                 android:layout_alignLeft="@+id/tv_consignee"
@@ -83,9 +96,9 @@
             <TextView
                 android:id="@+id/tv_good_count"
                 style="@style/gray9_14"
+                android:gravity="center"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:gravity="center"
                 android:text="共0件" />
 
         </LinearLayout>

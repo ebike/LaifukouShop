@@ -68,6 +68,7 @@ public class MyFragment extends LazyFragment {
             SubscriberOnNextListener listener = new SubscriberOnNextListener<UserCashBalanceModel>() {
                 @Override
                 public void onNext(UserCashBalanceModel model) {
+                    StaticValues.balanceModel = model;
                     accountBalanceView.setText("￥" + model.money);
                     goldCoinsView.setText(model.goldCoin);
                     silverCoinsView.setText(model.coin);

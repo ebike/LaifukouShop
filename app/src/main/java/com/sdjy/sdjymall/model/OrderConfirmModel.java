@@ -13,6 +13,7 @@ public class OrderConfirmModel {
     public String postMoney;
     public String totalGoods;
     public List<GoodsSampleItemModel> items;
+    public AddressModel address;
 
     public OrderConfirmModel() {
     }

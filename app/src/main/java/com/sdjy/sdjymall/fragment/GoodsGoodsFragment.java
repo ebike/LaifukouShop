@@ -17,6 +17,7 @@ import com.sdjy.sdjymall.common.model.TabIndicator;
 import com.sdjy.sdjymall.common.util.ViewPagerUtil;
 import com.sdjy.sdjymall.model.GoodsInfoModel;
 import com.sdjy.sdjymall.model.GoodsPricesModel;
+import com.sdjy.sdjymall.util.GoodsUtils;
 import com.sdjy.sdjymall.view.ChooseStandardDialog;
 
 import java.util.ArrayList;
@@ -106,13 +107,7 @@ public class GoodsGoodsFragment extends LazyFragment {
             //商品价格
             if (goodsInfoModel.goodsPrices != null && goodsInfoModel.goodsPrices.size() > 0) {
                 GoodsPricesModel goodsPricesModel = goodsInfoModel.goodsPrices.get(0);
-                if (goodsInfoModel.priceType == 1) {
-                    amountView.setText("￥" + goodsPricesModel.priceMoney);
-                } else if (goodsInfoModel.priceType == 2) {
-                    amountView.setText("￥" + goodsPricesModel.priceMoney + " + 金币 " + goodsPricesModel.priceGoldCoin);
-                } else if (goodsInfoModel.priceType == 3) {
-                    amountView.setText("币 " + goodsPricesModel.priceCoin);
-                }
+                amountView.setText(GoodsUtils.getPrice(goodsInfoModel.priceType, goodsPricesModel));
                 standardView.setText(goodsPricesModel.standard);
             }
 
@@ -156,7 +151,7 @@ public class GoodsGoodsFragment extends LazyFragment {
             dialog.setIntoCarCallback(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((GoodsInfoActivity)getActivity()).intoCar();
+                    ((GoodsInfoActivity) getActivity()).intoCar();
                 }
             });
         }

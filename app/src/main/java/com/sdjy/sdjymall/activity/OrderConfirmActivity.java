@@ -1,6 +1,7 @@
 package com.sdjy.sdjymall.activity;
 
 import android.content.Intent;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -9,7 +10,9 @@ import com.bumptech.glide.Glide;
 import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.activity.base.BaseActivity;
 import com.sdjy.sdjymall.common.util.DensityUtils;
+import com.sdjy.sdjymall.common.util.DialogUtils;
 import com.sdjy.sdjymall.common.util.T;
+import com.sdjy.sdjymall.event.RefreshEvent;
 import com.sdjy.sdjymall.http.HttpMethods;
 import com.sdjy.sdjymall.model.AddressModel;
 import com.sdjy.sdjymall.model.GoodsSampleItemModel;
@@ -42,6 +45,14 @@ public class OrderConfirmActivity extends BaseActivity {
     TextView postPriceView;
     @Bind(R.id.tv_real_amount)
     TextView realAmountView;
+    @Bind(R.id.tv_consignee)
+    TextView consigneeView;
+    @Bind(R.id.tv_phone)
+    TextView phoneView;
+    @Bind(R.id.tv_address)
+    TextView addressView;
+    @Bind(R.id.tv_is_default)
+    TextView isDefaultView;
 
     private AddressModel addressModel;
     private String ids;
@@ -70,6 +81,29 @@ public class OrderConfirmActivity extends BaseActivity {
 
     private void initViews() {
         if (orderConfirmModel != null) {
+            addressModel = orderConfirmModel.address;
+            if (addressModel == null) {
+                DialogUtils.showDialog(this, "您还没有收货地址哦，赶快去设置一个吧！", "去设置", "取消", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(OrderConfirmActivity.this, AddReceiveAddressActivity.class));
+                    }
+                }, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        OrderConfirmActivity.this.finish();
+                    }
+                });
+                return;
+            }
+            consigneeView.setText(addressModel.consignee);
+            phoneView.setText(addressModel.mobile);
+            addressView.setText(addressModel.address);
+            if (addressModel.isDefault == 1) {
+                isDefaultView.setVisibility(View.VISIBLE);
+            } else {
+                isDefaultView.setVisibility(View.GONE);
+            }
 
             for (GoodsSampleItemModel model : orderConfirmModel.items) {
                 ImageView imageView = new ImageView(this);
@@ -118,14 +152,17 @@ public class OrderConfirmActivity extends BaseActivity {
         HttpMethods.getInstance().submitOrder(new ProgressSubscriber<OrderInfoModel>(new SubscriberOnNextListener<HttpResult<OrderInfoModel>>() {
             @Override
             public void onNext(HttpResult<OrderInfoModel> httpResult) {
-                if ("1".equals(httpResult.code)) {
-
-                } else if ("2".equals(httpResult.code)) {
-
+                Intent intent = new Intent();
+                intent.putExtra("OrderInfoModel", httpResult.data);
+                if ("1".equals(httpResult.code) || "2".equals(httpResult.code)) {
+                    intent.setClass(OrderConfirmActivity.this, OrderPayActivity.class);
+                    intent.putExtra("code", httpResult.code);
+                    startActivity(intent);
                 } else if ("3".equals(httpResult.code)) {
-
+                    intent.setClass(OrderConfirmActivity.this, PaySuccessActivity.class);
+                    startActivity(intent);
                 } else {
-
+                    T.showShort(OrderConfirmActivity.this, httpResult.message);
                 }
             }
         }, this), ids, addressModel.id);
@@ -134,6 +171,18 @@ public class OrderConfirmActivity extends BaseActivity {
 
     public void onEvent(AddressModel model) {
         addressModel = model;
+    }
+
+    public void onEvent(RefreshEvent event) {
+        if (event.simpleName.equals(this.getClass().getSimpleName())) {
+            HttpMethods.getInstance().confirmOrder(new ProgressSubscriber<OrderConfirmModel>(new SubscriberOnNextListener<OrderConfirmModel>() {
+                @Override
+                public void onNext(OrderConfirmModel model) {
+                    orderConfirmModel = model;
+                    initViews();
+                }
+            }, this), ids);
+        }
     }
 
     @Override

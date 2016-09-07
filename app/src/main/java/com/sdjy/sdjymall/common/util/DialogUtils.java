@@ -110,6 +110,15 @@ public class DialogUtils {
                                             String message,
                                             String positiveText,
                                             String negativeText,
+                                            final View.OnClickListener positiveListener,
+                                            final View.OnClickListener negativeListener) {
+        return showDialog(context, null, message, null, positiveText, negativeText, positiveListener, negativeListener);
+    }
+
+    public static MaterialDialog showDialog(Context context,
+                                            String message,
+                                            String positiveText,
+                                            String negativeText,
                                             final View.OnClickListener positiveListener) {
         return showDialog(context, null, message, null, positiveText, negativeText, positiveListener, null);
     }

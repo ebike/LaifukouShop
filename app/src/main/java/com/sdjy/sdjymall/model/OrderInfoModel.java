@@ -1,11 +1,12 @@
 package com.sdjy.sdjymall.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 订单详情
  */
-public class OrderInfoModel {
+public class OrderInfoModel implements Serializable{
 
     public String orderId;
 

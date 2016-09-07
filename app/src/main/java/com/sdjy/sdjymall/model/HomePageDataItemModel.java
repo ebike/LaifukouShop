@@ -14,7 +14,7 @@ public class HomePageDataItemModel {
     // 展示的图片
     public String imageUrl;
     //价格类型
-    public String priceType;
+    public int priceType;
     //现金
     public String priceMoney;
     //金币

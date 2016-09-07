@@ -4,11 +4,12 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.TextView;
 
+import com.sdjy.sdjymall.R;
+import com.sdjy.sdjymall.activity.base.BaseActivity;
 import com.sdjy.sdjymall.common.adapter.ViewPagerFragmentAdapter;
 import com.sdjy.sdjymall.common.model.TabIndicator;
 import com.sdjy.sdjymall.common.util.ViewPagerUtil;
-import com.sdjy.sdjymall.R;
-import com.sdjy.sdjymall.activity.base.BaseActivity;
+import com.sdjy.sdjymall.event.ChangeHomeTabEvent;
 import com.sdjy.sdjymall.fragment.HomeFragment;
 import com.sdjy.sdjymall.fragment.MyFragment;
 import com.sdjy.sdjymall.fragment.RecommendedFragment;
@@ -21,6 +22,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 public class MainActivity extends BaseActivity {
 
@@ -38,6 +40,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void loadLoyout() {
         setContentView(R.layout.activity_main);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -88,4 +91,13 @@ public class MainActivity extends BaseActivity {
         viewPager.setCurrentItem(currentFragment);
     }
 
+    public void onEvent(ChangeHomeTabEvent event) {
+        changeTab(event.position);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

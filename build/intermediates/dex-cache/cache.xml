@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
+
+    <item
+        jar="F:\github\LaifukouShop\app\libs\alipaySdk-20160825.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="08cfc3ced256c0e40853f35882c6bd23a191b416">
+        <dex dex="F:\github\LaifukouShop\app\build\intermediates\pre-dexed\debug\alipaySdk-20160825_4ca8e8413db185d8bd3bc81c84d88c3edb69c58f.jar" />
+    </item>
+
+</items>

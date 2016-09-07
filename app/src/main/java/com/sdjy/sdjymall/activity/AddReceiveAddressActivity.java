@@ -127,6 +127,7 @@ public class AddReceiveAddressActivity extends BaseActivity {
             public void onNext(Object o) {
                 T.showShort(AddReceiveAddressActivity.this, "保存成功");
                 EventBus.getDefault().post(new RefreshEvent(ReceiveAddressActivity.class.getSimpleName()));
+                EventBus.getDefault().post(new RefreshEvent(OrderConfirmActivity.class.getSimpleName()));
                 AddReceiveAddressActivity.this.finish();
             }
         };
