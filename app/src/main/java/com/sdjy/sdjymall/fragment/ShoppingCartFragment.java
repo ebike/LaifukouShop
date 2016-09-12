@@ -25,6 +25,7 @@ import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.SubscriberNextErrorListener;
 import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
 import com.sdjy.sdjymall.util.CartUtils;
+import com.sdjy.sdjymall.util.GoodsUtils;
 import com.sdjy.sdjymall.view.PullListFragmentHandler;
 import com.sdjy.sdjymall.view.pullrefresh.PullToRefreshListView;
 
@@ -209,6 +210,8 @@ public class ShoppingCartFragment extends BaseListFragment {
         boolean isAllSelected = CartUtils.isAllSelected(carShopList);
         int count = 0;
         Double amount = 0d;
+        int goldCoin = 0;
+        int coin = 0;
         if (isAllSelected) {
             Drawable drawable = getResources().getDrawable(R.mipmap.icon_circle_nosel);
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
@@ -227,13 +230,24 @@ public class ShoppingCartFragment extends BaseListFragment {
                 shopModel.setSelected(true);
                 for (CarGoodsModel goodsModel : shopModel.getGoods()) {
                     count += goodsModel.getNum();
-                    amount += Double.valueOf(goodsModel.getPriceMoney()) * goodsModel.getNum();
+                    switch (goodsModel.getPriceType()) {
+                        case 1:
+                            amount += Double.valueOf(goodsModel.getPriceMoney()) * goodsModel.getNum();
+                            break;
+                        case 2:
+                            amount += Double.valueOf(goodsModel.getPriceMoney()) * goodsModel.getNum();
+                            goldCoin += Integer.valueOf(goodsModel.getPriceGoldCoin()) * goodsModel.getNum();
+                            break;
+                        case 3:
+                            coin += Integer.valueOf(goodsModel.getPriceCoin()) * goodsModel.getNum();
+                            break;
+                    }
                     goodsModel.setSelected(true);
                 }
             }
         }
         adapter.setList(carShopList);
-        totalView.setText("合计:￥" + amount);
+        totalView.setText("合计：" + GoodsUtils.formatPrice(amount + "", goldCoin, coin));
         if (count > 99) {
             checkoutView.setText("去结算(99+)");
         } else {
@@ -319,6 +333,8 @@ public class ShoppingCartFragment extends BaseListFragment {
         boolean isAllSelected = CartUtils.isAllSelected(carShopList);
         int count = 0;
         Double amount = 0d;
+        int goldCoin = 0;
+        int coin = 0;
         if (isAllSelected) {
             Drawable drawable = getResources().getDrawable(R.mipmap.icon_circle_sel);
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
@@ -332,11 +348,22 @@ public class ShoppingCartFragment extends BaseListFragment {
             for (CarGoodsModel goodsModel : shopModel.getGoods()) {
                 if (goodsModel.isSelected()) {
                     count += goodsModel.getNum();
-                    amount += Double.valueOf(goodsModel.getPriceMoney()) * goodsModel.getNum();
+                    switch (goodsModel.getPriceType()) {
+                        case 1:
+                            amount += Double.valueOf(goodsModel.getPriceMoney()) * goodsModel.getNum();
+                            break;
+                        case 2:
+                            amount += Double.valueOf(goodsModel.getPriceMoney()) * goodsModel.getNum();
+                            goldCoin += Integer.valueOf(goodsModel.getPriceGoldCoin()) * goodsModel.getNum();
+                            break;
+                        case 3:
+                            coin += Integer.valueOf(goodsModel.getPriceCoin()) * goodsModel.getNum();
+                            break;
+                    }
                 }
             }
         }
-        totalView.setText("合计:￥" + amount);
+        totalView.setText("合计：" + GoodsUtils.formatPrice(amount + "", goldCoin, coin));
         if (count > 99) {
             checkoutView.setText("去结算(99+)");
         } else {

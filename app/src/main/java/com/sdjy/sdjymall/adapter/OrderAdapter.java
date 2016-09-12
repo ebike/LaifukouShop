@@ -76,24 +76,26 @@ public class OrderAdapter extends TAdapter<OrderModel> {
             }
             shopNameView.setText(model.shopName);
             showViewByState(model.state, cancelView, payView, deliveryView, submitView, deleteView);
-            for (String pic : model.pics) {
-                ImageView imageView = new ImageView(mContext);
-                Glide.with(mContext)
-                        .load(pic)
-                        .error(R.mipmap.img_goods_default)
-                        .into(imageView);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(DensityUtils.dp2px(mContext, 70), DensityUtils.dp2px(mContext, 70));
-                params.setMargins(0, 0, DensityUtils.dp2px(mContext, 12), 0);
-                picsLayout.addView(imageView, params);
-            }
+            if (model.pics != null && model.pics.size() > 0) {
+                for (String pic : model.pics) {
+                    ImageView imageView = new ImageView(mContext);
+                    Glide.with(mContext)
+                            .load(pic)
+                            .error(R.mipmap.img_goods_default)
+                            .into(imageView);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(DensityUtils.dp2px(mContext, 70), DensityUtils.dp2px(mContext, 70));
+                    params.setMargins(0, 0, DensityUtils.dp2px(mContext, 12), 0);
+                    picsLayout.addView(imageView, params);
+                }
 
-            //计算商品图片是否超出屏幕，如果没有，需要补充剩余部分，为解决HorizontalScrollView点击无效
-            int width = ScreenUtils.getScreenWidth(mContext) - model.pics.size() * DensityUtils.dp2px(mContext, 82) - 2 * DensityUtils.dp2px(mContext, 12);
-            if (width >= 0) {
-                LinearLayout layout = new LinearLayout(mContext);
-                layout.setOrientation(LinearLayout.HORIZONTAL);
-                LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(width, DensityUtils.dp2px(mContext, 70));
-                picsLayout.addView(layout, params1);
+                //计算商品图片是否超出屏幕，如果没有，需要补充剩余部分，为解决HorizontalScrollView点击无效
+                int width = ScreenUtils.getScreenWidth(mContext) - model.pics.size() * DensityUtils.dp2px(mContext, 82) - 2 * DensityUtils.dp2px(mContext, 12);
+                if (width >= 0) {
+                    LinearLayout layout = new LinearLayout(mContext);
+                    layout.setOrientation(LinearLayout.HORIZONTAL);
+                    LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(width, DensityUtils.dp2px(mContext, 70));
+                    picsLayout.addView(layout, params1);
+                }
             }
 
             totalGoodsView.setText(model.totalGoods + "");

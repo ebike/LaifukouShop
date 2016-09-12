@@ -36,6 +36,8 @@ public class FeedbackTypeAdapter extends TAdapter<String> {
             textView.setText(type);
             if (!StringUtils.strIsEmpty(selectType) && type.equals(selectType)) {
                 selectedView.setVisibility(View.VISIBLE);
+            } else {
+                selectedView.setVisibility(View.GONE);
             }
         }
         return convertView;

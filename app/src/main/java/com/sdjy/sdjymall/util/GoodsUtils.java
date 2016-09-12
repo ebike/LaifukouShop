@@ -101,14 +101,25 @@ public class GoodsUtils {
 
     public static String formatPrice(String money, int goldCoin, int coin) {
         StringBuffer amount = new StringBuffer();
-        if (!"0.0".equals(money)) {
+        if (!"0.0".equals(money) && goldCoin != 0 && coin != 0) {
             amount.append("￥").append(money);
-        }
-        if (goldCoin != 0) {
             amount.append("+").append(goldCoin).append("金币");
-        }
-        if (coin != 0) {
             amount.append("+").append(coin).append("银币");
+        } else if (!"0.0".equals(money) && goldCoin != 0) {
+            amount.append("￥").append(money);
+            amount.append("+").append(goldCoin).append("金币");
+        } else if (!"0.0".equals(money) && coin != 0) {
+            amount.append("￥").append(money);
+            amount.append("+").append(coin).append("银币");
+        } else if (goldCoin != 0 && coin != 0) {
+            amount.append(goldCoin).append("金币");
+            amount.append("+").append(coin).append("银币");
+        } else if (!"0.0".equals(money)) {
+            amount.append("￥").append(money);
+        } else if (goldCoin != 0) {
+            amount.append(goldCoin).append("金币");
+        } else if (coin != 0) {
+            amount.append(coin).append("银币");
         }
         return amount.toString();
     }

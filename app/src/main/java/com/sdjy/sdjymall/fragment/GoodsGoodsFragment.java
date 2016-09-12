@@ -114,10 +114,10 @@ public class GoodsGoodsFragment extends LazyFragment {
             //包邮
             if (goodsInfoModel.includePost == 1) {
                 postPriceView.setVisibility(View.VISIBLE);
-                postPriceView.setText("(包邮)");
+                postPriceView.setText("，包邮");
             } else if (goodsInfoModel.includePost == 2) {
                 postPriceView.setVisibility(View.VISIBLE);
-                postPriceView.setText("(邮费：" + goodsInfoModel.postPrice + ")");
+                postPriceView.setText("，邮费：" + goodsInfoModel.postPrice);
             } else {
                 postPriceView.setVisibility(View.GONE);
             }

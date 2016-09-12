@@ -97,11 +97,12 @@
 
         <TextView
             android:id="@+id/tv_total"
-            style="@style/gray_16"
+            style="@style/gray_14"
             android:layout_marginBottom="16dp"
             android:layout_marginLeft="23dp"
             android:layout_marginTop="16dp"
             android:layout_weight="1"
+            android:singleLine="true"
             android:text="合计:￥0.00" />
 
         <TextView

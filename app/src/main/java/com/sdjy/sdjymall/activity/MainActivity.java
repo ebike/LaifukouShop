@@ -1,6 +1,7 @@
 package com.sdjy.sdjymall.activity;
 
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -93,6 +94,19 @@ public class MainActivity extends BaseActivity {
 
     public void onEvent(ChangeHomeTabEvent event) {
         changeTab(event.position);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (currentFragment != 0) {
+                changeTab(0);
+            } else {
+                this.finish();
+            }
+            return true;
+        }
+        return false;
     }
 
     @Override

@@ -30,6 +30,8 @@ public class CarGoodsModel extends RealmObject {
     private String priceId;
     //规格
     private String standard;
+    //商品规格
+    private GoodsPricesModel goodsPrices;
     //评价个数
     private int commentNum;
     //好评率
@@ -160,5 +162,13 @@ public class CarGoodsModel extends RealmObject {
 
     public void setOid(String oid) {
         this.oid = oid;
+    }
+
+    public GoodsPricesModel getGoodsPrices() {
+        return goodsPrices;
+    }
+
+    public void setGoodsPrices(GoodsPricesModel goodsPrices) {
+        this.goodsPrices = goodsPrices;
     }
 }
