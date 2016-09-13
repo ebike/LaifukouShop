@@ -96,7 +96,7 @@ public class ShoppingCartGoodsAdapter extends TAdapter<CarGoodsModel> {
                             model.setSelectedInEdit(true);
                         }
                     } else {
-                        if (model.isSelected() || model.getGoodsPrices().stock == 0) {
+                        if (model.isSelected()) {
                             model.setSelected(false);
                         } else {
                             model.setSelected(true);

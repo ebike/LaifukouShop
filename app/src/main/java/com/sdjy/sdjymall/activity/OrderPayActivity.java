@@ -61,8 +61,8 @@ public class OrderPayActivity extends BaseActivity {
         titleView.setText("支付订单");
 
         amountView.setText("￥" + infoModel.money);
-        goldCoinView.setText(infoModel.goldCoin);
-        coinView.setText(infoModel.coin);
+        goldCoinView.setText(infoModel.goldCoin + "");
+        coinView.setText(infoModel.coin + "");
         postPriceView.setText("￥" + infoModel.postMoney);
         accountBalanceView.setText("账户余额：￥" + StaticValues.balanceModel.money);
 
@@ -116,12 +116,6 @@ public class OrderPayActivity extends BaseActivity {
     @OnClick(R.id.btn_confirm)
     public void confirm() {
         if ("1".equals(code)) {
-//            BizContentModel bizContentModel = new BizContentModel();
-//            bizContentModel.body = "";
-//            Map<String, String> params = OrderInfoUtil2_0.buildOrderParamMap(FinalValues.APPID);
-//            String orderParam = OrderInfoUtil2_0.buildOrderParam(params);
-//            String sign = OrderInfoUtil2_0.getSign(params, RSA_PRIVATE);
-//            final String orderInfo = orderParam + "&" + sign;
             final String orderInfo = "";
 
             Runnable payRunnable = new Runnable() {

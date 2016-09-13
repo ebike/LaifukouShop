@@ -158,9 +158,11 @@ public class OrderConfirmActivity extends BaseActivity {
                     intent.setClass(OrderConfirmActivity.this, OrderPayActivity.class);
                     intent.putExtra("code", httpResult.code);
                     startActivity(intent);
+                    OrderConfirmActivity.this.finish();
                 } else if ("3".equals(httpResult.code)) {
                     intent.setClass(OrderConfirmActivity.this, PaySuccessActivity.class);
                     startActivity(intent);
+                    OrderConfirmActivity.this.finish();
                 } else {
                     T.showShort(OrderConfirmActivity.this, httpResult.message);
                 }

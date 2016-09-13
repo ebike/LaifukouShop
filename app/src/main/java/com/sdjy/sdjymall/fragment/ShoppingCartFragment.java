@@ -275,6 +275,7 @@ public class ShoppingCartFragment extends BaseListFragment {
                 Intent intent = new Intent(getActivity(), OrderConfirmActivity.class);
                 intent.putExtra("ids", ids.toString());
                 startActivity(intent);
+                requestDatas();
             } else {
                 T.showShort(getActivity(), "请您先登录");
             }
