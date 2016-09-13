@@ -16,4 +16,6 @@ public class FinalValues {
     public static final String compressedImage = Environment.getExternalStorageDirectory() + "/sdjymall/compressedImage/";
     //支付宝支付
     public static final int SDK_PAY_FLAG = 1;
+    //支付宝支付业务：入参app_id
+    public static final String APPID = "2016090101832176";
 }

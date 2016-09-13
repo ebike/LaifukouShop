@@ -116,14 +116,20 @@ public class OrderPayActivity extends BaseActivity {
     @OnClick(R.id.btn_confirm)
     public void confirm() {
         if ("1".equals(code)) {
-            final String orderInfo = "";   // 订单信息
+//            BizContentModel bizContentModel = new BizContentModel();
+//            bizContentModel.body = "";
+//            Map<String, String> params = OrderInfoUtil2_0.buildOrderParamMap(FinalValues.APPID);
+//            String orderParam = OrderInfoUtil2_0.buildOrderParam(params);
+//            String sign = OrderInfoUtil2_0.getSign(params, RSA_PRIVATE);
+//            final String orderInfo = orderParam + "&" + sign;
+            final String orderInfo = "";
 
             Runnable payRunnable = new Runnable() {
 
                 @Override
                 public void run() {
                     PayTask alipay = new PayTask(OrderPayActivity.this);
-                    Map<String, String> result = alipay.payV2(orderInfo,true);
+                    Map<String, String> result = alipay.payV2(orderInfo, true);
 
                     Message msg = new Message();
                     msg.what = 1;
