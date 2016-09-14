@@ -12,21 +12,30 @@
         android:paddingLeft="12dp"
         android:src="@mipmap/icon_circle_nosel" />
 
-    <LinearLayout
-        android:id="@+id/ll_pic"
+    <FrameLayout
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:layout_margin="12dp"
-        android:background="@drawable/border_line"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:background="@drawable/border_line">
 
         <ImageView
             android:id="@+id/iv_pic"
             android:layout_width="95dp"
             android:layout_height="95dp"
+            android:layout_gravity="center"
             android:src="@mipmap/img_goods_default" />
-    </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_no_goods"
+            style="@style/white_14"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_gray_circular"
+            android:gravity="center"
+            android:text="无货"
+            android:visibility="gone" />
+    </FrameLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -1,7 +1,11 @@
 package com.sdjy.sdjymall.http;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 
+import com.sdjy.sdjymall.activity.OrderPayActivity;
+import com.sdjy.sdjymall.activity.PaySuccessActivity;
 import com.sdjy.sdjymall.common.util.SPUtils;
 import com.sdjy.sdjymall.common.util.T;
 import com.sdjy.sdjymall.constants.StaticValues;
@@ -9,6 +13,9 @@ import com.sdjy.sdjymall.event.LogoutEvent;
 import com.sdjy.sdjymall.model.CarGoodsModel;
 import com.sdjy.sdjymall.model.CarShopModel;
 import com.sdjy.sdjymall.model.HttpResult;
+import com.sdjy.sdjymall.model.OrderInfoModel;
+import com.sdjy.sdjymall.model.UserCashBalanceModel;
+import com.sdjy.sdjymall.subscribers.NoProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
 
@@ -50,6 +57,44 @@ public class CommonMethods {
             HttpMethods.getInstance().syncShoppingCart(new ProgressSubscriber(listener, context), goodsIds.toString(), priceIds.toString(), nums.toString());
         }
         realm.close();
+    }
+
+    //账户资金
+    public static void userCashBalance(Context context) {
+        SubscriberOnNextListener listener = new SubscriberOnNextListener<UserCashBalanceModel>() {
+            @Override
+            public void onNext(UserCashBalanceModel model) {
+                StaticValues.balanceModel = model;
+            }
+        };
+        HttpMethods.getInstance().userCashBalance(new NoProgressSubscriber<UserCashBalanceModel>(listener, context), StaticValues.userModel.userId);
+    }
+
+    //去付款
+    public static void toPayOrder(final Context context, String orderId) {
+        HttpMethods.getInstance().toPayOrder(new ProgressSubscriber<OrderInfoModel>(new SubscriberOnNextListener<HttpResult<OrderInfoModel>>() {
+            @Override
+            public void onNext(HttpResult<OrderInfoModel> httpResult) {
+                Intent intent = new Intent();
+                intent.putExtra("OrderInfoModel", httpResult.data);
+                if ("1".equals(httpResult.code) || "2".equals(httpResult.code)) {
+                    intent.setClass(context, OrderPayActivity.class);
+                    intent.putExtra("code", httpResult.code);
+                    context.startActivity(intent);
+                    if (context instanceof Activity) {
+                        ((Activity) context).finish();
+                    }
+                } else if ("3".equals(httpResult.code)) {
+                    intent.setClass(context, PaySuccessActivity.class);
+                    context.startActivity(intent);
+                    if (context instanceof Activity) {
+                        ((Activity) context).finish();
+                    }
+                } else {
+                    T.showShort(context, httpResult.message);
+                }
+            }
+        }, context), orderId);
     }
 
     //退出登录

@@ -11,6 +11,7 @@ import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.common.adapter.AutoRVAdapter;
 import com.sdjy.sdjymall.common.adapter.ViewHolder;
 import com.sdjy.sdjymall.model.GoodsModel;
+import com.sdjy.sdjymall.util.GoodsUtils;
 
 import java.util.List;
 
@@ -46,13 +47,7 @@ public class GoodsRVAdapter extends AutoRVAdapter<GoodsModel> {
                     .centerCrop()
                     .into(pictureView);
             titleView.setText(model.goodsName);
-            if ("1".equals(model.priceType)) {
-                moneyView.setText("￥" + model.priceMoney);
-            } else if ("2".equals(model.priceType)) {
-                moneyView.setText("￥" + model.priceMoney + " + 金币 " + model.priceGoldCoin);
-            } else if ("3".equals(model.priceType)) {
-                moneyView.setText("币 " + model.priceCoin);
-            }
+            moneyView.setText(GoodsUtils.getPrice(model.priceType, model));
             commentsCountView.setText(model.commentNum + "条评论");
             commentsRateView.setText("好评" + model.praiseRate);
             rootLayout.setOnClickListener(new View.OnClickListener() {

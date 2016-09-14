@@ -90,6 +90,7 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
                 SPUtils.put(LoginActivity.this, "loginTime", DateUtil.DateToString(new Date(), null));
                 EventBus.getDefault().post(model);
                 CommonMethods.syncShoppingCart(LoginActivity.this);
+                CommonMethods.userCashBalance(LoginActivity.this);
                 LoginActivity.this.finish();
             }
         };

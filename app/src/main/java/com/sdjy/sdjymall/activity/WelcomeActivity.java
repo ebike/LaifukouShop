@@ -7,6 +7,7 @@ import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.activity.base.BaseActivity;
 import com.sdjy.sdjymall.common.util.SPUtils;
 import com.sdjy.sdjymall.constants.StaticValues;
+import com.sdjy.sdjymall.http.CommonMethods;
 import com.sdjy.sdjymall.http.HttpMethods;
 import com.sdjy.sdjymall.model.UserModel;
 import com.sdjy.sdjymall.subscribers.NoProgressSubscriber;
@@ -41,6 +42,7 @@ public class WelcomeActivity extends BaseActivity {
                     StaticValues.userModel = model;
                     SPUtils.put(WelcomeActivity.this, "loginTime", DateUtil.DateToString(new Date(), null));
                     EventBus.getDefault().post(model);
+                    CommonMethods.userCashBalance(WelcomeActivity.this);
                     startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
                     WelcomeActivity.this.finish();
                 }

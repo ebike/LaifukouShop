@@ -16,9 +16,11 @@ import com.sdjy.sdjymall.common.model.TabIndicator;
 import com.sdjy.sdjymall.common.util.T;
 import com.sdjy.sdjymall.common.util.ViewPagerUtil;
 import com.sdjy.sdjymall.constants.StaticValues;
+import com.sdjy.sdjymall.event.RefreshEvent;
 import com.sdjy.sdjymall.fragment.GoodsDetailFragment;
 import com.sdjy.sdjymall.fragment.GoodsEvaluateFragment;
 import com.sdjy.sdjymall.fragment.GoodsGoodsFragment;
+import com.sdjy.sdjymall.fragment.ShoppingCartFragment;
 import com.sdjy.sdjymall.http.HttpMethods;
 import com.sdjy.sdjymall.model.CarGoodsModel;
 import com.sdjy.sdjymall.model.CarShopModel;
@@ -39,6 +41,7 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 import io.realm.Realm;
 import io.realm.RealmList;
 
@@ -238,6 +241,7 @@ public class GoodsInfoActivity extends BaseActivity {
                 @Override
                 public void onNext(HttpResult httpResult) {
                     T.showShort(GoodsInfoActivity.this, httpResult.message);
+                    EventBus.getDefault().post(new RefreshEvent(ShoppingCartFragment.class.getSimpleName()));
                     intoCarAnim(imageView);
                 }
             };

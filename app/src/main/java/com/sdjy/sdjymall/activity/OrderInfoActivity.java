@@ -10,6 +10,7 @@ import com.sdjy.sdjymall.activity.base.BaseActivity;
 import com.sdjy.sdjymall.adapter.OrderGoodsAdapter;
 import com.sdjy.sdjymall.common.util.T;
 import com.sdjy.sdjymall.event.RefreshEvent;
+import com.sdjy.sdjymall.http.CommonMethods;
 import com.sdjy.sdjymall.http.HttpMethods;
 import com.sdjy.sdjymall.model.OrderInfoModel;
 import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
@@ -169,7 +170,7 @@ public class OrderInfoActivity extends BaseActivity {
 
     @OnClick(R.id.tv_pay)
     public void pay() {
-
+        CommonMethods.toPayOrder(this, orderId);
     }
 
     @OnClick(R.id.tv_submit)

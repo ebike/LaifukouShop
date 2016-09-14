@@ -62,7 +62,7 @@ public class ShoppingCartAdapter extends TAdapter<CarShopModel> {
             adapter.setCallback(new ShoppingCartGoodsAdapter.ChangeSelectedCallback() {
                 @Override
                 public void onChanged() {
-                    if(StaticValues.userModel == null){
+                    if (StaticValues.userModel == null) {
                         realm.beginTransaction();
                     }
                     if (inEdit) {
@@ -80,7 +80,7 @@ public class ShoppingCartAdapter extends TAdapter<CarShopModel> {
                             model.setSelected(false);
                         }
                     }
-                    if(StaticValues.userModel == null){
+                    if (StaticValues.userModel == null) {
                         realm.commitTransaction();
                     }
                     notifyDataSetChanged();
@@ -94,7 +94,7 @@ public class ShoppingCartAdapter extends TAdapter<CarShopModel> {
             selectedView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(StaticValues.userModel == null){
+                    if (StaticValues.userModel == null) {
                         realm.beginTransaction();
                     }
                     if (inEdit) {
@@ -120,11 +120,15 @@ public class ShoppingCartAdapter extends TAdapter<CarShopModel> {
                         } else {
                             model.setSelected(true);
                             for (CarGoodsModel goodsModel : model.getGoods()) {
-                                goodsModel.setSelected(true);
+                                if (goodsModel.getStock() == 0) {
+                                    goodsModel.setSelected(false);
+                                } else {
+                                    goodsModel.setSelected(true);
+                                }
                             }
                         }
                     }
-                    if(StaticValues.userModel == null){
+                    if (StaticValues.userModel == null) {
                         realm.commitTransaction();
                     }
                     notifyDataSetChanged();

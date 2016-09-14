@@ -13,6 +13,7 @@ import com.sdjy.sdjymall.common.util.DensityUtils;
 import com.sdjy.sdjymall.common.util.DialogUtils;
 import com.sdjy.sdjymall.common.util.T;
 import com.sdjy.sdjymall.event.RefreshEvent;
+import com.sdjy.sdjymall.fragment.ShoppingCartFragment;
 import com.sdjy.sdjymall.http.HttpMethods;
 import com.sdjy.sdjymall.model.AddressModel;
 import com.sdjy.sdjymall.model.GoodsSampleItemModel;
@@ -152,6 +153,7 @@ public class OrderConfirmActivity extends BaseActivity {
         HttpMethods.getInstance().submitOrder(new ProgressSubscriber<OrderInfoModel>(new SubscriberOnNextListener<HttpResult<OrderInfoModel>>() {
             @Override
             public void onNext(HttpResult<OrderInfoModel> httpResult) {
+                EventBus.getDefault().post(new RefreshEvent(ShoppingCartFragment.class.getSimpleName()));
                 Intent intent = new Intent();
                 intent.putExtra("OrderInfoModel", httpResult.data);
                 if ("1".equals(httpResult.code) || "2".equals(httpResult.code)) {

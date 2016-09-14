@@ -11,6 +11,8 @@ import com.bumptech.glide.Glide;
 import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.common.util.T;
 import com.sdjy.sdjymall.constants.StaticValues;
+import com.sdjy.sdjymall.event.RefreshEvent;
+import com.sdjy.sdjymall.fragment.ShoppingCartFragment;
 import com.sdjy.sdjymall.http.HttpMethods;
 import com.sdjy.sdjymall.model.GoodsItemModel;
 import com.sdjy.sdjymall.model.HttpResult;
@@ -18,6 +20,8 @@ import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
 import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
 import com.sdjy.sdjymall.util.GoodsUtils;
 import com.sdjy.sdjymall.view.ViewHolder;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * 订单商品
@@ -58,6 +62,7 @@ public class OrderGoodsAdapter extends TAdapter<GoodsItemModel> {
                         @Override
                         public void onNext(HttpResult httpResult) {
                             T.showShort(mContext, httpResult.message);
+                            EventBus.getDefault().post(new RefreshEvent(ShoppingCartFragment.class.getSimpleName()));
                         }
                     }, mContext), StaticValues.userModel.userId, model.goodsId, model.priceId, 1);
                 }

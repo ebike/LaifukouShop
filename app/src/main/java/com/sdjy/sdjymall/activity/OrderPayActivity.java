@@ -1,21 +1,26 @@
 package com.sdjy.sdjymall.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
 import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.activity.base.BaseActivity;
+import com.sdjy.sdjymall.common.util.T;
 import com.sdjy.sdjymall.constants.FinalValues;
 import com.sdjy.sdjymall.constants.StaticValues;
+import com.sdjy.sdjymall.http.HttpMethods;
+import com.sdjy.sdjymall.model.HttpResult;
 import com.sdjy.sdjymall.model.OrderInfoModel;
 import com.sdjy.sdjymall.model.PayResult;
+import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
+import com.sdjy.sdjymall.subscribers.SubscriberOnNextListener;
 import com.sdjy.sdjymall.util.StringUtils;
 
 import java.util.Map;
@@ -47,6 +52,7 @@ public class OrderPayActivity extends BaseActivity {
     private boolean unuseWallet;
     double less = 0;
     double total = 0;
+    private int useBalance = 2;
 
     @Override
     public void loadLoyout() {
@@ -65,7 +71,6 @@ public class OrderPayActivity extends BaseActivity {
         coinView.setText(infoModel.coin + "");
         postPriceView.setText("￥" + infoModel.postMoney);
         accountBalanceView.setText("账户余额：￥" + StaticValues.balanceModel.money);
-
 
         if (!StringUtils.strIsEmpty(infoModel.money)) {
             total += Double.valueOf(infoModel.money);
@@ -105,36 +110,63 @@ public class OrderPayActivity extends BaseActivity {
             } else {
                 lessView.setText("￥0");
             }
+            useBalance = 2;
+            unuseWallet = false;
         } else {
             Drawable drawable = getResources().getDrawable(R.mipmap.icon_circle_nosel);
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             accountBalanceView.setCompoundDrawables(drawable, null, null, null);
             lessView.setText("￥" + total);
+            useBalance = 1;
+            unuseWallet = true;
         }
+    }
+
+    @OnClick(R.id.tv_warn)
+    public void warn() {
+        startActivity(new Intent(this, RechargeActivity.class));
+        finish();
     }
 
     @OnClick(R.id.btn_confirm)
     public void confirm() {
         if ("1".equals(code)) {
-            final String orderInfo = "";
-
-            Runnable payRunnable = new Runnable() {
-
+            HttpMethods.getInstance().payOrder(new ProgressSubscriber<OrderInfoModel>(new SubscriberOnNextListener<HttpResult<OrderInfoModel>>() {
                 @Override
-                public void run() {
-                    PayTask alipay = new PayTask(OrderPayActivity.this);
-                    Map<String, String> result = alipay.payV2(orderInfo, true);
-
-                    Message msg = new Message();
-                    msg.what = 1;
-                    msg.obj = result;
-                    mHandler.sendMessage(msg);
+                public void onNext(HttpResult<OrderInfoModel> httpResult) {
+                    infoModel = httpResult.data;
+                    if ("1".equals(httpResult.code)) {
+                        pay(httpResult.data.orderInfo);
+                    } else if ("2".equals(httpResult.code)) {
+                        Intent intent = new Intent(OrderPayActivity.this, PaySuccessActivity.class);
+                        intent.putExtra("OrderInfoModel", infoModel);
+                        startActivity(intent);
+                        OrderPayActivity.this.finish();
+                    } else {
+                        T.showShort(OrderPayActivity.this, httpResult.message);
+                    }
                 }
-            };
-            // 必须异步调用
-            Thread payThread = new Thread(payRunnable);
-            payThread.start();
+            }, this), infoModel.orderId, useBalance, "alipay");
         }
+    }
+
+    private void pay(final String orderInfo) {
+        Runnable payRunnable = new Runnable() {
+
+            @Override
+            public void run() {
+                PayTask alipay = new PayTask(OrderPayActivity.this);
+                Map<String, String> result = alipay.payV2(orderInfo, true);
+
+                Message msg = new Message();
+                msg.what = 1;
+                msg.obj = result;
+                mHandler.sendMessage(msg);
+            }
+        };
+        // 必须异步调用
+        Thread payThread = new Thread(payRunnable);
+        payThread.start();
     }
 
     @SuppressLint("HandlerLeak")
@@ -152,11 +184,12 @@ public class OrderPayActivity extends BaseActivity {
                     String resultStatus = payResult.getResultStatus();
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
-                        // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
-                        Toast.makeText(OrderPayActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(OrderPayActivity.this, PaySuccessActivity.class);
+                        intent.putExtra("OrderInfoModel", infoModel);
+                        startActivity(intent);
+                        OrderPayActivity.this.finish();
                     } else {
-                        // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
-                        Toast.makeText(OrderPayActivity.this, "支付失败", Toast.LENGTH_SHORT).show();
+                        T.showShort(OrderPayActivity.this, "支付失败");
                     }
                     break;
                 }

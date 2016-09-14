@@ -24,6 +24,8 @@ public class CarGoodsModel extends RealmObject {
     private String priceGoldCoin;
     //银币
     private String priceCoin;
+    //库存
+    private int stock;
     //数量
     private int num;
     //价格ID
@@ -160,5 +162,13 @@ public class CarGoodsModel extends RealmObject {
 
     public void setOid(String oid) {
         this.oid = oid;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 }

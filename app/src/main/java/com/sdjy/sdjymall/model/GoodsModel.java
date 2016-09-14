@@ -11,7 +11,7 @@ public class GoodsModel {
     //商品图片
     public String imageUrl;
     //价格类型
-    public String priceType;
+    public int priceType;
     //现金
     public String priceMoney;
     //金币

@@ -41,6 +41,7 @@ public class ShoppingCartGoodsAdapter extends TAdapter<CarGoodsModel> {
 
         ImageView chooseView = ViewHolder.get(convertView, R.id.iv_choose);
         ImageView picView = ViewHolder.get(convertView, R.id.iv_pic);
+        TextView noGoodsView = ViewHolder.get(convertView, R.id.tv_no_goods);
         TextView nameView = ViewHolder.get(convertView, R.id.tv_name);
         TextView standardView = ViewHolder.get(convertView, R.id.tv_standard);
         TextView minusView = ViewHolder.get(convertView, R.id.tv_minus);
@@ -71,18 +72,33 @@ public class ShoppingCartGoodsAdapter extends TAdapter<CarGoodsModel> {
             standardView.setText("规格：" + model.getStandard());
             countView.setText(model.getNum() + "");
             priceView.setText(GoodsUtils.getPrice(model.getPriceType(), model));
-            minusView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    intoCar(model, position, 0);
-                }
-            });
-            plusView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    intoCar(model, position, 1);
-                }
-            });
+            if (model.getStock() == 0) {
+                nameView.setTextColor(mContext.getResources().getColor(R.color.gray9));
+                countView.setTextColor(mContext.getResources().getColor(R.color.gray9));
+                priceView.setTextColor(mContext.getResources().getColor(R.color.gray9));
+                minusView.setTextColor(mContext.getResources().getColor(R.color.gray9));
+                plusView.setTextColor(mContext.getResources().getColor(R.color.gray9));
+                noGoodsView.setVisibility(View.VISIBLE);
+            } else {
+                nameView.setTextColor(mContext.getResources().getColor(R.color.text_gray));
+                countView.setTextColor(mContext.getResources().getColor(R.color.gray9));
+                priceView.setTextColor(mContext.getResources().getColor(R.color.red1));
+                minusView.setTextColor(mContext.getResources().getColor(R.color.text_gray));
+                plusView.setTextColor(mContext.getResources().getColor(R.color.text_gray));
+                noGoodsView.setVisibility(View.GONE);
+                minusView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        intoCar(model, position, 0);
+                    }
+                });
+                plusView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        intoCar(model, position, 1);
+                    }
+                });
+            }
             chooseView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -96,7 +112,7 @@ public class ShoppingCartGoodsAdapter extends TAdapter<CarGoodsModel> {
                             model.setSelectedInEdit(true);
                         }
                     } else {
-                        if (model.isSelected()) {
+                        if (model.isSelected() || model.getStock() == 0) {
                             model.setSelected(false);
                         } else {
                             model.setSelected(true);

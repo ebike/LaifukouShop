@@ -14,6 +14,7 @@ import com.sdjy.sdjymall.adapter.ShoppingCartAdapter;
 import com.sdjy.sdjymall.common.util.T;
 import com.sdjy.sdjymall.constants.StaticValues;
 import com.sdjy.sdjymall.event.LogoutEvent;
+import com.sdjy.sdjymall.event.RefreshEvent;
 import com.sdjy.sdjymall.fragment.base.BaseListFragment;
 import com.sdjy.sdjymall.http.HttpMethods;
 import com.sdjy.sdjymall.model.CarGoodsModel;
@@ -229,20 +230,24 @@ public class ShoppingCartFragment extends BaseListFragment {
             for (CarShopModel shopModel : carShopList) {
                 shopModel.setSelected(true);
                 for (CarGoodsModel goodsModel : shopModel.getGoods()) {
-                    count += goodsModel.getNum();
-                    switch (goodsModel.getPriceType()) {
-                        case 1:
-                            amount += Double.valueOf(goodsModel.getPriceMoney()) * goodsModel.getNum();
-                            break;
-                        case 2:
-                            amount += Double.valueOf(goodsModel.getPriceMoney()) * goodsModel.getNum();
-                            goldCoin += Integer.valueOf(goodsModel.getPriceGoldCoin()) * goodsModel.getNum();
-                            break;
-                        case 3:
-                            coin += Integer.valueOf(goodsModel.getPriceCoin()) * goodsModel.getNum();
-                            break;
+                    if (goodsModel.getStock() == 0) {
+                        goodsModel.setSelected(false);
+                    } else {
+                        goodsModel.setSelected(true);
+                        count += goodsModel.getNum();
+                        switch (goodsModel.getPriceType()) {
+                            case 1:
+                                amount += Double.valueOf(goodsModel.getPriceMoney()) * goodsModel.getNum();
+                                break;
+                            case 2:
+                                amount += Double.valueOf(goodsModel.getPriceMoney()) * goodsModel.getNum();
+                                goldCoin += Integer.valueOf(goodsModel.getPriceGoldCoin()) * goodsModel.getNum();
+                                break;
+                            case 3:
+                                coin += Integer.valueOf(goodsModel.getPriceCoin()) * goodsModel.getNum();
+                                break;
+                        }
                     }
-                    goodsModel.setSelected(true);
                 }
             }
         }
@@ -275,7 +280,6 @@ public class ShoppingCartFragment extends BaseListFragment {
                 Intent intent = new Intent(getActivity(), OrderConfirmActivity.class);
                 intent.putExtra("ids", ids.toString());
                 startActivity(intent);
-                requestDatas();
             } else {
                 T.showShort(getActivity(), "请您先登录");
             }
@@ -391,6 +395,12 @@ public class ShoppingCartFragment extends BaseListFragment {
 
     public void onEvent(LogoutEvent event) {
         requestDatas();
+    }
+
+    public void onEvent(RefreshEvent event) {
+        if (event.simpleName.equals(this.getClass().getSimpleName())) {
+            requestDatas();
+        }
     }
 
     @Override

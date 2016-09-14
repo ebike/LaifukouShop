@@ -573,4 +573,18 @@ public class HttpMethods {
                 .map(new HttpResultFunc3<OrderInfoModel>());
         toSubscribe(observable, subscriber);
     }
+
+    //支付订单接口
+    public void payOrder(Subscriber<OrderInfoModel> subscriber, String orderId, int useBalance, String payMode) {
+        Observable observable = apiService.payOrder(StaticValues.userModel.userToken, StaticValues.userModel.userId, orderId, useBalance, payMode)
+                .map(new HttpResultFunc3<OrderInfoModel>());
+        toSubscribe(observable, subscriber);
+    }
+
+    //去付款接口
+    public void toPayOrder(Subscriber<OrderInfoModel> subscriber, String orderId) {
+        Observable observable = apiService.toPayOrder(StaticValues.userModel.userToken, StaticValues.userModel.userId, orderId)
+                .map(new HttpResultFunc3<OrderInfoModel>());
+        toSubscribe(observable, subscriber);
+    }
 }

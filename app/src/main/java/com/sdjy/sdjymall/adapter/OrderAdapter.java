@@ -19,6 +19,7 @@ import com.sdjy.sdjymall.common.util.DensityUtils;
 import com.sdjy.sdjymall.common.util.ScreenUtils;
 import com.sdjy.sdjymall.common.util.T;
 import com.sdjy.sdjymall.event.RefreshEvent;
+import com.sdjy.sdjymall.http.CommonMethods;
 import com.sdjy.sdjymall.http.HttpMethods;
 import com.sdjy.sdjymall.model.OrderModel;
 import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
@@ -113,6 +114,12 @@ public class OrderAdapter extends TAdapter<OrderModel> {
                             EventBus.getDefault().post(new RefreshEvent(OrderActivity.class.getSimpleName()));
                         }
                     }, mContext), model.orderId, "6");
+                }
+            });
+            payView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    CommonMethods.toPayOrder(mContext, model.orderId);
                 }
             });
             submitView.setOnClickListener(new View.OnClickListener() {

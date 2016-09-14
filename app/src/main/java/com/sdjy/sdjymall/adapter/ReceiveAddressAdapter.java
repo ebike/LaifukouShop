@@ -59,27 +59,27 @@ public class ReceiveAddressAdapter extends TAdapter<AddressModel> {
                 Drawable drawable = mContext.getResources().getDrawable(R.mipmap.icon_circle_nosel);
                 drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
                 isDefaultView.setCompoundDrawables(drawable, null, null, null);
-            }
-            isDefaultView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Map<String, String> params = new HashMap<>();
-                    params.put("id", model.id);
-                    if (model.isDefault == 1) {
-                        params.put("default", "2");
-                    } else {
-                        params.put("default", "1");
-                    }
-                    SubscriberOnNextListener listener = new SubscriberOnNextListener() {
-                        @Override
-                        public void onNext(Object o) {
-                            T.showShort(mContext, "设置成功");
-                            EventBus.getDefault().post(new RefreshEvent(ReceiveAddressActivity.class.getSimpleName()));
+                isDefaultView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("id", model.id);
+                        if (model.isDefault == 1) {
+                            params.put("default", "2");
+                        } else {
+                            params.put("default", "1");
                         }
-                    };
-                    HttpMethods.getInstance().saveOrUpdateAddress(new ProgressSubscriber(listener, mContext), params);
-                }
-            });
+                        SubscriberOnNextListener listener = new SubscriberOnNextListener() {
+                            @Override
+                            public void onNext(Object o) {
+                                T.showShort(mContext, "设置成功");
+                                EventBus.getDefault().post(new RefreshEvent(ReceiveAddressActivity.class.getSimpleName()));
+                            }
+                        };
+                        HttpMethods.getInstance().saveOrUpdateAddress(new ProgressSubscriber(listener, mContext), params);
+                    }
+                });
+            }
             editView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

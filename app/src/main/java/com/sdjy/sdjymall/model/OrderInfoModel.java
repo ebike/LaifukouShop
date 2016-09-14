@@ -39,6 +39,8 @@ public class OrderInfoModel implements Serializable{
     public Long expireTime;
 
     public List<GoodsItemModel> orderItems;
+    //支付宝参数
+    public String orderInfo;
 
     public OrderInfoModel() {
     }

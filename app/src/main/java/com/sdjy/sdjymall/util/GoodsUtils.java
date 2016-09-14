@@ -3,6 +3,7 @@ package com.sdjy.sdjymall.util;
 import com.sdjy.sdjymall.model.CarGoodsModel;
 import com.sdjy.sdjymall.model.GoodsBrowsingModel;
 import com.sdjy.sdjymall.model.GoodsItemModel;
+import com.sdjy.sdjymall.model.GoodsModel;
 import com.sdjy.sdjymall.model.GoodsPricesModel;
 import com.sdjy.sdjymall.model.HomePageDataItemModel;
 
@@ -46,6 +47,22 @@ public class GoodsUtils {
                 break;
             case 3:
                 price = pricesModel.priceCoin + "银币";
+                break;
+        }
+        return price;
+    }
+
+    public static String getPrice(int priceType, GoodsModel model) {
+        String price = "";
+        switch (priceType) {
+            case 1:
+                price = "￥" + model.priceMoney;
+                break;
+            case 2:
+                price = "￥" + model.priceMoney + "+" + model.priceGoldCoin + "金币";
+                break;
+            case 3:
+                price = model.priceCoin + "银币";
                 break;
         }
         return price;

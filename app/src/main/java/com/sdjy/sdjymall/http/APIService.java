@@ -493,4 +493,22 @@ public interface APIService {
             @Query("addressId") String addressId
     );
 
+    //支付订单接口
+    @POST("order/payOrder.do")
+    Observable<HttpResult<OrderInfoModel>> payOrder(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @Query("orderId") String orderId,
+            @Query("useBalance") int useBalance,
+            @Query("payMode") String payMode
+    );
+
+    //去付款接口
+    @POST("order/toPayOrder.do")
+    Observable<HttpResult<OrderInfoModel>> toPayOrder(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @Query("orderId") String orderId
+    );
+
 }

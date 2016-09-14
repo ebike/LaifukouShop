@@ -65,16 +65,22 @@ public class MyFragment extends LazyFragment {
                     .into(headerView);
             nameView.setText(StaticValues.userModel.loginName);
             manageView.setVisibility(View.VISIBLE);
-            SubscriberOnNextListener listener = new SubscriberOnNextListener<UserCashBalanceModel>() {
-                @Override
-                public void onNext(UserCashBalanceModel model) {
-                    StaticValues.balanceModel = model;
-                    accountBalanceView.setText("￥" + model.money);
-                    goldCoinsView.setText(model.goldCoin);
-                    silverCoinsView.setText(model.coin);
-                }
-            };
-            HttpMethods.getInstance().userCashBalance(new NoProgressSubscriber<UserCashBalanceModel>(listener, getActivity()), StaticValues.userModel.userId);
+            if (StaticValues.balanceModel != null) {
+                accountBalanceView.setText("￥" + StaticValues.balanceModel.money);
+                goldCoinsView.setText(StaticValues.balanceModel.goldCoin);
+                silverCoinsView.setText(StaticValues.balanceModel.coin);
+            } else {
+                SubscriberOnNextListener listener = new SubscriberOnNextListener<UserCashBalanceModel>() {
+                    @Override
+                    public void onNext(UserCashBalanceModel model) {
+                        StaticValues.balanceModel = model;
+                        accountBalanceView.setText("￥" + model.money);
+                        goldCoinsView.setText(model.goldCoin);
+                        silverCoinsView.setText(model.coin);
+                    }
+                };
+                HttpMethods.getInstance().userCashBalance(new NoProgressSubscriber<UserCashBalanceModel>(listener, getActivity()), StaticValues.userModel.userId);
+            }
         } else {
             headerView.setImageResource(R.mipmap.icon_default_head);
             nameView.setText("登录/注册");

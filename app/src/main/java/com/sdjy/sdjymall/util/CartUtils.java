@@ -20,7 +20,7 @@ public class CartUtils {
         boolean flag = true;
         for (CarShopModel shopModel : carShopList) {
             for (CarGoodsModel goodsModel : shopModel.getGoods()) {
-                if (!goodsModel.isSelected()) {
+                if (!goodsModel.isSelected() && goodsModel.getStock() != 0) {
                     flag = false;
                     break;
                 }
@@ -32,7 +32,7 @@ public class CartUtils {
     public static boolean isAllSelected(CarShopModel model) {
         boolean flag = true;
         for (CarGoodsModel goodsModel : model.getGoods()) {
-            if (!goodsModel.isSelected()) {
+            if (!goodsModel.isSelected() && goodsModel.getStock() != 0) {
                 flag = false;
                 break;
             }
