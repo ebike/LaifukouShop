@@ -16,7 +16,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:src="@mipmap/icon_no_pic"
-            app:layout_heightPercent="64%w"
+            app:layout_heightPercent="100%w"
             app:layout_widthPercent="100%w" />
 
         <ImageView

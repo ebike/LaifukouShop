@@ -39,7 +39,7 @@ public class ShopAdapter extends TAdapter<ShopModel> {
             nameView.setText(model.shopName);
             descView.setText(model.title);
             Glide.with(mContext)
-                    .load(model.logo)
+                    .load(model.cover)
                     .placeholder(R.mipmap.icon_no_pic)
                     .error(R.mipmap.icon_no_pic)
                     .centerCrop()

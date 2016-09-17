@@ -35,7 +35,7 @@ public class RechargeAdapter extends TAdapter<Integer> {
             amountView.setText(integer + "");
             if (selectedPosition == position) {
                 amountView.setTextColor(mContext.getResources().getColor(R.color.red1));
-                rootLayout.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.border_red));
+                rootLayout.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.border_red1));
             } else {
                 amountView.setTextColor(mContext.getResources().getColor(R.color.text_gray));
                 rootLayout.setBackgroundColor(mContext.getResources().getColor(R.color.white));

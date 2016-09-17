@@ -8,6 +8,7 @@ import com.sdjy.sdjymall.R;
 import com.sdjy.sdjymall.activity.base.BaseActivity;
 import com.sdjy.sdjymall.adapter.RechargeAdapter;
 import com.sdjy.sdjymall.common.util.T;
+import com.sdjy.sdjymall.constants.StaticValues;
 import com.sdjy.sdjymall.http.HttpMethods;
 import com.sdjy.sdjymall.model.HttpResult;
 import com.sdjy.sdjymall.subscribers.ProgressSubscriber;
@@ -65,12 +66,16 @@ public class RechargeActivity extends BaseActivity {
 
     @OnClick(R.id.tv_recharge)
     public void recharge() {
-        SubscriberOnNextListener listener = new SubscriberOnNextListener<HttpResult>() {
-            @Override
-            public void onNext(HttpResult httpResult) {
-                T.showShort(RechargeActivity.this, httpResult.message);
-            }
-        };
-        HttpMethods.getInstance().recharge(new ProgressSubscriber(listener, this), amount);
+        if (StaticValues.userModel != null) {
+            SubscriberOnNextListener listener = new SubscriberOnNextListener<HttpResult>() {
+                @Override
+                public void onNext(HttpResult httpResult) {
+                    T.showShort(RechargeActivity.this, httpResult.message);
+                }
+            };
+            HttpMethods.getInstance().recharge(new ProgressSubscriber(listener, this), amount);
+        } else {
+            T.showShort(this, "请您先登录，再充值");
+        }
     }
 }

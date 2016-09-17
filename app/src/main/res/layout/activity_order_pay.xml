@@ -122,11 +122,13 @@
         android:textColor="@color/yellow2"
         android:visibility="gone" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:padding="12dp">
 
         <ImageView
@@ -136,17 +138,24 @@
             android:layout_marginRight="4dp"
             android:src="@mipmap/icon_alipay" />
 
-        <TextView
-            android:id="@+id/tv_alipay"
-            style="@style/gray_12"
-            android:layout_toRightOf="@+id/iv_alipay"
-            android:text="支付宝" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <TextView
-            style="@style/gray9_10"
-            android:layout_below="@+id/tv_alipay"
-            android:layout_toRightOf="@+id/iv_alipay"
-            android:text="推荐支付宝用户使用" />
+            <TextView
+                android:id="@+id/tv_alipay"
+                style="@style/gray_12"
+                android:layout_toRightOf="@+id/iv_alipay"
+                android:text="支付宝" />
+
+            <TextView
+                style="@style/gray9_10"
+                android:layout_below="@+id/tv_alipay"
+                android:layout_toRightOf="@+id/iv_alipay"
+                android:text="推荐支付宝用户使用" />
+        </LinearLayout>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -154,7 +163,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@mipmap/icon_circle_sel" />
-    </RelativeLayout>
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_confirm"
