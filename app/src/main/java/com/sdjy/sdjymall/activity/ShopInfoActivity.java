@@ -131,7 +131,8 @@ public class ShopInfoActivity extends BaseActivity {
             public void onNext(List<ShopHotGroupModel> shopHotGroupModels) {
                 if (shopHotGroupModels != null) {
                     hotGroupList = shopHotGroupModels;
-                    for (final ShopHotGroupModel model : hotGroupList) {
+                    for (int i = 0; i < hotGroupList.size(); i++) {
+                        final ShopHotGroupModel model = hotGroupList.get(i);
                         TextView textView = new TextView(ShopInfoActivity.this);
                         textView.setTextAppearance(ShopInfoActivity.this, R.style.gray_16);
                         textView.setText(model.groupName);
@@ -139,6 +140,9 @@ public class ShopInfoActivity extends BaseActivity {
                         int p16 = DensityUtils.dp2px(ShopInfoActivity.this, 16);
                         int p9 = DensityUtils.dp2px(ShopInfoActivity.this, 9);
                         textView.setPadding(p16, p9, p16, p9);
+                        if (i != hotGroupList.size() - 1) {
+                            textView.setBackgroundDrawable(getResources().getDrawable(R.drawable.border_bottom_line));
+                        }
                         textView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -146,11 +150,18 @@ public class ShopInfoActivity extends BaseActivity {
                                 Intent intent = new Intent(ShopInfoActivity.this, ShopHotGroupGoodsActivity.class);
                                 intent.putExtra("shopId", shopId);
                                 intent.putExtra("groupId", model.groupId);
-                                intent.putExtra("groupName",model.groupName);
+                                intent.putExtra("groupName", model.groupName);
                                 startActivity(intent);
                             }
                         });
                         listView.addView(textView);
+
+//                        if (i != hotGroupList.size() - 1) {
+//                            TextView lineView = new TextView(ShopInfoActivity.this);
+//                            lineView.setTextAppearance(ShopInfoActivity.this, R.style.line_1);
+//                            lineView.setBackgroundColor(getResources().getColor(R.color.main_line));
+//                            listView.addView(lineView);
+//                        }
                     }
                     popupView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
                 }
@@ -232,7 +243,7 @@ public class ShopInfoActivity extends BaseActivity {
             cusPhoneView.setText("暂无客服");
         }
 
-        ((ShopHomeFragment)fragmentList.get(0)).setData(shopModel.describ);
+        ((ShopHomeFragment) fragmentList.get(0)).setData(shopModel.describ);
         countViews[0].setText(shopModel.goodsNum);
         countViews[1].setText(shopModel.hotGoodsNum);
         countViews[2].setText(shopModel.newGoodsNum);
@@ -353,7 +364,11 @@ public class ShopInfoActivity extends BaseActivity {
 
     @OnClick(R.id.tv_shop_detail)
     public void shopDetail() {
-
+        if (shopModel != null) {
+            Intent intent = new Intent(this, ShopDetailActivity.class);
+            intent.putExtra("ShopModel", shopModel);
+            startActivity(intent);
+        }
     }
 
     @OnClick(R.id.ll_hot_sorts)

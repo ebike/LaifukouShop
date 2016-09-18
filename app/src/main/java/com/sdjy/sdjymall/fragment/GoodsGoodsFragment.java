@@ -131,7 +131,7 @@ public class GoodsGoodsFragment extends LazyFragment {
     @OnClick(R.id.ll_choose_standard)
     public void chooseStandard() {
         if (dialog == null) {
-            dialog = new ChooseStandardDialog(getActivity(), goodsInfoModel.goodsPrices)
+            dialog = new ChooseStandardDialog(getActivity(), goodsInfoModel.goodsPrices, goodsInfoModel.state)
                     .builder()
                     .setCancelable(true)
                     .setCanceledOnTouchOutside(true);
@@ -139,6 +139,7 @@ public class GoodsGoodsFragment extends LazyFragment {
                 @Override
                 public void callback(GoodsPricesModel model) {
                     selectedPricesModel = model;
+                    ((GoodsInfoActivity) getActivity()).changeCarBtn(model);
                 }
             });
             dialog.setCountCallback(new ChooseStandardDialog.ChangeCountCallback() {

@@ -131,7 +131,7 @@ public class GoodsInfoActivity extends BaseActivity {
                 if (goodsInfoModel.state != 1) {
                     intoCarView.setBackgroundColor(getResources().getColor(R.color.yellow1));
                     intoCarView.setText("商品已下架");
-                } else if (goodsInfoModel.stock <= 0) {
+                } else if (goodsInfoModel.goodsPrices.get(0).stock <= 0) {
                     intoCarView.setBackgroundColor(getResources().getColor(R.color.yellow1));
                     intoCarView.setText("暂时缺货");
                 } else {
@@ -221,6 +221,11 @@ public class GoodsInfoActivity extends BaseActivity {
         }
     }
 
+    @OnClick(R.id.tv_car)
+    public void car() {
+        startActivity(new Intent(this, ShoppingCartActivity.class));
+    }
+
     @OnClick(R.id.tv_into_car)
     public void intoCar() {
         if (goodsInfoModel.state != 1 || goodsInfoModel.stock <= 0) {
@@ -307,6 +312,19 @@ public class GoodsInfoActivity extends BaseActivity {
                 //变化角标（目前不做）
             }
         });
+    }
+
+    public void changeCarBtn(GoodsPricesModel model){
+        if (goodsInfoModel.state != 1) {
+            intoCarView.setBackgroundColor(getResources().getColor(R.color.yellow1));
+            intoCarView.setText("商品已下架");
+        } else if (model.stock <= 0) {
+            intoCarView.setBackgroundColor(getResources().getColor(R.color.yellow1));
+            intoCarView.setText("暂时缺货");
+        } else {
+            intoCarView.setBackgroundColor(getResources().getColor(R.color.red));
+            intoCarView.setText("加入购物车");
+        }
     }
 
     @Override

@@ -1,9 +1,11 @@
 package com.sdjy.sdjymall.model;
 
+import java.io.Serializable;
+
 /**
  * 商家
  */
-public class ShopModel {
+public class ShopModel implements Serializable{
     //店铺ID
     public String id;
     //商家ID
@@ -38,6 +40,8 @@ public class ShopModel {
     public String hotGoodsNum;
     //上新商品个数
     public String newGoodsNum;
+    //开店时间
+    public String createDate;
 
     public ShopModel() {
     }

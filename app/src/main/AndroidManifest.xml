@@ -63,12 +63,12 @@
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
-            android:screenOrientation="behind"/>
+            android:screenOrientation="behind" />
         <activity
             android:name="com.alipay.sdk.auth.AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
-            android:screenOrientation="behind"/>
+            android:screenOrientation="behind" />
         <!-- 支付宝支付 结束 -->
 
         <activity
@@ -184,7 +184,9 @@
         <activity android:name=".activity.GoodsEvaluationActivity" />
         <activity android:name=".activity.OrderConfirmActivity" />
         <activity android:name=".activity.PaySuccessActivity" />
-        <activity android:name=".activity.OrderPayActivity"></activity>
+        <activity android:name=".activity.OrderPayActivity" />
+        <activity android:name=".activity.ShoppingCartActivity" />
+        <activity android:name=".activity.ShopDetailActivity"></activity>
     </application>
 
 </manifest>

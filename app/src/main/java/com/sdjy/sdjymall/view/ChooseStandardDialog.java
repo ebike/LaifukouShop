@@ -31,6 +31,8 @@ public class ChooseStandardDialog {
     TagFlowLayout flowLayout;
     @Bind(R.id.tv_count)
     TextView countView;
+    @Bind(R.id.tv_into_car)
+    TextView intoCarView;
 
     private Context context;
     private LayoutInflater inflate;
@@ -42,14 +44,16 @@ public class ChooseStandardDialog {
     private View.OnClickListener intoCarCallback;
     private int selectedPos = 0;
     private int count = 1;
+    private int state;
 
-    public ChooseStandardDialog(Context context, List<GoodsPricesModel> goodsPricesList) {
+    public ChooseStandardDialog(Context context, List<GoodsPricesModel> goodsPricesList, int state) {
         this.context = context;
         inflate = LayoutInflater.from(context);
         WindowManager windowManager = (WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE);
         display = windowManager.getDefaultDisplay();
         this.goodsPricesList = goodsPricesList;
+        this.state = state;
     }
 
     public ChooseStandardDialog builder() {
@@ -79,8 +83,19 @@ public class ChooseStandardDialog {
             public boolean onTagClick(View view, int position, FlowLayout parent) {
                 if (selectedPos != position) {
                     selectedPos = position;
+                    GoodsPricesModel model = goodsPricesList.get(position);
+                    if (state != 1) {
+                        intoCarView.setBackgroundColor(context.getResources().getColor(R.color.yellow1));
+                        intoCarView.setText("商品已下架");
+                    } else if (model.stock <= 0) {
+                        intoCarView.setBackgroundColor(context.getResources().getColor(R.color.yellow1));
+                        intoCarView.setText("暂时缺货");
+                    } else {
+                        intoCarView.setBackgroundColor(context.getResources().getColor(R.color.red));
+                        intoCarView.setText("加入购物车");
+                    }
                     if (callback != null) {
-                        callback.callback(goodsPricesList.get(position));
+                        callback.callback(model);
                     }
                 }
                 return true;
@@ -138,6 +153,10 @@ public class ChooseStandardDialog {
 
     @OnClick(R.id.tv_into_car)
     public void intoCar(View v) {
+        if (state != 1 || goodsPricesList.get(selectedPos).stock <= 0) {
+            return;
+        }
+
         dialog.dismiss();
         if (intoCarCallback != null) {
             intoCarCallback.onClick(v);
