@@ -169,11 +169,6 @@
                 style="@style/black_12"
                 android:text="我的资产" />
 
-            <TextView
-                style="@style/gray_12"
-                android:layout_alignParentRight="true"
-                android:text="查看资产流水" />
-
         </RelativeLayout>
 
         <View
