@@ -62,6 +62,8 @@ public class ChooseStandardDialog {
                 R.layout.dialog_choose_standard, null);
         ButterKnife.bind(this, view);
 
+        showBtnState(selectedPos);
+
         TagAdapter adapter = new TagAdapter<GoodsPricesModel>(goodsPricesList) {
             @Override
             public View getView(FlowLayout parent, int position, GoodsPricesModel pricesModel) {
@@ -83,20 +85,7 @@ public class ChooseStandardDialog {
             public boolean onTagClick(View view, int position, FlowLayout parent) {
                 if (selectedPos != position) {
                     selectedPos = position;
-                    GoodsPricesModel model = goodsPricesList.get(position);
-                    if (state != 1) {
-                        intoCarView.setBackgroundColor(context.getResources().getColor(R.color.yellow1));
-                        intoCarView.setText("商品已下架");
-                    } else if (model.stock <= 0) {
-                        intoCarView.setBackgroundColor(context.getResources().getColor(R.color.yellow1));
-                        intoCarView.setText("暂时缺货");
-                    } else {
-                        intoCarView.setBackgroundColor(context.getResources().getColor(R.color.red));
-                        intoCarView.setText("加入购物车");
-                    }
-                    if (callback != null) {
-                        callback.callback(model);
-                    }
+                    showBtnState(selectedPos);
                 }
                 return true;
             }
@@ -129,6 +118,23 @@ public class ChooseStandardDialog {
 
     public void show() {
         dialog.show();
+    }
+
+    private void showBtnState(int position) {
+        GoodsPricesModel model = goodsPricesList.get(position);
+        if (state != 1) {
+            intoCarView.setBackgroundColor(context.getResources().getColor(R.color.yellow1));
+            intoCarView.setText("商品已下架");
+        } else if (model.stock <= 0) {
+            intoCarView.setBackgroundColor(context.getResources().getColor(R.color.yellow1));
+            intoCarView.setText("暂时缺货");
+        } else {
+            intoCarView.setBackgroundColor(context.getResources().getColor(R.color.red));
+            intoCarView.setText("加入购物车");
+        }
+        if (callback != null) {
+            callback.callback(model);
+        }
     }
 
     @OnClick(R.id.tv_minus)
