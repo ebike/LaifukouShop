@@ -497,16 +497,30 @@ public class HttpMethods {
         toSubscribe(observable, subscriber);
     }
 
-    //加入团队接口
-    public void joinTeam(Subscriber subscriber, String refereeId, String goodsId) {
-        Observable observable = apiService.joinTeam(StaticValues.userModel.userToken, StaticValues.userModel.userId, refereeId, goodsId)
+    //支付加入团队接口
+    public void payJoinTeam(Subscriber<OrderInfoModel> subscriber, String refereeId, String goodsId, String payMode) {
+        Observable observable = apiService.payJoinTeam(StaticValues.userModel.userToken, StaticValues.userModel.userId, refereeId, goodsId, payMode)
+                .map(new HttpResultFunc<OrderInfoModel>());
+        toSubscribe(observable, subscriber);
+    }
+
+    //通知加入团队成功接口
+    public void appNotifyJoinTeam(Subscriber subscriber, String orderId) {
+        Observable observable = apiService.appNotifyJoinTeam(StaticValues.userModel.userToken, StaticValues.userModel.userId, orderId)
                 .map(new HttpResultFunc());
         toSubscribe(observable, subscriber);
     }
 
-    //创建团队接口
-    public void createTeam(Subscriber subscriber, String teamName, String goodsId) {
-        Observable observable = apiService.createTeam(StaticValues.userModel.userToken, StaticValues.userModel.userId, teamName, goodsId)
+    //支付创建团队接口
+    public void payCreateTeam(Subscriber<OrderInfoModel> subscriber, String teamName, String goodsId, String payMode) {
+        Observable observable = apiService.payCreateTeam(StaticValues.userModel.userToken, StaticValues.userModel.userId, teamName, goodsId, payMode)
+                .map(new HttpResultFunc<OrderInfoModel>());
+        toSubscribe(observable, subscriber);
+    }
+
+    //通知创建团队成功接口
+    public void appNotifyCreateTeam(Subscriber subscriber, String orderId) {
+        Observable observable = apiService.appNotifyCreateTeam(StaticValues.userModel.userToken, StaticValues.userModel.userId, orderId)
                 .map(new HttpResultFunc());
         toSubscribe(observable, subscriber);
     }

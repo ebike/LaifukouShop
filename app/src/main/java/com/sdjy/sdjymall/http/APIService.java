@@ -399,22 +399,40 @@ public interface APIService {
             @Query("phone") String phone
     );
 
-    //加入团队接口
-    @POST("team/joinTeam.do")
-    Observable<HttpResult> joinTeam(
+    //支付加入团队接口
+    @POST("team/payJoinTeam.do")
+    Observable<HttpResult<OrderInfoModel>> payJoinTeam(
             @Header("Authorization") String auth,
             @Query("userId") String userId,
             @Query("refereeId") String refereeId,
-            @Query("goodsId") String goodsId
+            @Query("goodsId") String goodsId,
+            @Query("payMode") String payMode
     );
 
-    //创建团队接口
-    @POST("team/createTeam.do")
-    Observable<HttpResult> createTeam(
+    //通知加入团队成功接口
+    @POST("team/appNotifyJoinTeam.do")
+    Observable<HttpResult> appNotifyJoinTeam(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @Query("orderId") String orderId
+    );
+
+    //支付创建团队接口
+    @POST("team/payCreateTeam.do")
+    Observable<HttpResult<OrderInfoModel>> payCreateTeam(
             @Header("Authorization") String auth,
             @Query("userId") String userId,
             @Query("teamName") String teamName,
-            @Query("goodsId") String goodsId
+            @Query("goodsId") String goodsId,
+            @Query("payMode") String payMode
+    );
+
+    //通知创建团队成功接口
+    @POST("team/appNotifyCreateTeam.do")
+    Observable<HttpResult> appNotifyCreateTeam(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @Query("orderId") String orderId
     );
 
     //获取商家热门分类接口
