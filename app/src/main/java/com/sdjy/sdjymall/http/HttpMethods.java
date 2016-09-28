@@ -284,9 +284,16 @@ public class HttpMethods {
     }
 
     //充值接口
-    public void recharge(Subscriber subscriber, Integer num) {
-        Observable observable = apiService.recharge(StaticValues.userModel.userToken, StaticValues.userModel.userId, num)
-                .map(new HttpResultFunc2());
+    public void recharge(Subscriber<OrderInfoModel> subscriber, Integer amount, String payMode) {
+        Observable observable = apiService.recharge(StaticValues.userModel.userToken, StaticValues.userModel.userId, amount, payMode)
+                .map(new HttpResultFunc<OrderInfoModel>());
+        toSubscribe(observable, subscriber);
+    }
+
+    //通知充值支付成功接口
+    public void appNotifyRecharge(Subscriber subscriber, String orderId) {
+        Observable observable = apiService.appNotifyRecharge(StaticValues.userModel.userToken, StaticValues.userModel.userId, orderId)
+                .map(new HttpResultFunc());
         toSubscribe(observable, subscriber);
     }
 

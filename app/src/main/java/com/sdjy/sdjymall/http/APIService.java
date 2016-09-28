@@ -179,10 +179,19 @@ public interface APIService {
 
     //充值接口
     @POST("recharge/recharge.do")
-    Observable<HttpResult> recharge(
+    Observable<HttpResult<OrderInfoModel>> recharge(
             @Header("Authorization") String auth,
             @Query("userId") String userId,
-            @Query("num") Integer num
+            @Query("amount") Integer amount,
+            @Query("payMode") String payMode
+    );
+
+    //通知充值支付成功接口
+    @POST("recharge/appNotifyRecharge.do")
+    Observable<HttpResult> appNotifyRecharge(
+            @Header("Authorization") String auth,
+            @Query("userId") String userId,
+            @Query("orderId") String orderId
     );
 
     //删除购物车接口
