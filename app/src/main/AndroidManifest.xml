@@ -186,7 +186,8 @@
         <activity android:name=".activity.PaySuccessActivity" />
         <activity android:name=".activity.OrderPayActivity" />
         <activity android:name=".activity.ShoppingCartActivity" />
-        <activity android:name=".activity.ShopDetailActivity"></activity>
+        <activity android:name=".activity.ShopDetailActivity" />
+        <activity android:name=".activity.OrderPay1Activity"></activity>
     </application>
 
 </manifest>
