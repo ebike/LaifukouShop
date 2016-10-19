@@ -1,187 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_bg"
-    android:orientation="vertical">
-
-    <com.bigkoo.convenientbanner.ConvenientBanner
-        android:id="@+id/convenientBanner"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:canLoop="true" />
-
-    <com.sdjy.sdjymall.view.ScrollGridView
-        android:id="@+id/gv_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:numColumns="4"
-        android:padding="8dp"
-        android:verticalSpacing="8dp" />
-
-    <View style="@style/main_line" />
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp">
+        android:background="@color/main_bg"
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="48dp"
-            android:layout_height="1dp"
-            android:background="@color/blue" />
+        <com.bigkoo.convenientbanner.ConvenientBanner
+            android:id="@+id/convenientBanner"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:canLoop="true" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <com.sdjy.sdjymall.view.ScrollGridView
+            android:id="@+id/gv_navigation"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:text="优质商家"
-            android:textColor="@color/blue"
-            android:textSize="14sp" />
+            android:background="@color/white"
+            android:numColumns="4"
+            android:padding="8dp"
+            android:verticalSpacing="8dp" />
 
-        <TextView
-            android:layout_width="48dp"
-            android:layout_height="1dp"
-            android:background="@color/blue" />
+        <View style="@style/main_line" />
 
-    </LinearLayout>
-
-    <View style="@style/main_line" />
-
-    <com.sdjy.sdjymall.view.ScrollGridView
-        android:id="@+id/gv_shops"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/main_line"
-        android:horizontalSpacing="1px"
-        android:numColumns="3"
-        android:verticalSpacing="1px" />
-
-    <View style="@style/main_line" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp">
-
-        <TextView
-            android:layout_width="48dp"
-            android:layout_height="1dp"
-            android:background="@color/orange" />
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:text="热门分类"
-            android:textColor="@color/orange"
-            android:textSize="14sp" />
+            android:gravity="center"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp">
 
-        <TextView
-            android:layout_width="48dp"
-            android:layout_height="1dp"
-            android:background="@color/orange" />
+            <TextView
+                android:layout_width="48dp"
+                android:layout_height="1dp"
+                android:background="@color/blue" />
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:text="优质商家"
+                android:textColor="@color/blue"
+                android:textSize="14sp" />
 
-    <View style="@style/main_line" />
+            <TextView
+                android:layout_width="48dp"
+                android:layout_height="1dp"
+                android:background="@color/blue" />
 
-    <com.sdjy.sdjymall.view.ScrollGridView
-        android:id="@+id/gv_sorts1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/main_line"
-        android:horizontalSpacing="1px"
-        android:numColumns="2"
-        android:verticalSpacing="1px" />
+        </LinearLayout>
 
-    <View style="@style/main_line" />
+        <View style="@style/main_line" />
 
-    <com.sdjy.sdjymall.view.ScrollGridView
-        android:id="@+id/gv_sorts2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/main_line"
-        android:horizontalSpacing="1px"
-        android:numColumns="4"
-        android:verticalSpacing="1px" />
-
-    <View style="@style/main_line" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp">
-
-        <TextView
-            android:layout_width="48dp"
-            android:layout_height="1dp"
-            android:background="@color/red" />
-
-        <TextView
-            android:layout_width="wrap_content"
+        <com.sdjy.sdjymall.view.ScrollGridView
+            android:id="@+id/gv_shops"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:text="热销商品"
-            android:textColor="@color/red"
-            android:textSize="14sp" />
+            android:background="@color/main_line"
+            android:horizontalSpacing="1px"
+            android:numColumns="3"
+            android:verticalSpacing="1px" />
 
-        <TextView
-            android:layout_width="48dp"
-            android:layout_height="1dp"
-            android:background="@color/red" />
+        <View style="@style/main_line" />
 
-    </LinearLayout>
-
-    <View style="@style/main_line" />
-
-    <com.sdjy.sdjymall.view.ScrollGridView
-        android:id="@+id/gv_goods"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/main_line"
-        android:horizontalSpacing="4dp"
-        android:numColumns="2"
-        android:verticalSpacing="4dp" />
-
-    <View style="@style/main_line" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp">
-
-        <TextView
-            android:layout_width="48dp"
-            android:layout_height="1dp"
-            android:background="@color/text_gray1" />
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:text="亲，就这些内容了"
-            android:textColor="@color/text_gray1"
-            android:textSize="14sp" />
+            android:gravity="center"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp">
 
-        <TextView
-            android:layout_width="48dp"
-            android:layout_height="1dp"
-            android:background="@color/text_gray1" />
+            <TextView
+                android:layout_width="48dp"
+                android:layout_height="1dp"
+                android:background="@color/orange" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:text="热门分类"
+                android:textColor="@color/orange"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="48dp"
+                android:layout_height="1dp"
+                android:background="@color/orange" />
+
+        </LinearLayout>
+
+        <View style="@style/main_line" />
+
+        <com.sdjy.sdjymall.view.ScrollGridView
+            android:id="@+id/gv_sorts1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/main_line"
+            android:horizontalSpacing="1px"
+            android:numColumns="2"
+            android:verticalSpacing="1px" />
+
+        <View style="@style/main_line" />
+
+        <com.sdjy.sdjymall.view.ScrollGridView
+            android:id="@+id/gv_sorts2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/main_line"
+            android:horizontalSpacing="1px"
+            android:numColumns="4"
+            android:verticalSpacing="1px" />
+
+        <View style="@style/main_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp">
+
+            <TextView
+                android:layout_width="48dp"
+                android:layout_height="1dp"
+                android:background="@color/red" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:text="热销商品"
+                android:textColor="@color/red"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="48dp"
+                android:layout_height="1dp"
+                android:background="@color/red" />
+
+        </LinearLayout>
+
+        <View style="@style/main_line" />
+
+        <com.sdjy.sdjymall.view.ScrollGridView
+            android:id="@+id/gv_goods"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/main_line"
+            android:horizontalSpacing="4dp"
+            android:numColumns="2"
+            android:verticalSpacing="4dp" />
+
+        <View style="@style/main_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp">
+
+            <TextView
+                android:layout_width="48dp"
+                android:layout_height="1dp"
+                android:background="@color/text_gray1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:text="亲，就这些内容了"
+                android:textColor="@color/text_gray1"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="48dp"
+                android:layout_height="1dp"
+                android:background="@color/text_gray1" />
+
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</ScrollView>
