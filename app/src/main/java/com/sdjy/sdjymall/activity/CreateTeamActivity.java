@@ -27,8 +27,6 @@ import butterknife.OnClick;
 
 public class CreateTeamActivity extends BaseListActivity {
 
-    @Bind(R.id.tv_level)
-    TextView levelView;
     @Bind(R.id.tv_amount)
     TextView amountView;
     @Bind(R.id.tv_join_num)
@@ -110,21 +108,8 @@ public class CreateTeamActivity extends BaseListActivity {
         finish();
     }
 
-    @OnClick(R.id.tv_level)
-    public void level() {
-        levelView.setTextColor(getResources().getColor(R.color.red3));
-        amountView.setTextColor(getResources().getColor(R.color.text_gray));
-        joinNumView.setTextColor(getResources().getColor(R.color.text_gray));
-        sortTerm = "1";
-        sortOrder = "2";
-        upArrowView.setImageResource(R.mipmap.icon_up_arrow_gray);
-        downArrowView.setImageResource(R.mipmap.icon_down_arrow_gray);
-        listView.doPullRefreshing(true, DELAY_MILLIS);
-    }
-
     @OnClick(R.id.tv_amount)
     public void amount() {
-        levelView.setTextColor(getResources().getColor(R.color.text_gray));
         amountView.setTextColor(getResources().getColor(R.color.red3));
         joinNumView.setTextColor(getResources().getColor(R.color.text_gray));
         sortTerm = "2";
@@ -136,7 +121,6 @@ public class CreateTeamActivity extends BaseListActivity {
 
     @OnClick(R.id.ll_join_num)
     public void joinNum() {
-        levelView.setTextColor(getResources().getColor(R.color.text_gray));
         amountView.setTextColor(getResources().getColor(R.color.text_gray));
         joinNumView.setTextColor(getResources().getColor(R.color.red3));
         sortTerm = "3";
